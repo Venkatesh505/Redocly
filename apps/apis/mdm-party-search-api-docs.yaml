@@ -1,0 +1,357 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "MDM Party Search Service",
+    "description": "The MDMPartySearch web service provides capability to the Requesting system to search the entire DAL database that holds HCP/HCO Master Data to get the HCP and HCO/HCI Party And Party Attributes data.",
+        "x-metadata":{
+           "capability": "EXPERIENCE API",
+           "tags":["active", "experience"]
+  },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://mdm-party-search-v1-app-p.aws-k8s.abbvienet.com",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "MdmPartySearch",
+      "description": "MDM Party Search Controller"
+    }
+  ],
+  "paths": {
+    "/api/v1/mdmPartySearch/basicSearch": {
+      "post": {
+        "tags": [
+          "MdmPartySearch"
+        ],
+        "summary": "basic Search",
+        "description": "Please refer to the 'Example Value' and 'Schema' tabs under the 'Request body' section below. The provided sample example request demonstrates the neccessary details required to obtain a successful response. Ensure that all required fields are accurately filled in.",
+        "operationId": "basicSearch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BasicRequestDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "500": {
+            "$ref": "#/components/responses/InternalServerErrorResponse"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestResponse"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailableResponse"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedResponse"
+          },
+          "204": {
+            "$ref": "#/components/responses/InvalidRequestResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/ResourceNotFoundResponse"
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponseDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BasicRequestDto": {
+        "properties": {
+          "searchText": {
+            "type": "string",
+            "example": "daksh"
+          },
+          "recordsFrom": {
+            "type": "Integer",
+            "example": 1
+          },
+          "recordCount": {
+            "type": "Integer",
+            "example": 10
+          },
+          "source": {
+            "type": "string",
+            "example": "string"
+          }
+        }
+      },
+      "MDMPartySearchData": {
+        "type": "array",
+        "items": {
+          "properties": {
+            "partyName": {
+              "type": "string",
+              "example": "Daksh  Bhatt"
+            },
+            "lastName": {
+              "type": "string",
+              "example": "Bhatt"
+            },
+            "firstName": {
+              "type": "string",
+              "example": "Daksh"
+            },
+            "middleName": {
+              "type": "string",
+              "example": "Jyotish"
+            },
+            "specialtyCodeAndDescription": {
+              "type": "string",
+              "example": "DGP-Dentist"
+            },
+            "degreeCode": {
+              "type": "string",
+              "example": "DDS"
+            },
+            "addressLine1": {
+              "type": "string",
+              "example": "1090 Cranston St"
+            },
+            "cityName": {
+              "type": "string",
+              "example": "Cranston"
+            },
+            "stateProvinceCode": {
+              "type": "string",
+              "example": "RI"
+            },
+            "postalCode": {
+              "type": "string",
+              "example": "02920"
+            },
+            "addressTypeDescription": {
+              "type": "string",
+              "example": "Practice"
+            },
+            "restrictedState": {
+              "type": "string",
+              "example": ""
+            },
+            "npi": {
+              "type": "string",
+              "example": "1801264171"
+            },
+            "prescriberStatus": {
+              "type": "string",
+              "example": "Non-Prescriber with ABS"
+            },
+            "stateLicenseNumber": {
+              "type": "string",
+              "example": ""
+            },
+            "samplingEligibilityFlag": {
+              "type": "string",
+              "example": "Inactive"
+            },
+            "email": {
+              "type": "string",
+              "example": "john.doe@example.com"
+            },
+            "phone": {
+              "type": "string",
+              "example": "(508) 880-6555"
+            },
+            "partyStatusCode": {
+              "type": "string",
+              "example": "0"
+            },
+            "nameSuffixCode": {
+              "type": "string",
+              "example": ""
+            },
+            "partyTypeDescription": {
+              "type": "string",
+              "example": "Dentist"
+            },
+            "partySubTypeDescription": {
+              "type": "string",
+              "example": ""
+            },
+            "entity1PartyIdentifier": {
+              "type": "string",
+              "example": ""
+            },
+            "profileId": {
+              "type": "string",
+              "example": "2075063195"
+            },
+            "partyAlias": {
+              "type": "string",
+              "example": "JD"
+            },
+            "partyId": {
+              "type": "string",
+              "example": "91793182"
+            },
+            "sfaId": {
+              "type": "string",
+              "example": "0013w00002UdqVBAAZ"
+            },
+            "primaryParentPartyName": {
+              "type": "string",
+              "example": ""
+            }
+          }
+        }
+      },
+      "MDMPartySearchResultSet": {
+        "type": "object",
+        "properties": {
+          "matchCount": {
+            "type": "number",
+            "example": 10
+          },
+          "recordCount": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          },
+          "recordsReturned": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          },
+          "recordsFrom": {
+            "type": "integer",
+            "format": "int32",
+            "example": 1
+          }
+        }
+      },
+      "SearchResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "SUCCESS",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 200
+          },
+          "mdmPartySearchData": {
+            "$ref": "#/components/schemas/MDMPartySearchData"
+          },
+          "resultsMetadata": {
+            "$ref": "#/components/schemas/MDMPartySearchResultSet"
+          },
+          "errors": {
+            "type": "object",
+            "nullable": true
+          }
+        }
+      }
+    },
+    "responses": {
+      "InvalidRequestResponse": {
+        "description": "No data available for the request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/SearchResponseDto"
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 400,\"mdmPartySearchData\": [] ,\"resultsMetadata\": null, \"errors\": [{\"errorId\": \"NO_DATA\", \"errorCode\": \"10005\", \"errorMessage\": \"Data not available for searched text.\"}]}"
+          }
+        }
+      },
+      "BadRequestResponse": {
+        "description": "Bad Request-Invalid or missing parameter",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/SearchResponseDto"
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 400, \"mdmPartySearchData\": null, \"resultsMetadata\": null, \"errors\": {\"errorId\": \"BAD_REQUEST\", \"errorCode\": \"10001\", \"errorMessage\": \"Search text cannot be empty.\"}}"
+          }
+        }
+      },
+      "UnauthorizedResponse": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/SearchResponseDto"
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 401, \"errors\": [{\"errorCode\": \"UNAUTHORIZED\", \"code\": \"10015\", \"message\": \"Invalid credentials\"}]}"
+          }
+        }
+      },
+      "ForbiddenResponse": {
+        "description": "Forbidden access",
+        "content": {
+          "application/json": {
+            "schema": {
+
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 403, \"errors\": [{\"errorCode\": \"FORBIDDEN\", \"code\": \"10017\", \"message\": \"You do not have permission to access this resource.\"}]}"
+          }
+        }
+      },
+      "ResourceNotFoundResponse": {
+        "description": "Resource not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/SearchResponseDto"
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 404, \"errors\": [{\"errorCode\": \"NOT_FOUND\", \"code\": \"10016\", \"message\": \"The resources you are looking for does not exist.\"}]}"
+          }
+        }
+      },
+      "InternalServerErrorResponse": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/SearchResponseDto"
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 500, \"errors\": [{\"errorCode\": \"SERVER_ERROR\", \"code\": \"10001\", \"message\": \"Server Error\"}]}"
+          }
+        }
+      },
+      "ServiceUnavailableResponse": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/SearchResponseDto"
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 503, \"errors\": [{\"errorCode\": \"SEERVICE_UNAVAILABLE\", \"code\": \"10018\", \"message\": \"Service Unavailable\"}]}"
+          }
+        }
+      }
+    }
+  }
+}

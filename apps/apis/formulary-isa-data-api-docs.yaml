@@ -1,0 +1,1204 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Formulary ISA Data Service",
+    "description": "The Formulary ISA Data Service provides functionality for retrieving the formulary ISA and iPlan data.",
+        "x-metadata":{
+           "capability": "EXPERIENCE API",
+           "tags":["active", "experience"]
+  },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://formulary-isa-data-v1-app-p.aws-k8s.abbvienet.com",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Formulary ISA Data Service",
+      "description": "Formulary ISA Data Controller"
+    }
+  ],
+  "paths": {
+    "/api/v1/hcp/iPlanDetailsByHCP": {
+      "post": {
+        "tags": [
+          "Formulary ISA Data Service"
+        ],
+        "summary": "Get iPlan details by HCP Data",
+        "description": "Check the 'Schema' tab next to the 'Example Value' tab under the 'Request body' section. Make sure to provide all neccessary details to get the success response.",
+        "operationId": "getiPlanDetailsByHCP",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IPlanDetailsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request - Invalid or missing parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "statusCode": 400,
+                  "resultsMetadata": null,
+                  "errors": {
+                    "errorId": "BAD_REQUEST",
+                    "errorCode": "100033",
+                    "errorMessage": "Product name cannot be empty or null"
+                  },
+                  "response": null
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication failed or user does not have permissions for the requested operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "statusCode": 401,
+                  "resultsMetadata": null,
+                  "errors": {
+                    "errorId": "UNAUTHORIZED",
+                    "errorCode": "10015",
+                    "errorMessage": "Authentication required or failed"
+                  },
+                  "response": null
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - Unexcepted error occurred on the server side.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "statusCode": 500,
+                  "resultsMetadata": null,
+                  "errors": {
+                    "errorId": "SERVER_ERROR",
+                    "errorCode": "10001",
+                    "errorMessage": "An unexcepted error occurred on the server"
+                  },
+                  "response": null
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - The requested resource could not be found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "statusCode": 404,
+                  "resultsMetadata": null,
+                  "errors": {
+                    "errorId": "NOT_FOUND",
+                    "errorCode": "10016",
+                    "errorMessage": "The requested resource could not be found"
+                  },
+                  "response": null
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Successfully retrieved iPlan details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IPlanFinalResponse"
+                },
+                "example": "{\n  \"status\": \"SUCCESS\",\n  \"statusCode\": 200,\n  \"resultsMetadata\": {\n    \"matchCount\": 47,\n    \"recordCount\": 4,\n    \"recordsFrom\": 1,\n    \"recordsReturned\": 4\n  },\n  \"errors\": null,\n  \"response\": [\n    {\n      \"planDetails\": [\n        {\n          \"indicationCode\": \"CERVICAL DYSTONIA\",\n          \"percentOfUtilization\": \"99\",\n          \"percentOfPriorUtilization\": \"100\",\n          \"restrictionCovStatusState\": \"1\",\n          \"restrictionCodeState\": \"C\",\n          \"planName\": \"Aetna Health\",\n          \"abbvieChannelName\": \"Medicare\"\n        },\n        {\n          \"indicationCode\": \"LIMB SPASTICITY\",\n          \"percentOfUtilization\": \"99\",\n          \"percentOfPriorUtilization\": \"100\",\n          \"restrictionCovStatusState\": \"1\",\n          \"restrictionCodeState\": \"F\",\n          \"planName\": \"Aetna Health\",\n          \"abbvieChannelName\": \"Medicare\"\n        },\n        {\n          \"indicationCode\": \"LIMB SPASTICITY\",\n          \"percentOfUtilization\": \"99\",\n          \"percentOfPriorUtilization\": \"100\",\n          \"restrictionCovStatusState\": \"1\",\n          \"restrictionCodeState\": \"\",\n          \"planName\": \"Aetna Health\",\n          \"abbvieChannelName\": \"Medicare\"\n        },\n        {\n          \"indicationCode\": \"OVERACTIVE BLADDER\",\n          \"percentOfUtilization\": \"4\",\n          \"percentOfPriorUtilization\": \"64\",\n          \"restrictionCovStatusState\": \"2\",\n          \"restrictionCodeState\": \"\",\n          \"planName\": \"Aetna Health\",\n          \"abbvieChannelName\": \"Medicare\"\n        }\n      ],\n      \"metricsDetails\": [\n        {\n          \"indicationCode\": \"LIMB SPASTICITY\",\n          \"all_other_payers_perc\": \"100\",\n          \"avgPriorUtilization\": \"100\"\n        },\n        {\n          \"indicationCode\": \"OVERACTIVE BLADDER\",\n          \"all_other_payers_perc\": \"100\",\n          \"avgPriorUtilization\": \"64\"\n        },\n        {\n          \"indicationCode\": \"CHRONIC MIGRAINE\",\n          \"all_other_payers_perc\": \"100\",\n          \"avgPriorUtilization\": \"0\"\n        },\n        {\n          \"indicationCode\": \"CERVICAL DYSTONIA\",\n          \"all_other_payers_perc\": \"100\",\n          \"avgPriorUtilization\": \"100\"\n        }\n      ],\n      \"acid\": \"3952497\",\n      \"productName\": \"BOTOX\"\n      \"npi\": \"1699137240\"\n    }\n  ]\n}"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hcp/formularyISAData": {
+      "post": {
+        "tags": [
+          "Formulary ISA Data Service"
+        ],
+        "summary": "Get formularyISAData Data",
+        "description": "Check the 'Schema' tab next to the 'Example Value' tab under the 'Request body' section. Make sure to provide all neccessary details to get the success response.",
+        "operationId": "getformularyISAData",
+        "parameters": [
+          {
+            "name": "dataAttributes",
+            "in": "query",
+            "description": "This is the DataAttribute for GraphQL HCPPracticeData response",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "acid,payerName,channel,totalTrx,coverageStatus"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HcpPracticeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Formulary ISA details fetched Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HcpPracticeResponse"
+                },
+                "example": {
+                  "status": "SUCCESS",
+                  "statusCode": 200,
+                  "hcpPracticeData": [
+                    {
+                      "acid": "23549",
+                      "payerName": "Express Scripts - National Preferred Formulary",
+                      "channel": "Commercial",
+                      "totalTrx": "10.5263000",
+                      "coverageStatus": "Preferred"
+                    },
+                    {
+                      "acid": "23549",
+                      "payerName": "MedImpact",
+                      "channel": "Commercial",
+                      "totalTrx": "21.0526000",
+                      "coverageStatus": "Preferred"
+                    },
+                    {
+                      "acid": "23549",
+                      "payerName": "AARP MAPD Core",
+                      "channel": "Medicare",
+                      "totalTrx": "68.4211000",
+                      "coverageStatus": "Preferred"
+                    }
+                  ],
+                  "resultsMetadata": {
+                    "matchCount": 3,
+                    "recordCount": 3,
+                    "recordsReturned": 3,
+                    "recordsFrom": 1
+                  },
+                  "errors": null
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "statusCode": 400,
+                  "hcpPracticeData": null,
+                  "resultsMetadata": {
+                    "matchCount": 0,
+                    "recordCount": 10,
+                    "recordsReturned": 0,
+                    "recordsFrom": 1
+                  },
+                  "errors": {
+                    "errorId": "BAD_REQUEST",
+                    "errorCode": "10002",
+                    "errorMessage": "Invalid parameter."
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - Unexcepted error occurred on the server side.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "statusCode": 500,
+                  "hcpPracticeData": null,
+                  "resultsMetadata": null,
+                  "errors": {
+                    "errorId": "SERVER_ERROR",
+                    "errorCode": "10001",
+                    "errorMessage": "An unexcepted error occurred on the server"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - The requested resource could not be found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "statusCode": 404,
+                  "hcpPracticeData": null,
+                  "resultsMetadata": null,
+                  "errors": {
+                    "errorId": "NOT_FOUND",
+                    "errorCode": "10016",
+                    "errorMessage": "The requested resource could not be found"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication failed or user does not have permissions for the requested operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "statusCode": 401,
+                  "hcpPracticeData": null,
+                  "resultsMetadata": null,
+                  "errors": {
+                    "errorId": "UNAUTHORIZED",
+                    "errorCode": "10015",
+                    "errorMessage": "Authentication required or failed"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IPlanDetailsRequest": {
+        "required": [
+          "productName"
+        ],
+        "type": "object",
+        "properties": {
+          "acid": {
+            "type": "string",
+            "description": "Acid Id",
+            "example": "3952497"
+          },
+          "npi": {
+            "type": "string",
+            "description": "NPI Id",
+            "example": "1699137240"
+          },
+          "indicationCode": {
+            "type": "string",
+            "description": "Indication code for which data needs to be fetched",
+            "example": "LIMB SPASTICITY"
+          },
+          "productName": {
+            "type": "string",
+            "description": "Product Name for which data needs to be fetched",
+            "example": "BOTOX"
+          },
+          "recordCount": {
+            "type": "integer",
+            "description": "Number of Records to be fetched",
+            "format": "int32",
+            "example": 10
+          },
+          "recordsFrom": {
+            "type": "integer",
+            "description": "Record number from which data to be fetched from",
+            "format": "int32",
+            "example": 1
+          },
+          "sortBy": {
+            "type": "string",
+            "description": "Sort by attribute",
+            "example": "planName"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source name",
+            "example": "AEM"
+          }
+        }
+      },
+      "ErrorDto": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "string",
+            "description": "Error code",
+            "example": "BAD_REQUEST",
+            "enum": [
+              "DATA_NOT_AVAILABLE_FOR_ACID",
+              "DATABASE_CONNECTION_ERROR",
+              "SERVER_ERROR",
+              "BAD_REQUEST",
+              "CLIENT_ERROR",
+              "INVALID_NPI",
+              "INVALID_EMAIL",
+              "INVALID_INDICATION",
+              "EMAIL_CLIENT_ERROR",
+              "TRIGGER_EMAIL_CLIENT_ERROR",
+              "OPT_IN_CLIENT_ERROR",
+              "INVALID_USER_ID",
+              "NO_RECORD_FOUND",
+              "HCP_IS_NOT_IN_APPROVED_PRODUCT",
+              "DUPLICATE_ACID_AND_EMAIL",
+              "SORT_BY_INVALID"
+            ]
+          },
+          "code": {
+            "type": "string",
+            "description": "Code",
+            "example": "10002"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Invalid or missing parameter"
+          }
+        },
+        "description": "List of errors"
+      },
+      "ErrorResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Response status",
+            "example": "ERROR",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "errors": {
+            "type": "object",
+            "properties": {
+              "errorCode": {
+                "type": "string",
+                "description": "Error code",
+                "example": "BAD_REQUEST",
+                "enum": [
+                  "DATA_NOT_AVAILABLE_FOR_ACID",
+                  "DATABASE_CONNECTION_ERROR",
+                  "SERVER_ERROR",
+                  "BAD_REQUEST",
+                  "CLIENT_ERROR",
+                  "INVALID_NPI",
+                  "INVALID_EMAIL",
+                  "INVALID_INDICATION",
+                  "EMAIL_CLIENT_ERROR",
+                  "TRIGGER_EMAIL_CLIENT_ERROR",
+                  "OPT_IN_CLIENT_ERROR",
+                  "INVALID_USER_ID",
+                  "NO_RECORD_FOUND",
+                  "HCP_IS_NOT_IN_APPROVED_PRODUCT",
+                  "DUPLICATE_ACID_AND_EMAIL",
+                  "SORT_BY_INVALID"
+                ]
+              },
+              "code": {
+                "type": "string",
+                "description": "Code",
+                "example": "10002"
+              },
+              "message": {
+                "type": "string",
+                "description": "Error message",
+                "example": "Invalid or missing parameter"
+              }
+            },
+            "description": "List of errors"
+          }
+        }
+      },
+      "IPlanDetailsResultSet": {
+        "type": "object",
+        "properties": {
+          "matchCount": {
+            "type": "integer",
+            "description": "Number of records matching for the given information",
+            "format": "int32",
+            "example": 100
+          },
+          "recordCount": {
+            "type": "integer",
+            "description": "Number of records expected in response",
+            "format": "int32",
+            "example": 10
+          },
+          "recordsFrom": {
+            "type": "integer",
+            "description": "Record number from which result is expected",
+            "format": "int32",
+            "example": 1
+          },
+          "recordsReturned": {
+            "type": "integer",
+            "description": "Number of records returned",
+            "format": "int32",
+            "example": 10
+          }
+        },
+        "description": "Result set meta data"
+      },
+      "IPlanFinalResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status - success/failure",
+            "example": "Success",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "description": "Status code corresponding to status",
+            "format": "int32",
+            "example": 200
+          },
+          "resultsMetadata": {
+            "$ref": "#/components/schemas/IPlanDetailsResultSet"
+          },
+          "errors": {
+            "$ref": "#/components/schemas/ErrorDto"
+          },
+          "response": {
+            "type": "object",
+            "properties": {
+              "planDetails": {
+                "type": "object",
+                "properties": {
+                  "planProdCbsaKey": {
+                    "type": "string",
+                    "description": "Plan product CBSA Key",
+                    "example": "3c99e9dcdabc8ba6e2d30668630d637a"
+                  },
+                  "planProdStateKey": {
+                    "type": "string",
+                    "description": "Plan product State Key",
+                    "example": "2bbcff00a7599b31d50b3ad91aac0214"
+                  },
+                  "abbottCustomerId": {
+                    "type": "string",
+                    "description": "Abbott Customer Id",
+                    "example": "3952497"
+                  },
+                  "abbottAccountId": {
+                    "type": "string",
+                    "description": "Abbott Account Id",
+                    "example": "122341"
+                  },
+                  "planId": {
+                    "type": "string",
+                    "description": "Plan Id",
+                    "example": "2071846082"
+                  },
+                  "productId": {
+                    "type": "string",
+                    "description": "Product Id",
+                    "example": "Prod123"
+                  },
+                  "productName": {
+                    "type": "string",
+                    "description": "Product Name",
+                    "example": "BOTOX"
+                  },
+                  "indicationCode": {
+                    "type": "string",
+                    "description": "Indication Code",
+                    "example": "LIMB SPASTICITY"
+                  },
+                  "cbsaId": {
+                    "type": "string",
+                    "description": "CBSA Id",
+                    "example": "19740"
+                  },
+                  "cbsaName": {
+                    "type": "string",
+                    "description": "CBSA Name",
+                    "example": "ROCHESTER NY"
+                  },
+                  "stateId": {
+                    "type": "string",
+                    "description": "State Id",
+                    "example": "TX"
+                  },
+                  "stateName": {
+                    "type": "string",
+                    "description": "State name",
+                    "example": "TEXAS"
+                  },
+                  "totalRx": {
+                    "type": "string",
+                    "description": "Total Rx",
+                    "example": "0.0"
+                  },
+                  "totalClaims": {
+                    "type": "string",
+                    "description": "Total Claims",
+                    "example": "10"
+                  },
+                  "lisVol": {
+                    "type": "string",
+                    "description": "Lis Vol"
+                  },
+                  "percentLis": {
+                    "type": "string",
+                    "description": "Percent Lis",
+                    "example": "40"
+                  },
+                  "lisFlag": {
+                    "type": "string",
+                    "description": "Lis Flag"
+                  },
+                  "mktMedd": {
+                    "type": "string",
+                    "description": "Market Med"
+                  },
+                  "coPay": {
+                    "type": "string",
+                    "description": "Co Pay details",
+                    "example": "0.0"
+                  },
+                  "percentOfUtilization": {
+                    "type": "string",
+                    "description": "Percentage of Utilization",
+                    "example": "59"
+                  },
+                  "percentOfPriorUtilization": {
+                    "type": "string",
+                    "description": "Percentage of prior Utilization",
+                    "example": "49"
+                  },
+                  "planScoreUtilNumber": {
+                    "type": "string",
+                    "description": "Plan socre util number",
+                    "example": "3243"
+                  },
+                  "marketName": {
+                    "type": "string",
+                    "description": "Market Name"
+                  },
+                  "hcpSpecialityCode": {
+                    "type": "string",
+                    "description": "HCP Speciality Code",
+                    "example": "NRN"
+                  },
+                  "pdrdFlag": {
+                    "type": "string",
+                    "description": "PDRD Flag",
+                    "example": "Y"
+                  },
+                  "npiNumber": {
+                    "type": "string",
+                    "description": "NPI number",
+                    "example": "1699137240"
+                  },
+                  "refreshedDate": {
+                    "type": "string",
+                    "description": "Refreshed Date",
+                    "example": "2024-06-01"
+                  },
+                  "dataMonth": {
+                    "type": "string",
+                    "description": "Data Month",
+                    "example": "2024-08-01"
+                  },
+                  "externalId": {
+                    "type": "string",
+                    "description": "External Id",
+                    "example": "0c7e951157c2ebea4b0a2332a000cc8e"
+                  },
+                  "updateFlag": {
+                    "type": "string",
+                    "description": "Update flag",
+                    "example": "Y"
+                  },
+                  "modifiedBy": {
+                    "type": "string",
+                    "description": "Modified by name",
+                    "example": "svc-cdlh-q-int"
+                  },
+                  "modifiedDate": {
+                    "type": "string",
+                    "description": "Plan Id",
+                    "example": "2024-08-01"
+                  },
+                  "createdBy": {
+                    "type": "string",
+                    "description": "Created by name",
+                    "example": "svc-cdlh-q-int"
+                  },
+                  "createdDate": {
+                    "type": "string",
+                    "description": "Created date",
+                    "example": "2024-08-01"
+                  },
+                  "restrictionPlanProdCbsaKey": {
+                    "type": "string",
+                    "description": "Plan product CBSA Key",
+                    "example": "164a1a3adc934bf71bc5adae377f8aef"
+                  },
+                  "restrictionPlanProdStateKey": {
+                    "type": "string",
+                    "description": "Plan product State Key",
+                    "example": "4a1a3adc934bf71bc5a"
+                  },
+                  "restrictionPlanProdCbsaCovKey": {
+                    "type": "string",
+                    "description": "Plan product CBSA coverage Key",
+                    "example": "c934bf71bc5adae377f8a"
+                  },
+                  "restrictionPlanProdStateCovKey": {
+                    "type": "string",
+                    "description": "Plan product State coverage Key",
+                    "example": "4a1a3adc934bf71bc5a"
+                  },
+                  "restrictionPlanId": {
+                    "type": "string",
+                    "description": "Plan Id",
+                    "example": "Plan123"
+                  },
+                  "restrictionProductId": {
+                    "type": "string",
+                    "description": "Product Id",
+                    "example": "Prod123"
+                  },
+                  "restrictionProductName": {
+                    "type": "string",
+                    "description": "Product name",
+                    "example": "BOTOX"
+                  },
+                  "restrictionIndicationCode": {
+                    "type": "string",
+                    "description": "Indication code",
+                    "example": "LIMB SPASTICITY"
+                  },
+                  "restrictionCbsaId": {
+                    "type": "string",
+                    "description": "CBSA Id",
+                    "example": "CBSA 123"
+                  },
+                  "restrictionCbsaName": {
+                    "type": "string",
+                    "description": "CBSA Name",
+                    "example": "CBSA12"
+                  },
+                  "restrictionStateId": {
+                    "type": "string",
+                    "description": "State Id",
+                    "example": "DL"
+                  },
+                  "restrictionStateName": {
+                    "type": "string",
+                    "description": "State name",
+                    "example": "Dallas"
+                  },
+                  "restrictionCovStatusCbsa": {
+                    "type": "string",
+                    "description": "Coverage Status State CBSA",
+                    "example": "A"
+                  },
+                  "restrictionCovStatusState": {
+                    "type": "string",
+                    "description": "Coverage Status State",
+                    "example": "2"
+                  },
+                  "restrictionCovChangeFlag": {
+                    "type": "string",
+                    "description": "Coverage Change Flag",
+                    "example": "Y"
+                  },
+                  "restrictionPercentBusiCbsa": {
+                    "type": "string",
+                    "description": "Percent business CBSA",
+                    "example": "21"
+                  },
+                  "restrictionPercentBusiState": {
+                    "type": "string",
+                    "description": "Percent business state"
+                  },
+                  "restrictionPlanScoreCbsaVol": {
+                    "type": "string",
+                    "description": "Plan score CBSA vol",
+                    "example": "198"
+                  },
+                  "restrictionPlanScoreStateVol": {
+                    "type": "string",
+                    "description": "Plan score State vol",
+                    "example": "12"
+                  },
+                  "restrictionCovStatusRestCbsa": {
+                    "type": "string",
+                    "description": "Coverage status restriction CBSA",
+                    "example": "21"
+                  },
+                  "restrictionCodeCbsa": {
+                    "type": "string",
+                    "description": "Restriction code CBSA",
+                    "example": "PA"
+                  },
+                  "restrictionDetailTxtCbsa": {
+                    "type": "string",
+                    "description": "Restriction Details Txt CBSA",
+                    "example": "2 CAPSULES PER 1 DAY(S)."
+                  },
+                  "restrictionQtyLimCbsa": {
+                    "type": "string",
+                    "description": "Restriction Quantity Limit CBSA",
+                    "example": "15 DAYS SUPPLY"
+                  },
+                  "restrictionStepProdReqdListTxtCbsa": {
+                    "type": "string",
+                    "description": "Restriction Steps Product Required list text"
+                  },
+                  "restrictionCovCodeRestCbsa": {
+                    "type": "string",
+                    "description": "Coverage code rest CBSA",
+                    "example": "B,R"
+                  },
+                  "restrictionCovStatusRestState": {
+                    "type": "string",
+                    "description": "Coverage status rest state",
+                    "example": "PREFERRED"
+                  },
+                  "restrictionCodeState": {
+                    "type": "string",
+                    "description": "Restriction Code State",
+                    "example": "A"
+                  },
+                  "restrictionDetailTxtState": {
+                    "type": "string",
+                    "description": "Restriction details text state",
+                    "example": "PA REQUIRED~~LIMIT MAXIMUM 1 EA PER 1 DAY(S)"
+                  },
+                  "restrictionQtyLimState": {
+                    "type": "string",
+                    "description": "Quantity Limits State",
+                    "example": "15 Days Supply"
+                  },
+                  "restrictionStepProdReqdListTxtState": {
+                    "type": "string",
+                    "description": "Steps production required list text state"
+                  },
+                  "restrictionCovCodeRestState": {
+                    "type": "string",
+                    "description": "Coverage code rest state"
+                  },
+                  "restrictionRefDate": {
+                    "type": "string",
+                    "description": "Refreshed date",
+                    "example": "2024-06-02"
+                  },
+                  "restrictionDataMonth": {
+                    "type": "string",
+                    "description": "Data month",
+                    "example": "2024-08-01"
+                  },
+                  "restrictionExtId": {
+                    "type": "string",
+                    "description": "External Id",
+                    "example": "0c7e951157c2ebea4b0a2332a000cc8e"
+                  },
+                  "restrictionUpdateFlag": {
+                    "type": "string",
+                    "description": "Update flag",
+                    "example": "N"
+                  },
+                  "restrictionModBy": {
+                    "type": "string",
+                    "description": "Modified By",
+                    "example": "svc-cdlh-q-int"
+                  },
+                  "restrictionModDate": {
+                    "type": "string",
+                    "description": "Modified date",
+                    "example": "2024-08-01"
+                  },
+                  "restrictionCreatedBy": {
+                    "type": "string",
+                    "description": "Created by",
+                    "example": "svc-cdlh-q-int"
+                  },
+                  "restrictionCreatedDate": {
+                    "type": "string",
+                    "description": "Created Date",
+                    "example": "2024-08-01"
+                  },
+                  "empPlanId": {
+                    "type": "string",
+                    "description": "Plan Id",
+                    "example": "2071845382"
+                  },
+                  "employerGroupId": {
+                    "type": "string",
+                    "description": "Employer group id",
+                    "example": "71793"
+                  },
+                  "employerGroupName": {
+                    "type": "string",
+                    "description": "Employer group name",
+                    "example": "Capital One Financial Corp."
+                  },
+                  "empCbsaId": {
+                    "type": "string",
+                    "description": "CBSA Id",
+                    "example": "KY999"
+                  },
+                  "empStateId": {
+                    "type": "string",
+                    "description": "State id",
+                    "example": "TX"
+                  },
+                  "empStateName": {
+                    "type": "string",
+                    "description": "State name",
+                    "example": "TEXAS"
+                  },
+                  "planScoreRank": {
+                    "type": "string",
+                    "description": "Score rank",
+                    "example": "10"
+                  },
+                  "empProductName": {
+                    "type": "string",
+                    "description": "Product name",
+                    "example": "BOTOX"
+                  },
+                  "empRefDate": {
+                    "type": "string",
+                    "description": "Refreshed date",
+                    "example": "2024-11-14"
+                  },
+                  "empDataMonth": {
+                    "type": "string",
+                    "description": "Data month",
+                    "example": "2024-08-01"
+                  },
+                  "empExtId": {
+                    "type": "string",
+                    "description": "External id",
+                    "example": "059d853cbf994007b12d97bdca31ebf8"
+                  },
+                  "empUpdateFlag": {
+                    "type": "string",
+                    "description": "Update flag",
+                    "example": "Y"
+                  },
+                  "empModBy": {
+                    "type": "string",
+                    "description": "Modified by",
+                    "example": "svc-cdlh-q-int"
+                  },
+                  "empModDate": {
+                    "type": "string",
+                    "description": "Modified date",
+                    "example": "2024-08-01"
+                  },
+                  "empCreatedBy": {
+                    "type": "string",
+                    "description": "Created by",
+                    "example": "svc-cdlh-q-int"
+                  },
+                  "empCreatedDate": {
+                    "type": "string",
+                    "description": "Created date",
+                    "example": "2024-08-01"
+                  },
+                  "dimensionPlanId": {
+                    "type": "string",
+                    "description": "Plan Id",
+                    "example": "2093039013"
+                  },
+                  "planName": {
+                    "type": "string",
+                    "description": "Plan name",
+                    "example": "BlueCross BlueShield of Tennessee"
+                  },
+                  "planDisplayName": {
+                    "type": "string",
+                    "description": "Plan display name",
+                    "example": "BlueCross BlueShield of Tennessee"
+                  },
+                  "abbvieChannelName": {
+                    "type": "string",
+                    "description": "Abbvie channel name",
+                    "example": "Medicare"
+                  },
+                  "channelGroup": {
+                    "type": "string",
+                    "description": "Channel group",
+                    "example": "Medicare"
+                  },
+                  "exceptionFlag": {
+                    "type": "string",
+                    "description": "Exception flag",
+                    "example": "N"
+                  },
+                  "employerFlag": {
+                    "type": "string",
+                    "description": "Employer Flag",
+                    "example": "Y"
+                  },
+                  "dimensionProductName": {
+                    "type": "string",
+                    "description": "Product name",
+                    "example": "BOTOX"
+                  },
+                  "dimensionRefDate": {
+                    "type": "string",
+                    "description": "Refreshed date",
+                    "example": "2024-11-14"
+                  },
+                  "dimensionDataMonth": {
+                    "type": "string",
+                    "description": "Data month",
+                    "example": "2024-08-01"
+                  },
+                  "dimensionExtId": {
+                    "type": "string",
+                    "description": "External id",
+                    "example": "059d853cbf994007b12d97bdca31ebf8"
+                  },
+                  "dimensionUpdateFlag": {
+                    "type": "string",
+                    "description": "Update flag",
+                    "example": "Y"
+                  },
+                  "dimensionModBy": {
+                    "type": "string",
+                    "description": "Modified by",
+                    "example": "svc-cdlh-q-int"
+                  },
+                  "dimensionModDate": {
+                    "type": "string",
+                    "description": "Modified date",
+                    "example": "2024-08-01"
+                  },
+                  "dimensionCreatedBy": {
+                    "type": "string",
+                    "description": "Created by",
+                    "example": "svc-cdlh-q-int"
+                  },
+                  "dimensionCreatedDate": {
+                    "type": "string",
+                    "description": "Created date",
+                    "example": "2024-08-01"
+                  }
+                },
+                "description": "List of Plan Details"
+              },
+              "metricsDetails": {
+                "type": "object",
+                "properties": {
+                  "metricName": {
+                    "type": "string",
+                    "description": "Metric name",
+                    "example": "avgPriorUtilization"
+                  },
+                  "metricValue": {
+                    "type": "string",
+                    "description": "Metric value",
+                    "example": "98"
+                  }
+                },
+                "description": "List of Various Metrics Details"
+              },
+              "acid": {
+                "type": "string",
+                "description": "ACID Id",
+                "example": "3952497"
+              },
+              "npi": {
+                "type": "string",
+                "description": "NPI Id",
+                "example": "1699137240"
+              },
+              "productName": {
+                "type": "string",
+                "description": "Product name for which data is fetched",
+                "example": "BOTOX"
+              }
+            },
+            "description": "List of possible iPlanData matches"
+          }
+        }
+      },
+      "HcpPracticeRequest": {
+        "required": [
+          "acid"
+        ],
+        "type": "object",
+        "properties": {
+          "acid": {
+            "type": "string",
+            "description": "Acid Id",
+            "example": "23549"
+          },
+          "recordCount": {
+            "type": "integer",
+            "description": "Number of Records to be fetched",
+            "format": "int32",
+            "example": 10
+          },
+          "recordsFrom": {
+            "type": "integer",
+            "description": "Record number from which data to be fetched from",
+            "format": "int32",
+            "example": 1
+          },
+          "sortBy": {
+            "type": "string",
+            "description": "Sort by attribute",
+            "example": "planName"
+          },
+          "productName": {
+            "type": "string",
+            "description": "Product Name for which data needs to be fetched",
+            "example": "HUMIRA"
+          },
+          "productIdentifier": {
+            "type": "string",
+            "description": "Product Identifier",
+            "example": "IMMUNOLOGY MARKET_MA_ARC"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source name",
+            "example": "HUMIRAFORMULARYISA"
+          }
+        }
+      },
+      "HcpPracticeResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status - success/failure",
+            "example": "Success",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "description": "Status code corresponding to status",
+            "format": "int32",
+            "example": 200
+          },
+          "hcpPracticeData": {
+            "type": "object",
+            "properties": {
+              "acid": {
+                "type": "string",
+                "description": "ACID Id",
+                "example": "23549"
+              },
+              "payerName": {
+                "type": "string",
+                "description": "Payer Name"
+              },
+              "channel": {
+                "type": "string",
+                "description": "Channel name"
+              },
+              "totalTrx": {
+                "type": "string",
+                "description": "Total transaction"
+              },
+              "coverageStatus": {
+                "type": "string",
+                "description": "Coverage Status"
+              }
+            },
+            "description": "List of possible HCP Practice Date matches"
+          },
+          "resultsMetadata": {
+            "$ref": "#/components/schemas/HcpPracticeResultset"
+          },
+          "errors": {
+            "$ref": "#/components/schemas/ErrorDto"
+          }
+        }
+      },
+      "HcpPracticeResultset": {
+        "type": "object",
+        "properties": {
+          "matchCount": {
+            "type": "integer",
+            "description": "Number of records matching for the given information",
+            "format": "int32",
+            "example": 100
+          },
+          "recordCount": {
+            "type": "integer",
+            "description": "Number of records expected in response",
+            "format": "int32",
+            "example": 10
+          },
+          "recordsReturned": {
+            "type": "integer",
+            "description": "Number of records returned",
+            "format": "int32",
+            "example": 10
+          },
+          "recordsFrom": {
+            "type": "integer",
+            "description": "Record number from which result is expected",
+            "format": "int32",
+            "example": 1
+          }
+        },
+        "description": "Result set meta data"
+      }
+    }
+  }
+}

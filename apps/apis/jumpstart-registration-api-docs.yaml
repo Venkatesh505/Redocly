@@ -1,0 +1,287 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Jumpstart Registration",
+    "description": "This API provides functionality to help in registering the students with Abbvie.",
+        "x-metadata":{
+           "capability": "EXPERIENCE API",
+           "tags":["active", "experience"]
+  },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "1.0"
+  },
+  "host": "jumpstart-registration-v1-app-p.aws-k8s.abbvienet.com",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Jump Start Registration",
+      "description": "Jump Start Registration Controller"
+    }
+  ],
+  "paths": {
+    "/api/v1/user/register/iicsSubscribeOnetrust": {
+      "get": {
+        "tags": [
+          "Jump Start Registration"
+        ],
+        "summary": "Subscribe Jump Start Data",
+        "operationId": "iicsSubscribeOnetrustUsingGET",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "acid",
+            "in": "query",
+            "description": "acid",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "jumpStartId",
+            "in": "query",
+            "description": "jumpStartId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/JumpStartRegistrationResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid or missing parameter"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/v1/user/register/jumpstart": {
+      "post": {
+        "tags": [
+          "Jump Start Registration"
+        ],
+        "summary": "Jump Start",
+        "operationId": "jumpStartRegistrationUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "jumpStartRegistrationRequest",
+            "description": "jumpStartRegistrationRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/JumpStartRegistrationRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/JumpStartRegistrationResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid or missing parameter"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "Address": {
+      "type": "object",
+      "properties": {
+        "line1": {
+          "type": "string"
+        },
+        "line2": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "zipCode": {
+          "type": "string"
+        }
+      },
+      "title": "Address"
+    },
+    "Email": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "title": "Email"
+    },
+    "Employer": {
+      "type": "object",
+      "properties": {
+        "employmentType": {
+          "type": "string"
+        },
+        "endMonth": {
+          "type": "string"
+        },
+        "endYear": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "title": "Employer"
+    },
+    "JumpStartRegistrationRequest": {
+      "type": "object",
+      "properties": {
+        "editProfileFlag": {
+          "type": "boolean"
+        },
+        "emails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Email"
+          }
+        },
+        "employer": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Employer"
+          }
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "jumpstartEligiblity": {
+          "type": "boolean"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "middleName": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "practice": {
+          "$ref": "#/definitions/Practice"
+        },
+        "preferences": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Preferences"
+          }
+        },
+        "school": {
+          "$ref": "#/definitions/School"
+        }
+      },
+      "title": "JumpStartRegistrationRequest"
+    },
+    "JumpStartRegistrationResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "SUCCESS",
+            "ERROR"
+          ]
+        }
+      },
+      "title": "JumpStartRegistrationResponse"
+    },
+    "Practice": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "$ref": "#/definitions/Address"
+        },
+        "phone": {
+          "type": "string"
+        }
+      },
+      "title": "Practice"
+    },
+    "Preferences": {
+      "type": "object",
+      "properties": {
+        "channel": {
+          "type": "string"
+        },
+        "frequency": {
+          "type": "string"
+        },
+        "optIn": {
+          "type": "boolean"
+        }
+      },
+      "title": "Preferences"
+    },
+    "School": {
+      "type": "object",
+      "properties": {
+        "graduationYear": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "zip": {
+          "type": "string"
+        }
+      },
+      "title": "School"
+    }
+  }
+}

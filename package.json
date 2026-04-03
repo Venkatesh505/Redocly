@@ -1,0 +1,15 @@
+{
+  "name": "syncx",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+      "start": "npx @redocly/cli preview"
+  },
+  "dependencies": {
+      "@redocly/realm": "*",
+      "styled-components": "^5.3.11",
+      "styled-system": "^5.1.5",
+      "recharts": "^3.7.0"
+  }
+}

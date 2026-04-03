@@ -1,0 +1,572 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Hcp Capture Service",
+    "description": "The Hcp Capture service provides functionality for saving survey details for HCPs while handling multiple OptIns.",
+        "x-metadata":{
+           "capability": "EXPERIENCE API",
+           "tags":["active", "experience"]
+  },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://hcp-capture-v1-app-p.aws-k8s.abbvienet.com",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "HCP Capture Service",
+      "description": "HCP Capture Controller"
+    }
+  ],
+  "paths": {
+    "/api/v1/user/registerMultiOptIn": {
+      "post": {
+        "tags": [
+          "HCP Capture Service"
+        ],
+        "summary": "API to capture HCP Details with MultiOptIns",
+        "description": "Check the 'Schema' tab next to the 'Example Value' tab under the 'Request body' section. Make sure to provide all neccessary details to get the success response.",
+        "operationId": "hcpCaptureMultiOptin",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HcpCaptureRequestMultiOptIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "500": {
+            "description": "Internal Server Error - Unexcepted error occurred on the server side.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "500",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "SERVER_ERROR",
+                      "code": "10001",
+                      "message": "An unexcepted error occurred on the server."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "400",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "BAD_REQUEST",
+                      "code": "10002",
+                      "message": "Invalid or missing parameter"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication failed or user does not have permissions for the requested operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "401",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "UNAUTHORIZED",
+                      "code": "10015",
+                      "message": "Authentication required or failed."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - The requested resource could not be found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "404",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "NOT_FOUND",
+                      "code": "10016",
+                      "message": "The requested resource could not be found."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "HCP registered Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HcpCaptureResponse"
+                },
+                "example": {
+                  "responseCode": "200",
+                  "status": "SUCCESS"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/register": {
+      "post": {
+        "tags": [
+          "HCP Capture Service"
+        ],
+        "summary": "API to capture HCP Details",
+        "description": "Check the 'Schema' tab next to the 'Example Value' tab under the 'Request body' section. Make sure to provide all neccessary details to get the success response.",
+        "operationId": "hcpCapture",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HcpCaptureRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "500": {
+            "description": "Internal Server Error - Unexcepted error occurred on the server side.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "500",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "SERVER_ERROR",
+                      "code": "10001",
+                      "message": "An unexcepted error occurred on the server."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "400",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "BAD_REQUEST",
+                      "code": "10002",
+                      "message": "Invalid or missing parameter"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication failed or user does not have permissions for the requested operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "401",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "UNAUTHORIZED",
+                      "code": "10015",
+                      "message": "Authentication required or failed."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - The requested resource could not be found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "404",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "NOT_FOUND",
+                      "code": "10016",
+                      "message": "The requested resource could not be found."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "HCP registered Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HcpCaptureResponse"
+                },
+                "example": {
+                  "responseCode": "200",
+                  "status": "SUCCESS"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddressInfo": {
+        "type": "object",
+        "properties": {
+          "line1": {
+            "type": "string",
+            "description": "Address line 1",
+            "example": "1276 W River St Ste 100"
+          },
+          "line2": {
+            "type": "string",
+            "description": "Address line 2",
+            "example": "Lane 6"
+          },
+          "suite": {
+            "type": "string",
+            "description": "Suite",
+            "example": "Abcd"
+          },
+          "city": {
+            "type": "string",
+            "description": "City name",
+            "example": "Boise"
+          },
+          "state": {
+            "type": "string",
+            "description": "State name",
+            "example": "ID"
+          },
+          "zip": {
+            "type": "string",
+            "description": "Zip code",
+            "example": "'83702'"
+          }
+        },
+        "description": "Adrdress details"
+      },
+      "AnswerAttributes": {
+        "type": "object",
+        "properties": {
+          "ID": {
+            "type": "string",
+            "description": "Answer id",
+            "example": "'1'"
+          },
+          "value": {
+            "type": "string",
+            "description": "Answer value",
+            "example": "Efficacy & safety"
+          }
+        },
+        "description": "Answer details"
+      },
+      "HcpCaptureRequestMultiOptIn": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "First Name",
+            "example": "Lindsey"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last Name",
+            "example": "Stenshoel"
+          },
+          "email": {
+            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$",
+            "type": "string",
+            "description": "Email Id",
+            "example": "noman.right@abbvie.com"
+          },
+          "degree": {
+            "type": "string",
+            "description": "Degree",
+            "example": "CNP"
+          },
+          "nameOfPracticeInstitution": {
+            "type": "string",
+            "description": "Name of the practice institution",
+            "example": "Access Behavioral Health"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number",
+            "example": "'+176462646'"
+          },
+          "campaignId": {
+            "type": "string",
+            "description": "Campaign id",
+            "example": "'0122333'"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source",
+            "example": "EPCORRAR"
+          },
+          "productName": {
+            "type": "string",
+            "description": "Product Name",
+            "example": "Humira"
+          },
+          "identifier": {
+            "$ref": "#/components/schemas/Identifier"
+          },
+          "optInfo": {
+            "$ref": "#/components/schemas/OptInfo"
+          },
+          "address": {
+            "$ref": "#/components/schemas/AddressInfo"
+          },
+          "survey": {
+            "$ref": "#/components/schemas/SurveyAttributes"
+          }
+        }
+      },
+      "Identifier": {
+        "type": "object",
+        "properties": {
+          "acid": {
+            "type": "string",
+            "description": "Hcp Acid",
+            "example": "'112124'"
+          },
+          "npiId": {
+            "type": "string",
+            "description": "Npi id of the Hcp",
+            "example": "'1659584324'"
+          }
+        },
+        "description": "Identifier details"
+      },
+      "OptInfo": {
+        "type": "object",
+        "properties": {
+          "optInText": {
+            "type": "string",
+            "description": "Optin Text",
+            "example": "Sample Optin text message"
+          },
+          "channel": {
+            "type": "string",
+            "description": "Optin channel",
+            "example": "Email"
+          },
+          "channelOptInType": {
+            "type": "string",
+            "description": "Optin preference",
+            "example": "in"
+          }
+        },
+        "description": "OptInfo details"
+      },
+      "SurveyAttributes": {
+        "type": "object",
+        "properties": {
+          "questionId": {
+            "type": "string",
+            "description": "Question id",
+            "example": "'1'"
+          },
+          "question": {
+            "type": "string",
+            "description": "Question value",
+            "example": "Request Information for"
+          },
+          "answer": {
+            "$ref": "#/components/schemas/AnswerAttributes"
+          }
+        },
+        "description": "SurveyAttributes details"
+      },
+      "ErrorResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Response status",
+            "example": "ERROR",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "errors": {
+            "type": "object",
+            "properties": {
+              "errorCode": {
+                "type": "string",
+                "description": "Error code",
+                "example": "BAD_REQUEST",
+                "enum": [
+                  "SERVER_ERROR",
+                  "BAD_REQUEST",
+                  "CLIENT_ERROR",
+                  "INVALID_NPI",
+                  "INVALID_EMAIL",
+                  "EMAIL_CLIENT_ERROR",
+                  "TRIGGER_EMAIL_CLIENT_ERROR",
+                  "OPT_IN_CLIENT_ERROR",
+                  "INVALID_USER_ID",
+                  "NO_RECORD_FOUND",
+                  "HCP_IS_NOT_IN_APPROVED_PRODUCT",
+                  "DUPLICATE_ACID_AND_EMAIL",
+                  "ONETRUST_DISABLED"
+                ]
+              },
+              "code": {
+                "type": "string",
+                "description": "Code",
+                "example": "10002"
+              },
+              "message": {
+                "type": "string",
+                "description": "Error message",
+                "example": "Invalid or missing parameter"
+              }
+            },
+            "description": "List of errors"
+          }
+        }
+      },
+      "HcpCaptureResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status - success/failure",
+            "example": "Success",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          }
+        }
+      },
+      "HcpCaptureRequest": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "First Name",
+            "example": "Lindsey"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last Name",
+            "example": "Stenshoel"
+          },
+          "email": {
+            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$",
+            "type": "string",
+            "description": "Email Id",
+            "example": "noman.right@abbvie.com"
+          },
+          "degree": {
+            "type": "string",
+            "description": "Degree",
+            "example": "CNP"
+          },
+          "nameOfPracticeInstitution": {
+            "type": "string",
+            "description": "Name of the practice institution",
+            "example": "Access Behavioral Health"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number",
+            "example": "'+176462646'"
+          },
+          "campaignId": {
+            "type": "string",
+            "description": "Campaign id",
+            "example": "'0122333'"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source",
+            "example": "EPCORRAR"
+          },
+          "productName": {
+            "type": "string",
+            "description": "Product Name",
+            "example": "Humira"
+          },
+          "identifier": {
+            "$ref": "#/components/schemas/Identifier"
+          },
+          "optInfo": {
+            "$ref": "#/components/schemas/OptInfo"
+          },
+          "address": {
+            "$ref": "#/components/schemas/AddressInfo"
+          },
+          "survey": {
+            "$ref": "#/components/schemas/SurveyAttributes"
+          }
+        }
+      }
+    }
+  }
+}

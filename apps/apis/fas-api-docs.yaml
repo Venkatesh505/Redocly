@@ -1,0 +1,332 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "FAS",
+    "description": "The API provides functionality for follow up based on incoming validated request.",
+        "x-metadata":{
+           "capability": "EXPERIENCE API",
+           "tags":["active", "experience"]
+  },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://fas-v1-app-p.aws-k8s.abbvienet.com",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/api/v1/fas/followUpRequest": {
+      "post": {
+        "tags": [
+          "FAS"
+        ],
+        "summary": "Follow up a Request",
+        "description": "Receive follow up based on validated request",
+        "operationId": "followUpRequest",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FasRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request - Validation error or invalid input provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "statusCode": 400,
+                  "content": null,
+                  "errors": [
+                    {
+                      "errorCode": "BAD_REQUEST",
+                      "code": "10001",
+                      "message": "Invalid input."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - The requested resource could not be found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDto"
+                },
+                "example": {
+                  "timestamp": "2024-08-28T15:00:30.115+0000",
+                  "status": 404,
+                  "error": "Not Found",
+                  "message": "No message available",
+                  "path": "/api/v1/fas/followUpRequest"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication failed or user does not have permissions for the requested operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "statusCode": 401,
+                  "content": null,
+                  "errors": [
+                    {
+                      "errorCode": "UNAUTHORIZED_ERROR",
+                      "code": "10001",
+                      "message": "UNAUTHORIZED Error"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success - Follow up successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FollowUpResponse"
+                },
+                "example": {
+                  "status": "SUCCESS"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - Unexcepted error occurred on the server side.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "statusCode": 500,
+                  "content": null,
+                  "errors": [
+                    {
+                      "errorCode": "SERVER_ERROR",
+                      "code": "10001",
+                      "message": "Server Error"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Address": {
+        "type": "object",
+        "properties": {
+          "addressLine1": {
+            "type": "string",
+            "description": "HCP Address Line1",
+            "example": "1276 W River St"
+          },
+          "addressLine2": {
+            "type": "string",
+            "description": "HCP Address Line2",
+            "example": "1276 W River St"
+          },
+          "city": {
+            "type": "string",
+            "description": "HCP City",
+            "example": "Boise"
+          },
+          "state": {
+            "type": "string",
+            "description": "HCP State",
+            "example": "ID"
+          },
+          "zipCode": {
+            "type": "string",
+            "description": "HCP Zip Code",
+            "example": "83702"
+          }
+        },
+        "description": "HCP Address"
+      },
+      "FasRequest": {
+        "type": "object",
+        "properties": {
+          "acid": {
+            "type": "string",
+            "description": "HCP acid",
+            "example": "5304576"
+          },
+          "npi": {
+            "type": "string",
+            "description": "HCP npi",
+            "example": "1902185168"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "HCP First Name",
+            "example": "Lindsey"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "HCP Last Name",
+            "example": "Stenshoel"
+          },
+          "email": {
+            "type": "string",
+            "description": "HCP Email",
+            "example": "LindseyStenshoel@Mail.Com"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "HCP Phone Number",
+            "example": "1234567890"
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "speciality": {
+            "type": "string",
+            "description": "HCP speciality",
+            "example": "Dermatology"
+          },
+          "modeOfContact": {
+            "type": "string",
+            "description": "HCP Mode Of Contact",
+            "example": "Phone"
+          },
+          "dayToContact": {
+            "type": "string",
+            "description": "HCP Day To Contact",
+            "example": "Monday"
+          },
+          "timeToContact": {
+            "type": "string",
+            "description": "HCP Time To Contact",
+            "example": "Morning"
+          },
+          "productName": {
+            "type": "string",
+            "description": "HCP Product Name",
+            "example": "Humira"
+          },
+          "requestor": {
+            "$ref": "#/components/schemas/Requestor"
+          },
+          "optIn": {
+            "type": "boolean",
+            "description": "HCP Opt In",
+            "example": true
+          }
+        }
+      },
+      "Requestor": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "HCP First Name",
+            "example": "Lindsey"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "HCP Last Name",
+            "example": "Smith"
+          }
+        },
+        "description": "HCP Requestor"
+      },
+      "ErrorDto": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "string",
+            "enum": [
+              "BAD_REQUEST",
+              "CLIENT_ERROR",
+              "NO_RECORD_FOUND",
+              "SERVER_ERROR",
+              "HCP_NPI_ACID_NOT_FOUND_IN_MDM",
+              "HCP_RESTRICTIONS_NO_CALL_FLAG",
+              "HCP_RESTRICTIONS_DEA_REVOKED",
+              "HCP_IS_NOT_IN_ABS",
+              "HCP_IS_NOT_IN_APPROVED_PRODUCT",
+              "IREP_LOAD_ERROR",
+              "EMAIL_CLIENT_ERROR",
+              "INVALID_EMAIL",
+              "EMAIL_EXCLUSION_ERROR"
+            ]
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "object"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorDto"
+            }
+          }
+        }
+      },
+      "FollowUpResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "The textual status of the operation.",
+            "example": "BAD_REQUEST",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

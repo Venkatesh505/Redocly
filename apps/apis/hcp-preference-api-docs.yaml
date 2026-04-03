@@ -1,0 +1,718 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "HCP Preference",
+    "description": "The API provides functionality for updating opt data based on incoming validated request and also use for fetching the updated opt data on the basis of hcp id.",
+        "x-metadata":{
+           "capability": "SYSTEM API",
+           "tags":["active", "core"]
+  },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://hcp-preferences-v1-app-p.aws-k8s.abbvienet.com",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/api/v1/hcp/summary/optupdate": {
+      "post": {
+        "tags": [
+          "OPT Data Summary"
+        ],
+        "summary": "Abbvie Opt Update",
+        "description": "Updates the abbvie opt data based on validated request",
+        "operationId": "updateAbvOptData",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAbvOptRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success - Updates the abbvie opt data successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateOptResponse"
+                },
+                "example": {
+                  "status": "SUCCESS"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Validation error or invalid input provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateOptResponse"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "BAD_REQUEST",
+                      "code": "10000",
+                      "message": "Invalid input."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created - Abbvie Opt data created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateOptResponse"
+                },
+                "example": {
+                  "status": "SUCCESS"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication failed or user does not have permissions for the requested operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateOptResponse"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "UNAUTHORIZED",
+                      "code": "10001",
+                      "message": "unauthorized error"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - Insufficient permissions or unable to authorize/authenticate.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateOptResponse"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "FORBIDDEN",
+                      "code": "10003",
+                      "message": "forbidden error"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - The requested resource could not be found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateOptResponse"
+                },
+                "example": {
+                  "timestamp": "2024-08-28T15:00:30.115+0000",
+                  "status": 404,
+                  "error": "Not Found",
+                  "message": "No message available",
+                  "path": "/api/v1/hcp/summary/optupdate"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - Unexcepted error occurred on the server side.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateOptResponse"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "SERVER ERROR",
+                      "code": "10001",
+                      "message": "server error"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hcp/communication/preference": {
+      "post": {
+        "tags": [
+          "OPT Data Summary"
+        ],
+        "summary": "Opt Update",
+        "description": "Updates the opt data based on validated request",
+        "operationId": "updateOptData",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateOptRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success - Updates the opt data successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateOptResponse"
+                },
+                "example": {
+                  "status": "SUCCESS"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Validation error or invalid input provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateOptResponse"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "BAD_REQUEST",
+                      "code": "10000",
+                      "message": "Invalid input."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - The requested resource could not be found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateOptResponse"
+                },
+                "example": {
+                  "timestamp": "2024-08-28T15:00:30.115+0000",
+                  "status": 404,
+                  "error": "Not Found",
+                  "message": "No message available",
+                  "path": "/api/v1/hcp/communication/preference"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication failed or user does not have permissions for the requested operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateOptResponse"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "UNAUTHORIZED",
+                      "code": "10001",
+                      "message": "unauthorized error"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - Insufficient permissions or unable to authorize/authenticate.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateOptResponse"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "FORBIDDEN",
+                      "code": "10003",
+                      "message": "forbidden error"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created - Opt data created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateOptResponse"
+                },
+                "example": {
+                  "status": "SUCCESS"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - Unexcepted error occurred on the server side.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateOptResponse"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "SERVER ERROR",
+                      "code": "10001",
+                      "message": "server error"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hcp/summary/optdetails/{hcpid}": {
+      "get": {
+        "tags": [
+          "OPT Data Summary"
+        ],
+        "summary": "Get Opt Details",
+        "description": "Fetches the opt details based on provided hcp id.",
+        "operationId": "OptData",
+        "parameters": [
+          {
+            "name": "hcpid",
+            "in": "path",
+            "description": "Hcp Id to fetch opt details",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": 1010771
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "Not Found - The requested resource could not be found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptDetailsResponse"
+                },
+                "example": {
+                  "timestamp": "2024-08-28T15:00:30.115+0000",
+                  "status": 404,
+                  "error": "Not Found",
+                  "message": "No message available",
+                  "path": "/api/v1/hcp/summary/optdetails/{hcpid}"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Validation error or invalid input provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptDetailsResponse"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "BAD_REQUEST",
+                      "code": "10000",
+                      "message": "Invalid input."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication failed or user does not have permissions for the requested operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptDetailsResponse"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "UNAUTHORIZED",
+                      "code": "10001",
+                      "message": "unauthorized error"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - Unexcepted error occurred on the server side.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptDetailsResponse"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "SERVER ERROR",
+                      "code": "10001",
+                      "message": "server error"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success - Fetched opt data successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptDetailsResponse"
+                },
+                "example": {
+                  "status": "SUCCESS",
+                  "optDetails": [
+                    {
+                      "brandName": "VRAYLAR BPD",
+                      "subBrandName": "VRAYLAR BPD",
+                      "channel": "EM",
+                      "communicationFrequency": "20 MHZ",
+                      "messageType": "NA",
+                      "value": "PETER.ABEL@CARDIO.COM",
+                      "type": "OPTOUT"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - Insufficient permissions or unable to authorize/authenticate.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OptDetailsResponse"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "FORBIDDEN",
+                      "code": "10003",
+                      "message": "forbidden error"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UpdateAbvOptRequest": {
+        "required": [
+          "exportDate",
+          "hcpId"
+        ],
+        "type": "object",
+        "properties": {
+          "hcpId": {
+            "type": "string",
+            "description": "HCP Id",
+            "example": "933644"
+          },
+          "type": {
+            "type": "string",
+            "description": "HCP Type",
+            "example": "OPTOUT"
+          },
+          "channel": {
+            "type": "string",
+            "description": "HCP Channel",
+            "example": "DM"
+          },
+          "brandName": {
+            "type": "string",
+            "description": "HCP Brand Name",
+            "example": "HUMIRA_GASTRO"
+          },
+          "subBrandName": {
+            "type": "string",
+            "description": "HCP Sub Brand Name",
+            "example": "HUMIRA"
+          },
+          "messageType": {
+            "type": "string",
+            "description": "HCP Message Type",
+            "example": "NA"
+          },
+          "communicationFrequency": {
+            "type": "string",
+            "description": "HCP Communication Frequency",
+            "example": "20 MHZ"
+          },
+          "date": {
+            "type": "string",
+            "description": "HCP Date",
+            "example": "2017-10-13 00:00:00"
+          },
+          "value": {
+            "type": "string",
+            "description": "HCP Value",
+            "example": "NMELTON@CEENTA.COM"
+          },
+          "exportDate": {
+            "type": "string",
+            "description": "HCP Export Date",
+            "example": "2023-07-13 05:36:37.615"
+          },
+          "therapeuticArea": {
+            "type": "string",
+            "description": "HCP Therapeutic Area",
+            "example": "IMMUNOLOGY"
+          },
+          "fid": {
+            "type": "string",
+            "description": "HCP Fid",
+            "example": "200001349686"
+          },
+          "npiId": {
+            "type": "string",
+            "description": "HCP Npi Id",
+            "example": "1497722912"
+          }
+        }
+      },
+      "UpdateOptResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "The textual status of the operation.",
+            "example": "BAD_REQUEST",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          }
+        }
+      },
+      "Preferences": {
+        "type": "object",
+        "properties": {
+          "brandName": {
+            "type": "string",
+            "description": "HCP Brand Name",
+            "example": "Humira_1.0"
+          },
+          "channel": {
+            "type": "string",
+            "description": "HCP Channel",
+            "example": "HCP"
+          },
+          "channelValue": {
+            "type": "string",
+            "description": "HCP Channel Value",
+            "example": "1.0"
+          },
+          "communicationFrequency": {
+            "type": "string",
+            "description": "HCP Communication Frequency",
+            "example": "20 MHZ"
+          },
+          "date": {
+            "type": "integer",
+            "description": "HCP Date",
+            "format": "int64",
+            "example": 1633046400
+          },
+          "indication": {
+            "type": "string",
+            "description": "HCP Indication",
+            "example": "NA"
+          },
+          "languageId": {
+            "type": "string",
+            "description": "HCP Language Id",
+            "example": "US001"
+          },
+          "languageDescription": {
+            "type": "string",
+            "description": "HCP Language Description",
+            "example": "English"
+          },
+          "type": {
+            "type": "string",
+            "description": "HCP Type",
+            "example": "Kemotherapy"
+          },
+          "therapeuticArea": {
+            "type": "string",
+            "description": "HCP Therapeutic Area",
+            "example": "Neck"
+          }
+        },
+        "description": "HCP Preferences"
+      },
+      "UpdateOptRequest": {
+        "required": [
+          "preferences",
+          "source"
+        ],
+        "type": "object",
+        "properties": {
+          "hcpId": {
+            "type": "string",
+            "description": "HCP Hcp Id",
+            "example": "5304576"
+          },
+          "npi": {
+            "type": "string",
+            "description": "HCP Npi",
+            "example": "1902185168"
+          },
+          "email": {
+            "type": "string",
+            "description": "HCP Email",
+            "example": "email@Mail.Com"
+          },
+          "source": {
+            "type": "string",
+            "description": "HCP Source",
+            "example": "HCP"
+          },
+          "preferences": {
+            "uniqueItems": true,
+            "type": "array",
+            "description": "HCP Preferences",
+            "items": {
+              "$ref": "#/components/schemas/Preferences"
+            }
+          },
+          "optinText": {
+            "type": "string",
+            "description": "HCP Opt In Text",
+            "example": "opt"
+          },
+          "dataLinkageId": {
+            "type": "integer",
+            "description": "HCP Data Linkage ID ",
+            "format": "int32",
+            "example": 1234
+          }
+        }
+      },
+      "OptDetails": {
+        "type": "object",
+        "properties": {
+          "brandName": {
+            "type": "string",
+            "description": "The textual status of the operation.",
+            "example": "VRAYLAR BPD"
+          },
+          "subBrandName": {
+            "type": "string",
+            "description": "The textual status of the operation.",
+            "example": "VRAYLAR BPD"
+          },
+          "channel": {
+            "type": "string",
+            "description": "The textual status of the operation.",
+            "example": "EM"
+          },
+          "communicationFrequency": {
+            "type": "string",
+            "description": "The textual status of the operation.",
+            "example": "20 MHZ"
+          },
+          "messageType": {
+            "type": "string",
+            "description": "The textual status of the operation.",
+            "example": "NA"
+          },
+          "value": {
+            "type": "string",
+            "description": "The textual status of the operation.",
+            "example": "NMELTON@CEENTA.COM"
+          },
+          "type": {
+            "type": "string",
+            "description": "The textual status of the operation.",
+            "example": "OPTOUT"
+          }
+        },
+        "description": "HCP Opt Details"
+      },
+      "OptDetailsResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "The textual status of the operation.",
+            "example": "BAD_REQUEST",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "optDetails": {
+            "type": "array",
+            "description": "HCP Opt Details",
+            "items": {
+              "$ref": "#/components/schemas/OptDetails"
+            }
+          }
+        }
+      }
+    }
+  }
+}

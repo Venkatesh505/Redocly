@@ -1,0 +1,1147 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "AAT ISA Report",
+    "description": "This service can be used to retrieve various details around HCPs and their Practices with the help of their account id, HCP id, and some other details.",
+        "x-metadata":{
+           "capability": "EXPERIENCE API",
+           "tags":["active", "experience"]
+  },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://aat-isa-v1-app-p.aws-k8s.abbvienet.com",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/api/v1/isa/getPracticeDataByPracticeID": {
+      "post": {
+        "tags": [
+          "AAT ISA Details"
+        ],
+        "summary": "Get Practice Data by Practice ID",
+        "description": "This API can be used to fetch practice data like practice name, product name, first name, last name, etc using practice id (account id), product name and source details.",
+        "operationId": "getPracticeDataByPracticeID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AatISAPracticeDataRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved Practice Data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PracticeDataResponse"
+                },
+                "example": {
+                  "status": "SUCCESS",
+                  "statusCode": 200,
+                  "isaData": [
+                    {
+                      "npi": "21858687",
+                      "abbottCustomerId": "318586811",
+                      "abbottAccountId": "21858645",
+                      "practiceName": "Optometry",
+                      "product": "HUMIRA",
+                      "firstName": "Samual",
+                      "lastName": "Manchester",
+                      "city": "Dallas",
+                      "state": "TX",
+                      "zipCode": "83702",
+                      "totalPatients": "100",
+                      "continousCoverage": "60",
+                      "upcomingCoverage": "10",
+                      "recentCoverage": "20",
+                      "unableToDetermineCoverage": "10",
+                      "dateOfLastRefresh": "01/31/2024"
+                    }
+                  ],
+                  "errors": null
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "SERVICE UNAVAILABLE",
+                      "code": "10001",
+                      "message": "SERVICE UNAVAILABLE"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PracticeDataResponse"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "statusCode": 400,
+                  "errors": {
+                    "errorId": "BAD_REQUEST",
+                    "errorCode": "10002",
+                    "errorMessage": "Invalid parameter."
+                  },
+                  "isaData": null
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "SERVER ERROR",
+                      "code": "10001",
+                      "message": "server error"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Accessing the resource you were trying to reach is forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "FORBIDDEN",
+                      "code": "10003",
+                      "message": "forbidden error"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "You are not authorized to view the resource",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "UNAUTHORIZED",
+                      "code": "10001",
+                      "message": "unauthorized error"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The resource you were trying to reach is not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "timestamp": "2024-09-03T08:06:50.515+0000",
+                  "status": 404,
+                  "error": "Not Found",
+                  "message": "No message available",
+                  "path": "/api/v1/isa/getPracticeDataByPracticeID"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No data available for the request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PracticeDataResponse"
+                },
+                "example": {
+                  "status": "SUCCESS",
+                  "statusCode": 204,
+                  "message": "No content available."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/isa/getHCPsByPracticeID": {
+      "post": {
+        "tags": [
+          "AAT ISA Details"
+        ],
+        "summary": "Get All HCPs By Account ID",
+        "description": "This API can be used to fetch list of HCPs and their details using acid id, practice id, etc.",
+        "operationId": "getHCPsByPracticeID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AatISARequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "SERVICE UNAVAILABLE",
+                      "code": "10001",
+                      "message": "SERVICE UNAVAILABLE"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The resource you were trying to reach is not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "timestamp": "2024-09-03T08:06:50.515+0000",
+                  "status": 404,
+                  "error": "Not Found",
+                  "message": "No message available",
+                  "path": "/api/v1/isa/getHCPsByPracticeID"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No data available for the request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AatISAReportResponse"
+                },
+                "example": {
+                  "status": "SUCCESS",
+                  "statusCode": 204,
+                  "message": "No content available."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "SERVER ERROR",
+                      "code": "10001",
+                      "message": "server error"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Accessing the resource you were trying to reach is forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "FORBIDDEN",
+                      "code": "10003",
+                      "message": "forbidden error"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Successfully retrieved list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AatISAReportResponse"
+                },
+                "example": {
+                  "status": "SUCCESS",
+                  "statusCode": 200,
+                  "isaData": [
+                    {
+                      "npi": "21858687",
+                      "abbottCustomerId": "318586811",
+                      "abbottAccountId": "21858645",
+                      "practiceName": "Optometry",
+                      "practiceCity": "Dallas",
+                      "practiceState": "TX",
+                      "practiceZip": "83702",
+                      "product": "HUMIRA",
+                      "firstName": "Samual",
+                      "lastName": "Manchester",
+                      "city": "Dallas",
+                      "state": "TX",
+                      "zipCode": "83702",
+                      "totalPatients": "100",
+                      "continousCoverage": "60",
+                      "recentCoverage": "10",
+                      "upcomingCoverage": "20",
+                      "unableToDetermineCoverage": "10",
+                      "dateOfLastRefresh": "01/31/2024"
+                    }
+                  ],
+                  "resultsMetadata": {
+                    "matchCount": 50,
+                    "recordCount": 10,
+                    "recordsReturned": 10,
+                    "recordsFrom": 1
+                  },
+                  "errors": null
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "You are not authorized to view the resource",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "UNAUTHORIZED",
+                      "code": "10001",
+                      "message": "unauthorized error"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AatISAReportResponse"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "statusCode": 400,
+                  "errors": {
+                    "errorId": "BAD_REQUEST",
+                    "errorCode": "10002",
+                    "errorMessage": "Invalid parameter."
+                  },
+                  "isaData": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/isa/getHCPDataByHCPID": {
+      "post": {
+        "tags": [
+          "AAT ISA Details"
+        ],
+        "summary": "Get Hcp Data by ACID",
+        "description": "This API can be used to fetch HCP details using HCP id (ACID), product name and source details.",
+        "operationId": "getHCPDataByHCPID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AatISAHCPDataRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "503": {
+            "description": "Service Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "SERVICE UNAVAILABLE",
+                      "code": "10001",
+                      "message": "SERVICE UNAVAILABLE"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "SERVER ERROR",
+                      "code": "10001",
+                      "message": "server error"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Accessing the resource you were trying to reach is forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "FORBIDDEN",
+                      "code": "10003",
+                      "message": "forbidden error"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No data available for the request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HCPDataResponse"
+                },
+                "example": {
+                  "status": "SUCCESS",
+                  "statusCode": 204,
+                  "message": "No content available."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "You are not authorized to view the resource",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "UNAUTHORIZED",
+                      "code": "10001",
+                      "message": "unauthorized error"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HCPDataResponse"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "statusCode": 400,
+                  "errors": {
+                    "errorId": "BAD_REQUEST",
+                    "errorCode": "10002",
+                    "errorMessage": "Invalid parameter."
+                  },
+                  "isaData": null
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Successfully retrieved HCP Data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HCPDataResponse"
+                },
+                "example": {
+                  "status": "SUCCESS",
+                  "statusCode": 200,
+                  "isaData": [
+                    {
+                      "npi": "21858687",
+                      "abbottCustomerId": "318586811",
+                      "abbottAccountId": "21858645",
+                      "practiceName": "Optometry",
+                      "practiceCity": "Dallas",
+                      "practiceState": "TX",
+                      "practiceZip": "83702",
+                      "product": "HUMIRA",
+                      "firstName": "Samual",
+                      "lastName": "Manchester",
+                      "city": "Dallas",
+                      "state": "TX",
+                      "zipCode": "83702",
+                      "totalPatients": "100",
+                      "continousCoverage": "60",
+                      "upcomingCoverage": "10",
+                      "recentCoverage": "20",
+                      "unableToDetermineCoverage": "10",
+                      "dateOfLastRefresh": "01/31/2024"
+                    }
+                  ],
+                  "errors": null
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The resource you were trying to reach is not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "timestamp": "2024-09-03T08:06:50.515+0000",
+                  "status": 404,
+                  "error": "Not Found",
+                  "message": "No message available",
+                  "path": "/api/v1/isa/getHCPDataByHCPID"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AatISAPracticeDataRequest": {
+        "type": "object",
+        "properties": {
+          "abbottAccountId": {
+            "type": "string",
+            "description": "Abbott account id or practice id",
+            "example": "2058965103"
+          },
+          "product": {
+            "type": "string",
+            "description": "Product name",
+            "example": "HUMIRA"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source name",
+            "example": "HCP"
+          }
+        }
+      },
+      "ErrorDto": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "string",
+            "enum": [
+              "DATA_NOT_AVAILABLE_FOR_ABBOTT_CUSTOMER_ID",
+              "DATA_NOT_AVAILABLE_FOR_ABBOTT_ACCOUNT_ID",
+              "INVALID_PRODUCT",
+              "DATA_NOT_AVAILABLE_FOR_SEARCH_TEXT",
+              "DATABASE_CONNECTION_ERROR",
+              "SERVER_ERROR",
+              "BAD_REQUEST",
+              "CLIENT_ERROR",
+              "INVALID_NPI",
+              "INVALID_EMAIL",
+              "EMAIL_CLIENT_ERROR",
+              "TRIGGER_EMAIL_CLIENT_ERROR",
+              "OPT_IN_CLIENT_ERROR",
+              "INVALID_USER_ID",
+              "NO_RECORD_FOUND",
+              "HCP_IS_NOT_IN_APPROVED_PRODUCT",
+              "DUPLICATE_ACID_AND_EMAIL"
+            ]
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "PracticeDataResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status - success/failure",
+            "example": "Success",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "description": "Status code",
+            "format": "int32",
+            "example": 200
+          },
+          "errors": {
+            "$ref": "#/components/schemas/ErrorDto"
+          },
+          "isaData": {
+            "type": "object",
+            "properties": {
+              "npi": {
+                "type": "string",
+                "description": "Npi Number",
+                "example": "21858687"
+              },
+              "abbottCustomerId": {
+                "type": "string",
+                "description": "ACID id of the HCP",
+                "example": "318586811"
+              },
+              "abbottAccountId": {
+                "type": "string",
+                "description": "Practice id or Account id",
+                "example": "21858645",
+                "enum": [
+                  "SUCCESS",
+                  "ERROR"
+                ]
+              },
+              "practiceName": {
+                "type": "string",
+                "description": "Practice name",
+                "example": "Optometry"
+              },
+              "product": {
+                "type": "string",
+                "description": "Product name",
+                "example": "HUMIRA"
+              },
+              "firstName": {
+                "type": "string",
+                "description": "First name of the HCP",
+                "example": "Samual"
+              },
+              "lastName": {
+                "type": "string",
+                "description": "Last name of the HCP",
+                "example": "Manchester"
+              },
+              "city": {
+                "type": "string",
+                "description": "City name",
+                "example": "Dallas"
+              },
+              "state": {
+                "type": "string",
+                "description": "State name",
+                "example": "TX"
+              },
+              "zipCode": {
+                "type": "string",
+                "description": "Zipcode",
+                "example": "83702"
+              },
+              "totalPatients": {
+                "type": "string",
+                "description": "Total number of patients",
+                "example": "100"
+              },
+              "continousCoverage": {
+                "type": "string",
+                "description": "Number of patients having continous coverage",
+                "example": "60"
+              },
+              "upcomingCoverage": {
+                "type": "string",
+                "description": "Number of upcoming patients",
+                "example": "10"
+              },
+              "recentCoverage": {
+                "type": "string",
+                "description": "Number of patients with recent coverage",
+                "example": "20"
+              },
+              "unableToDetermineCoverage": {
+                "type": "string",
+                "description": "Number of patients with unable to determine coverage",
+                "example": "10"
+              },
+              "dateOfLastRefresh": {
+                "type": "string",
+                "description": "Date of last refresh of patient data",
+                "example": "01/31/2024"
+              }
+            },
+            "description": "ISA Data Details"
+          }
+        }
+      },
+      "ErrorResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorDto"
+            }
+          }
+        }
+      },
+      "AatISARequest": {
+        "type": "object",
+        "properties": {
+          "acid": {
+            "type": "string",
+            "description": "ACID id of HCP",
+            "example": "2058964447"
+          },
+          "abbottAccountId": {
+            "type": "string",
+            "description": "Abbott account id or practice id",
+            "example": "2058965103"
+          },
+          "product": {
+            "type": "string",
+            "description": "Product name",
+            "example": "HUMIRA"
+          },
+          "recordCount": {
+            "type": "integer",
+            "description": "Number of records to be fetched",
+            "format": "int32",
+            "example": 10
+          },
+          "recordsFrom": {
+            "type": "integer",
+            "description": "Record number from which onwards, the records are to be fetched",
+            "format": "int32",
+            "example": 1
+          },
+          "sortBy": {
+            "type": "string",
+            "description": "Sort by property",
+            "example": "ACID"
+          },
+          "searchText": {
+            "type": "string",
+            "description": "Search text",
+            "example": "HUM"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source name",
+            "example": "HCP"
+          }
+        }
+      },
+      "AatISAReportResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status - success/failure",
+            "example": "Success",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "description": "Status code",
+            "format": "int32",
+            "example": 200
+          },
+          "isaData": {
+            "type": "object",
+            "properties": {
+              "npi": {
+                "type": "string",
+                "description": "Npi Number",
+                "example": "21858687"
+              },
+              "abbottCustomerId": {
+                "type": "string",
+                "description": "ACID id of the HCP",
+                "example": "318586811"
+              },
+              "abbottAccountId": {
+                "type": "string",
+                "description": "Practice id or Account id",
+                "example": "21858645",
+                "enum": [
+                  "SUCCESS",
+                  "ERROR"
+                ]
+              },
+              "practiceName": {
+                "type": "string",
+                "description": "Practice name",
+                "example": "Optometry"
+              },
+              "practiceCity": {
+                "type": "string",
+                "description": "Practice city",
+                "example": "Dallas"
+              },
+              "practiceState": {
+                "type": "string",
+                "description": "Practice state",
+                "example": "TX"
+              },
+              "practiceZip": {
+                "type": "string",
+                "description": "Practice zipcode",
+                "example": "83702"
+              },
+              "product": {
+                "type": "string",
+                "description": "Product name",
+                "example": "HUMIRA"
+              },
+              "firstName": {
+                "type": "string",
+                "description": "First name of the HCP",
+                "example": "Samual"
+              },
+              "lastName": {
+                "type": "string",
+                "description": "Last name of the HCP",
+                "example": "Manchester"
+              },
+              "city": {
+                "type": "string",
+                "description": "City name",
+                "example": "Dallas"
+              },
+              "state": {
+                "type": "string",
+                "description": "State name",
+                "example": "TX"
+              },
+              "zipCode": {
+                "type": "string",
+                "description": "Zipcode",
+                "example": "83702"
+              },
+              "totalPatients": {
+                "type": "string",
+                "description": "Total number of patients",
+                "example": "100"
+              },
+              "continousCoverage": {
+                "type": "string",
+                "description": "Number of patients having continous coverage",
+                "example": "60"
+              },
+              "recentCoverage": {
+                "type": "string",
+                "description": "Number of orange patients",
+                "example": "10"
+              },
+              "upcomingCoverage": {
+                "type": "string",
+                "description": "Number of patients with recent coverage",
+                "example": "20"
+              },
+              "unableToDetermineCoverage": {
+                "type": "string",
+                "description": "Number of patients with unable to determine coverage",
+                "example": "10"
+              },
+              "dateOfLastRefresh": {
+                "type": "string",
+                "description": "Date of last refresh of patient data",
+                "example": "01/31/2024"
+              }
+            },
+            "description": "List of ISA Data Details"
+          },
+          "resultsMetadata": {
+            "$ref": "#/components/schemas/AatISAResultset"
+          },
+          "errors": {
+            "$ref": "#/components/schemas/ErrorDto"
+          }
+        }
+      },
+      "AatISAResultset": {
+        "type": "object",
+        "properties": {
+          "matchCount": {
+            "type": "integer",
+            "description": "Number of records matched",
+            "format": "int32",
+            "example": 50
+          },
+          "recordCount": {
+            "type": "integer",
+            "description": "Number of records requested",
+            "format": "int32",
+            "example": 10
+          },
+          "recordsReturned": {
+            "type": "integer",
+            "description": "Number of records returned",
+            "format": "int32",
+            "example": 10
+          },
+          "recordsFrom": {
+            "type": "integer",
+            "description": "Record number from which onwards, the records are to be fetched",
+            "format": "int32",
+            "example": 1
+          }
+        },
+        "description": "Result metadata"
+      },
+      "AatISAHCPDataRequest": {
+        "type": "object",
+        "properties": {
+          "abbottCustomerId": {
+            "type": "string",
+            "description": "ACID id of the HCP",
+            "example": "879383"
+          },
+          "product": {
+            "type": "string",
+            "description": "Product name",
+            "example": "HUMIRA"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source name",
+            "example": "HCP"
+          }
+        }
+      },
+      "HCPDataResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status - success/failure",
+            "example": "Success",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "description": "Status code",
+            "format": "int32",
+            "example": 200
+          },
+          "errors": {
+            "$ref": "#/components/schemas/ErrorDto"
+          },
+          "isaData": {
+            "type": "object",
+            "properties": {
+              "npi": {
+                "type": "string",
+                "description": "Npi Number",
+                "example": "21858687"
+              },
+              "abbottCustomerId": {
+                "type": "string",
+                "description": "ACID id of the HCP",
+                "example": "318586811"
+              },
+              "abbottAccountId": {
+                "type": "string",
+                "description": "Practice id or Account id",
+                "example": "21858645",
+                "enum": [
+                  "SUCCESS",
+                  "ERROR"
+                ]
+              },
+              "practiceName": {
+                "type": "string",
+                "description": "Practice name",
+                "example": "Optometry"
+              },
+              "practiceCity": {
+                "type": "string",
+                "description": "Practice city",
+                "example": "Dallas"
+              },
+              "practiceState": {
+                "type": "string",
+                "description": "Practice state",
+                "example": "TX"
+              },
+              "practiceZip": {
+                "type": "string",
+                "description": "Practice zipcode",
+                "example": "83702"
+              },
+              "product": {
+                "type": "string",
+                "description": "Product name",
+                "example": "HUMIRA"
+              },
+              "firstName": {
+                "type": "string",
+                "description": "First name of the HCP",
+                "example": "Samual"
+              },
+              "lastName": {
+                "type": "string",
+                "description": "Last name of the HCP",
+                "example": "Manchester"
+              },
+              "city": {
+                "type": "string",
+                "description": "City name",
+                "example": "Dallas"
+              },
+              "state": {
+                "type": "string",
+                "description": "State name",
+                "example": "TX"
+              },
+              "zipCode": {
+                "type": "string",
+                "description": "Zipcode",
+                "example": "83702"
+              },
+              "totalPatients": {
+                "type": "string",
+                "description": "Total number of patients",
+                "example": "100"
+              },
+              "continousCoverage": {
+                "type": "string",
+                "description": "Number of patients having continous coverage",
+                "example": "60"
+              },
+              "upcomingCoverage": {
+                "type": "string",
+                "description": "Number of upcoming patients",
+                "example": "10"
+              },
+              "recentCoverage": {
+                "type": "string",
+                "description": "Number of patients with recent coverage",
+                "example": "20"
+              },
+              "unableToDetermineCoverage": {
+                "type": "string",
+                "description": "Number of patients with unable to determine coverage",
+                "example": "10"
+              },
+              "dateOfLastRefresh": {
+                "type": "string",
+                "description": "Date of last refresh of patient data",
+                "example": "01/31/2024"
+              }
+            },
+            "description": "ISA Data Details"
+          }
+        }
+      }
+    }
+  }
+}

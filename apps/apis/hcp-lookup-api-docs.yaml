@@ -1,0 +1,1771 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Hcp Lookup",
+    "description": "The Hcp Lookup API provides functionality for getting the HCP data using various multiple possible parameters.",
+        "x-metadata":{
+           "capability": "EXPERIENCE API",
+           "tags":["active", "experience"]
+  },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://hcp-lookup-v1-app-p.aws-k8s.abbvienet.com",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/api/v2/hcp/search": {
+      "post": {
+        "tags": [
+          "graph-ql-controller"
+        ],
+        "operationId": "getHcpDetails",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HcpDetailsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hcp/territory": {
+      "post": {
+        "tags": [
+          "territory-controller"
+        ],
+        "operationId": "getTerritoryDetails",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TerritoryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/TerritoryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hcp/search": {
+      "post": {
+        "tags": [
+          "hcp-details-controller"
+        ],
+        "operationId": "getHcpDetails_1",
+        "parameters": [
+          {
+            "name": "issfaprimaryidrequired",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HcpDetails"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDtoListHcpDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hcp/npiLookup": {
+      "post": {
+        "tags": [
+          "hcp-details-controller"
+        ],
+        "operationId": "getNpiDetails",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NpiDetailsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/NpiDetailsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hcp/lookup": {
+      "post": {
+        "tags": [
+          "hcp-details-controller"
+        ],
+        "operationId": "getHcpDetails_2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HcpDetailsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/HcpDetailsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hcp/details": {
+      "post": {
+        "tags": [
+          "hcp-details-controller"
+        ],
+        "operationId": "getHcpSearchDetails",
+        "parameters": [
+          {
+            "name": "recordCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "10"
+            }
+          },
+          {
+            "name": "recordsFrom",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "1"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HcpSearchDetailsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/HcpSearchDetailsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hcp/details/lookup": {
+      "post": {
+        "tags": [
+          "hcp-details-controller"
+        ],
+        "operationId": "getHcpDetail",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HcpDetailsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDtoListHcp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hcp/absValidation": {
+      "post": {
+        "tags": [
+          "hcp-details-controller"
+        ],
+        "operationId": "getHcpByNpi",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VirtualSpeakerHcpDetailsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/VirtualSpeakerHcpDetailsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hcp/speciality/{acid}": {
+      "get": {
+        "tags": [
+          "hauf-heuf-controller"
+        ],
+        "operationId": "getSpeciality",
+        "parameters": [
+          {
+            "name": "acid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/SpecialityResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hcp/npi/{npi}": {
+      "get": {
+        "tags": [
+          "hcp-details-controller"
+        ],
+        "operationId": "getHcpDetails_3",
+        "parameters": [
+          {
+            "name": "npi",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/HcpDetailsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hcp/lead": {
+      "get": {
+        "tags": [
+          "hauf-heuf-controller"
+        ],
+        "operationId": "getLeadById",
+        "parameters": [
+          {
+            "name": "acid",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "npiid",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "accountid",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/LeadIDProfileResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hcp/approved-products/{acid}": {
+      "get": {
+        "tags": [
+          "hauf-heuf-controller"
+        ],
+        "operationId": "getApprovedProducts",
+        "parameters": [
+          {
+            "name": "acid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApprovedProductResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/hcp/abs-details/{acid}": {
+      "get": {
+        "tags": [
+          "hauf-heuf-controller"
+        ],
+        "operationId": "getDetails",
+        "parameters": [
+          {
+            "name": "acid",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/HaufHeufDetailResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/swagger-resources": {
+      "get": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "swaggerResources",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SwaggerResource"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "swaggerResources_3",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SwaggerResource"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "swaggerResources_2",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SwaggerResource"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "swaggerResources_5",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SwaggerResource"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "options": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "swaggerResources_6",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SwaggerResource"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "head": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "swaggerResources_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SwaggerResource"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "swaggerResources_4",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SwaggerResource"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/swagger-resources/configuration/ui": {
+      "get": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "uiConfiguration",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UiConfiguration"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "uiConfiguration_3",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UiConfiguration"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "uiConfiguration_2",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UiConfiguration"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "uiConfiguration_5",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UiConfiguration"
+                }
+              }
+            }
+          }
+        }
+      },
+      "options": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "uiConfiguration_6",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UiConfiguration"
+                }
+              }
+            }
+          }
+        }
+      },
+      "head": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "uiConfiguration_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UiConfiguration"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "uiConfiguration_4",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UiConfiguration"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/swagger-resources/configuration/security": {
+      "get": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "securityConfiguration",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/SecurityConfiguration"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "securityConfiguration_3",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/SecurityConfiguration"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "securityConfiguration_2",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/SecurityConfiguration"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "securityConfiguration_5",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/SecurityConfiguration"
+                }
+              }
+            }
+          }
+        }
+      },
+      "options": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "securityConfiguration_6",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/SecurityConfiguration"
+                }
+              }
+            }
+          }
+        }
+      },
+      "head": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "securityConfiguration_1",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/SecurityConfiguration"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "api-resource-controller"
+        ],
+        "operationId": "securityConfiguration_4",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/SecurityConfiguration"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HcpDetailsRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "npi_id": {
+            "type": "string"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "primary_keycode": {
+            "type": "string"
+          },
+          "contactid": {
+            "type": "string"
+          },
+          "address_line_1": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "zip": {
+            "type": "string"
+          },
+          "acid": {
+            "type": "string"
+          }
+        }
+      },
+      "TerritoryRequest": {
+        "required": [
+          "postalCode",
+          "territoryType"
+        ],
+        "type": "object",
+        "properties": {
+          "postalCode": {
+            "type": "string"
+          },
+          "territoryType": {
+            "type": "string"
+          },
+          "salesForceCodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "territoryNumbers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "franchise": {
+            "type": "string"
+          }
+        }
+      },
+      "TerritoryDetailsInfo": {
+        "type": "object",
+        "properties": {
+          "postalCode": {
+            "type": "string"
+          },
+          "territoryType": {
+            "type": "string"
+          },
+          "territoryNumber": {
+            "type": "string"
+          },
+          "salesForceCode": {
+            "type": "string"
+          },
+          "franchise": {
+            "type": "string"
+          },
+          "employeeNumber": {
+            "type": "string"
+          },
+          "emailId": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          }
+        }
+      },
+      "TerritoryResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "territoryInformation": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TerritoryDetailsInfo"
+            }
+          }
+        }
+      },
+      "Address": {
+        "type": "object",
+        "properties": {
+          "line1": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "zip": {
+            "type": "string"
+          },
+          "zip4": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          }
+        }
+      },
+      "HcpDetails": {
+        "type": "object",
+        "properties": {
+          "acid": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "middleName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "email": {
+            "type": "string"
+          },
+          "degree": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "fax": {
+            "type": "string"
+          },
+          "npi": {
+            "type": "string"
+          },
+          "primarySpeciality": {
+            "type": "string"
+          },
+          "practiceName": {
+            "type": "string"
+          },
+          "noCallFlag": {
+            "type": "boolean"
+          },
+          "deaRevokedFlag": {
+            "type": "boolean"
+          },
+          "sfaPrimaryId": {
+            "type": "string"
+          },
+          "slnNbr": {
+            "type": "string"
+          },
+          "slnState": {
+            "type": "string"
+          },
+          "sfaProfileId": {
+            "type": "string"
+          },
+          "ownedOrLeased": {
+            "type": "string"
+          }
+        }
+      },
+      "ErrorDto": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "string",
+            "enum": [
+              "BAD_REQUEST",
+              "DATABASE_CONNECTION_ERROR",
+              "NO_RECORD_FOUND",
+              "SERVER_ERROR"
+            ]
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseDtoListHcpDetails": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/HcpDetails"
+            }
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorDto"
+            }
+          }
+        }
+      },
+      "NpiDetailsRequest": {
+        "type": "object",
+        "properties": {
+          "zip": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "sln_state": {
+            "type": "string"
+          },
+          "sln_nbr": {
+            "type": "string"
+          },
+          "email_address": {
+            "type": "string"
+          }
+        }
+      },
+      "Npi": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "npi_id": {
+            "type": "string"
+          }
+        }
+      },
+      "NpiDetailsResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "NPI": {
+            "$ref": "#/components/schemas/Npi"
+          }
+        }
+      },
+      "ApprovedProduct": {
+        "type": "object",
+        "properties": {
+          "brand_nm": {
+            "type": "string"
+          },
+          "sub_brand": {
+            "type": "string"
+          },
+          "apprvd_product_cd": {
+            "type": "string"
+          },
+          "apprvd_product_nm": {
+            "type": "string"
+          }
+        }
+      },
+      "Hcp": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "zip": {
+            "type": "string"
+          },
+          "zip4": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "degree": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "fax": {
+            "type": "string"
+          },
+          "npi": {
+            "type": "string"
+          },
+          "practiceName": {
+            "type": "string"
+          },
+          "hcp_id": {
+            "type": "string"
+          },
+          "address_id": {
+            "type": "string"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "middle_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "address_line_1": {
+            "type": "string"
+          },
+          "primary_specialty": {
+            "type": "string"
+          },
+          "contactid": {
+            "type": "string"
+          },
+          "primary_keycode": {
+            "type": "string"
+          },
+          "approved_products": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApprovedProduct"
+            }
+          },
+          "territory_data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Territory"
+            }
+          },
+          "owned_or_leased": {
+            "type": "string"
+          }
+        }
+      },
+      "HcpDetailsResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "possibleMatches": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Hcp"
+            }
+          }
+        }
+      },
+      "Territory": {
+        "type": "object",
+        "properties": {
+          "call_plan_flag": {
+            "type": "string"
+          },
+          "territory_desc": {
+            "type": "string"
+          },
+          "sales_force_desc": {
+            "type": "string"
+          },
+          "sales_rep_first_name": {
+            "type": "string"
+          },
+          "sales_rep_last_name": {
+            "type": "string"
+          },
+          "sales_rep_email_address": {
+            "type": "string"
+          },
+          "dm_first_name": {
+            "type": "string"
+          },
+          "dm_last_name": {
+            "type": "string"
+          },
+          "dm_email": {
+            "type": "string"
+          }
+        }
+      },
+      "HcpSearchDetailsRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "npi_id": {
+            "type": "string"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "primary_keycode": {
+            "type": "string"
+          },
+          "contactid": {
+            "type": "string"
+          },
+          "address_line_1": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "zip": {
+            "type": "string"
+          },
+          "acid": {
+            "type": "string"
+          },
+          "radius": {
+            "type": "number",
+            "format": "double"
+          },
+          "recordsFrom": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "recordCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "HcpSearchDetailsResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Hcp"
+            }
+          },
+          "resultsMetadata": {
+            "$ref": "#/components/schemas/HcpSearchResultset"
+          }
+        }
+      },
+      "HcpSearchResultset": {
+        "type": "object",
+        "properties": {
+          "matchCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "recordCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "recordsReturned": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "recordsFrom": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ResponseDtoListHcp": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Hcp"
+            }
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorDto"
+            }
+          }
+        }
+      },
+      "VirtualSpeakerHcpDetailsRequest": {
+        "type": "object",
+        "properties": {
+          "zip": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "npi_id": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "product_cd": {
+            "type": "string"
+          },
+          "sln_state": {
+            "type": "string"
+          },
+          "sln_nbr": {
+            "type": "string"
+          },
+          "email_address": {
+            "type": "string"
+          }
+        }
+      },
+      "NpiVs": {
+        "type": "object",
+        "properties": {
+          "hcpID": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "degree": {
+            "type": "string"
+          },
+          "addressLine1": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "zip": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "specialty": {
+            "type": "string"
+          }
+        }
+      },
+      "VirtualSpeakerHcpDetailsResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ABS_status": {
+            "type": "string"
+          },
+          "HCP": {
+            "$ref": "#/components/schemas/NpiVs"
+          }
+        }
+      },
+      "SpecialityResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "speciality": {
+            "type": "string"
+          }
+        }
+      },
+      "Content": {
+        "type": "object",
+        "properties": {
+          "leadID": {
+            "type": "string"
+          }
+        }
+      },
+      "LeadIDProfileResponse": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorDto"
+            }
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Content"
+            }
+          }
+        }
+      },
+      "ApprovedProductResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "approvedProducts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApprovedProduct"
+            }
+          }
+        }
+      },
+      "HaufHeufDetailResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "approvedProducts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ApprovedProduct"
+            }
+          },
+          "speciality": {
+            "type": "string"
+          },
+          "sfaProfileId": {
+            "type": "string"
+          }
+        }
+      },
+      "SwaggerResource": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "swaggerVersion": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string",
+            "deprecated": true
+          }
+        }
+      },
+      "UiConfiguration": {
+        "type": "object",
+        "properties": {
+          "deepLinking": {
+            "type": "boolean"
+          },
+          "displayOperationId": {
+            "type": "boolean"
+          },
+          "defaultModelsExpandDepth": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "defaultModelExpandDepth": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "defaultModelRendering": {
+            "type": "string",
+            "enum": [
+              "example",
+              "model"
+            ]
+          },
+          "displayRequestDuration": {
+            "type": "boolean"
+          },
+          "docExpansion": {
+            "type": "string",
+            "enum": [
+              "none",
+              "list",
+              "full"
+            ]
+          },
+          "filter": {
+            "type": "object"
+          },
+          "maxDisplayedTags": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "operationsSorter": {
+            "type": "string",
+            "enum": [
+              "alpha",
+              "method"
+            ]
+          },
+          "showExtensions": {
+            "type": "boolean"
+          },
+          "tagsSorter": {
+            "type": "string",
+            "enum": [
+              "alpha"
+            ]
+          },
+          "validatorUrl": {
+            "type": "string"
+          },
+          "apisSorter": {
+            "type": "string",
+            "deprecated": true
+          },
+          "jsonEditor": {
+            "type": "boolean",
+            "deprecated": true
+          },
+          "showRequestHeaders": {
+            "type": "boolean",
+            "deprecated": true
+          },
+          "supportedSubmitMethods": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "SecurityConfiguration": {
+        "type": "object",
+        "properties": {
+          "apiKey": {
+            "type": "string",
+            "deprecated": true
+          },
+          "apiKeyVehicle": {
+            "type": "string",
+            "deprecated": true
+          },
+          "apiKeyName": {
+            "type": "string",
+            "deprecated": true
+          },
+          "clientId": {
+            "type": "string"
+          },
+          "clientSecret": {
+            "type": "string"
+          },
+          "realm": {
+            "type": "string"
+          },
+          "appName": {
+            "type": "string"
+          },
+          "scopeSeparator": {
+            "type": "string"
+          },
+          "additionalQueryStringParams": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
+          },
+          "useBasicAuthenticationWithAccessCodeGrant": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

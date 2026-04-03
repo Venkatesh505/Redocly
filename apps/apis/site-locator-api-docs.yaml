@@ -1,0 +1,1477 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "SiteLocator",
+    "description": "This service provides the feature to get the list of Dalvance Infusion Centers and Sites.",
+        "x-metadata":{
+           "capability": "EXPERIENCE API",
+           "tags":["active", "experience"]
+  },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://dalvance-search-v1-app-p.aws-k8s.abbvienet.com",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "API returns the list of Infusion centers based on the searched text",
+      "description": " dalvance search controller"
+    },
+    {
+      "name": "API returns the list of Sites based on the searched text",
+      "description": " site locator controller"
+    }
+  ],
+  "paths": {
+    "/api/v1/sitelocator/searchSites": {
+      "post": {
+        "tags": [
+          "API returns the list of Sites based on the searched text"
+        ],
+        "summary": "Search Site Locations",
+        "description": "Please refer to the 'Example Value' and 'Schema' tabs under the 'Request body' section below. The provided sample example request demonstrates the neccessary details required to obtain a successful response. Ensure that all required fields are accurately filled in.",
+        "operationId": "searchSites",
+        "parameters": [
+          {
+            "name": "dataAttributes",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchCenterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request-Invalid or missing parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchCenterResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/sitelocator/searchCenters": {
+      "post": {
+        "tags": [
+          "API returns the list of Sites based on the searched text"
+        ],
+        "summary": "Search Centers",
+        "description": "Please refer to the 'Example Value' and 'Schema' tabs under the 'Request body' section below. The provided sample example request demonstrates the neccessary details required to obtain a successful response. Ensure that all required fields are accurately filled in.",
+        "operationId": "searchCenters",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchCenterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Invalid or missing parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchCenterResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/dalvancesearch/infusionsearch": {
+      "post": {
+        "tags": [
+          "API returns the list of Infusion centers based on the searched text"
+        ],
+        "summary": "Search Infusion Centers",
+        "description": "Please refer to the 'Example Value' and 'Schema' tabs under the 'Request body' section below. The provided sample example request demonstrates the neccessary details required to obtain a successful response. Ensure that all required fields are accurately filled in.",
+        "operationId": "searchInfusionCenter",
+        "parameters": [
+          {
+            "name": "dataAttributes",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InfusionCenterSearchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResp"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundResp"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResp"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request-Invalid or missing parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResp"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InfusionCenterSearchResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/dalvancesearch/infusioncenter": {
+      "post": {
+        "tags": [
+          "API returns the list of Infusion centers based on the searched text"
+        ],
+        "summary": "Get Infusion Centers",
+        "description": "Please refer to the 'Example Value' and 'Schema' tabs under the 'Request body' section below. The provided sample example request demonstrates the neccessary details required to obtain a successful response. Ensure that all required fields are accurately filled in.",
+        "operationId": "getInfusionCenter",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InfusionCenterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request-Invalid or missing parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestResp"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResp"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundResp"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorResp"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InfusionCenterResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenResp"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SearchCenterRequest": {
+        "type": "object",
+        "properties": {
+          "request": {
+            "type": "object",
+            "properties": {
+              "requestBody": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "object",
+                    "properties": {
+                      "state": {
+                        "type": "string",
+                        "example": "Glendale"
+                      },
+                      "city": {
+                        "type": "string",
+                        "example": "California"
+                      },
+                      "zip": {
+                        "type": "string",
+                        "example": "91210"
+                      }
+                    }
+                  },
+                  "partyName": {
+                    "type": "string",
+                    "example": null
+                  },
+                  "searchRadius": {
+                    "type": "string",
+                    "example": "25"
+                  },
+                  "recordsFrom": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 1
+                  },
+                  "recordCount": {
+                    "type": "integer",
+                    "format": "int32",
+                    "example": 10
+                  },
+                  "geoCoordinates": {
+                    "type": "object",
+                    "properties": {
+                      "longitude": {
+                        "type": "string",
+                        "example": "-118.2565"
+                      },
+                      "latitude": {
+                        "type": "string",
+                        "example": "34.1446"
+                      }
+                    }
+                  },
+                  "product": {
+                    "type": "string",
+                    "example": "skyrizi"
+                  },
+                  "source": {
+                    "type": "string",
+                    "example": "siteLocator"
+                  },
+                  "sortby": {
+                    "type": "string",
+                    "example": "city"
+                  },
+                  "searchText": {
+                    "type": "string",
+                    "example": "francis"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "SearchCenterResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "SUCCESS"
+          },
+          "statusCode": {
+            "type": "string",
+            "example": "200"
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "matchCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 5
+              },
+              "recordCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 10
+              },
+              "recordsReturned": {
+                "type": "integer",
+                "format": "int32",
+                "example": 3
+              },
+              "recordsFrom": {
+                "type": "integer",
+                "format": "int32",
+                "example": 1
+              }
+            }
+          },
+          "searchResponse": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "partyAccountName": {
+                  "type": "string",
+                  "example": "John Doe"
+                },
+                "partyInternalid": {
+                  "type": "string",
+                  "example": "12345"
+                },
+                "partyAccountid": {
+                  "type": "string",
+                  "example": "67890"
+                },
+                "product": {
+                  "type": "string",
+                  "example": "skyrizi"
+                },
+                "address": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "address1": {
+                        "type": "string",
+                        "example": "123 Main St"
+                      },
+                      "address2": {
+                        "type": "string",
+                        "example": "Apt 4B"
+                      },
+                      "state": {
+                        "type": "string",
+                        "example": "Glendale"
+                      },
+                      "city": {
+                        "type": "string",
+                        "example": "California"
+                      },
+                      "zip": {
+                        "type": "string",
+                        "example": "91210"
+                      },
+                      "stateAbbr": {
+                        "type": "string",
+                        "example": "US"
+                      },
+                      "geoCoordinates": {
+                        "type": "object",
+                        "properties": {
+                          "longitude": {
+                            "type": "string",
+                            "example": "-118.2565"
+                          },
+                          "latitude": {
+                            "type": "string",
+                            "example": "34.1446"
+                          },
+                          "searchRadius": {
+                            "type": "string",
+                            "example": "25"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "contacts": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "contact_info": {
+                        "type": "string",
+                        "example": "123-456-7890"
+                      },
+                      "fax": {
+                        "type": "string",
+                        "example": "123-456-7891"
+                      },
+                      "website": {
+                        "type": "string",
+                        "example": "https://example.com"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "contact@example.com"
+                      }
+                    }
+                  }
+                },
+                "searchCenters": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "centerName": {
+                        "type": "string",
+                        "example": "Center A"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "errors": {
+            "type": "object",
+            "nullable": true
+          }
+        }
+      },
+      "InfusionCenterRequest": {
+        "type": "object",
+        "properties": {
+          "searchText": {
+            "type": "string",
+            "example": "francis"
+          },
+          "source": {
+            "type": "string",
+            "example": "DalvanceInfusionCenter"
+          }
+        }
+      },
+      "InfusionCenterResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "SUCCESS"
+          },
+          "statusCode": {
+            "type": "string",
+            "example": "200"
+          },
+          "infusionCenters": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "centerName": {
+                  "type": "string",
+                  "example": "OPTION CARE AT LEGACY HEALTH"
+                }
+              }
+            }
+          },
+          "resultMetadata": {
+            "type": "object",
+            "properties": {
+              "matchCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 3
+              }
+            }
+          },
+          "errors": {
+            "type": "object",
+            "nullable": true
+          }
+        }
+      },
+      "InfusionCenterSearchRequest": {
+        "type": "object",
+        "properties": {
+          "centerName": {
+            "type": "string",
+            "example": "OPTION CARE AT LEGACY HEALTH"
+          },
+          "city": {
+            "type": "string",
+            "example": "PORTLAND"
+          },
+          "state": {
+            "type": "string",
+            "example": "OR"
+          },
+          "zipcode": {
+            "type": "string",
+            "example": "97224"
+          },
+          "longitude": {
+            "type": "string",
+            "example": "-122.7496802"
+          },
+          "latitude": {
+            "type": "string",
+            "example": "45.4015624"
+          },
+          "distance": {
+            "type": "string",
+            "example": "0"
+          },
+          "source": {
+            "type": "string",
+            "example": "DalvanceInfusionCenter"
+          }
+        }
+      },
+      "InfusionCenterSearchResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "SUCCESS"
+          },
+          "statusCode": {
+            "type": "string",
+            "example": "200"
+          },
+          "infusionData": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "centerName": {
+                  "type": "string",
+                  "example": "OPTION CARE AT LEGACY HEALTH"
+                },
+                "internalId": {
+                  "type": "string",
+                  "example": "37040"
+                },
+                "accountId": {
+                  "type": "string",
+                  "example": "2113197820"
+                },
+                "accountName": {
+                  "type": "string",
+                  "example": "OPTION CARE AT LEGACY HEALTH"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "123-456-7890"
+                },
+                "fax": {
+                  "type": "string",
+                  "example": "123-456-7891"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "contact@example.com"
+                },
+                "web": {
+                  "type": "string",
+                  "example": "https://example.com"
+                },
+                "type": {
+                  "type": "string",
+                  "example": "ROOFTOP"
+                },
+                "distance": {
+                  "type": "string",
+                  "example": "0"
+                },
+                "locationData": {
+                  "type": "object",
+                  "properties": {
+                    "longitude": {
+                      "type": "string",
+                      "example": "-122.7496802"
+                    },
+                    "latitude": {
+                      "type": "string",
+                      "example": "45.4015624"
+                    },
+                    "address1": {
+                      "type": "string",
+                      "example": "16195 SW 72ND AVE"
+                    },
+                    "address2": {
+                      "type": "string",
+                      "example": "Apt 4B"
+                    },
+                    "city": {
+                      "type": "string",
+                      "example": "PORTLAND"
+                    },
+                    "state": {
+                      "type": "string",
+                      "example": "OR"
+                    },
+                    "zip": {
+                      "type": "string",
+                      "example": "97224"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "resultMetadata": {
+            "type": "object",
+            "properties": {
+              "matchCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 3
+              }
+            }
+          },
+          "errors": {
+            "type": "object",
+            "nullable": true
+          }
+        }
+      },
+      "InvalidRequestResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 400
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "matchCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0
+              },
+              "recordCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 10
+              },
+              "recordsReturned": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0
+              },
+              "recordsFrom": {
+                "type": "integer",
+                "format": "int32",
+                "example": 1
+              }
+            }
+          },
+          "searchResponse": {
+            "type": "object",
+            "nullable": true
+          },
+          "errors": {
+            "properties": {
+              "errorId": {
+                "type": "string",
+                "example": "NO_RECORD_FOUND"
+              },
+              "errorCode": {
+                "type": "string",
+                "example": "10009"
+              },
+              "errorMessage": {
+                "type": "string",
+                "example": "No data found for the given data."
+              }
+            }
+          }
+        }
+      },
+      "BadRequestResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 400
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "matchCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0
+              },
+              "recordCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 10
+              },
+              "recordsReturned": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0
+              },
+              "recordsFrom": {
+                "type": "integer",
+                "format": "int32",
+                "example": 1
+              }
+            }
+          },
+          "searchResponse": {
+            "type": "object",
+            "nullable": true
+          },
+          "errors": {
+            "properties": {
+              "errorId": {
+                "type": "string",
+                "example": "BAD_REQUEST"
+              },
+              "errorCode": {
+                "type": "string",
+                "example": "10006"
+              },
+              "errorMessage": {
+                "type": "string",
+                "example": "Invalid combination of parameters."
+              }
+            }
+          }
+        }
+      },
+      "UnauthorizedResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 401
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "matchCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0
+              },
+              "recordCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 10
+              },
+              "recordsReturned": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0
+              },
+              "recordsFrom": {
+                "type": "integer",
+                "format": "int32",
+                "example": 1
+              }
+            }
+          },
+          "searchResponse": {
+            "type": "object",
+            "nullable": true
+          },
+          "errors": {
+            "properties": {
+              "errorId": {
+                "type": "string",
+                "example": "UNAUTHORIZED"
+              },
+              "errorCode": {
+                "type": "string",
+                "example": "10015"
+              },
+              "errorMessage": {
+                "type": "string",
+                "example": "Invalid credentials"
+              }
+            }
+          }
+        }
+      },
+      "ForbiddenResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 403
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "matchCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0
+              },
+              "recordCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 10
+              },
+              "recordsReturned": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0
+              },
+              "recordsFrom": {
+                "type": "integer",
+                "format": "int32",
+                "example": 1
+              }
+            }
+          },
+          "searchResponse": {
+            "type": "object",
+            "nullable": true
+          },
+          "errors": {
+            "properties": {
+              "errorId": {
+                "type": "string",
+                "example": "FORBIDDEN"
+              },
+              "errorCode": {
+                "type": "string",
+                "example": "10017"
+              },
+              "errorMessage": {
+                "type": "string",
+                "example": "You do not have permission to access this resource."
+              }
+            }
+          }
+        }
+      },
+      "ResourceNotFoundResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 404
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "matchCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0
+              },
+              "recordCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 10
+              },
+              "recordsReturned": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0
+              },
+              "recordsFrom": {
+                "type": "integer",
+                "format": "int32",
+                "example": 1
+              }
+            }
+          },
+          "searchResponse": {
+            "type": "object",
+            "nullable": true
+          },
+          "errors": {
+            "properties": {
+              "errorId": {
+                "type": "string",
+                "example": "NOT_FOUND"
+              },
+              "errorCode": {
+                "type": "string",
+                "example": "10016"
+              },
+              "errorMessage": {
+                "type": "string",
+                "example": "The resources you are looking for does not exist."
+              }
+            }
+          }
+        }
+      },
+      "InternalServerErrorResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 500
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "matchCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0
+              },
+              "recordCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 10
+              },
+              "recordsReturned": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0
+              },
+              "recordsFrom": {
+                "type": "integer",
+                "format": "int32",
+                "example": 1
+              }
+            }
+          },
+          "searchResponse": {
+            "type": "object",
+            "nullable": true
+          },
+          "errors": {
+            "properties": {
+              "errorId": {
+                "type": "string",
+                "example": "SERVER_ERROR"
+              },
+              "errorCode": {
+                "type": "string",
+                "example": "10001"
+              },
+              "errorMessage": {
+                "type": "string",
+                "example": "Server Error"
+              }
+            }
+          }
+        }
+      },
+      "InvalidRequestResp": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 400
+          },
+          "infusionData": {
+            "type": "object",
+            "nullable": true
+          },
+          "resultMetadata": {
+            "type": "object",
+            "properties": {
+              "matchCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0
+              }
+            }
+          },
+          "errors": {
+            "properties": {
+              "errorId": {
+                "type": "string",
+                "example": "NO_RECORD_FOUND"
+              },
+              "errorCode": {
+                "type": "string",
+                "example": "10009"
+              },
+              "errorMessage": {
+                "type": "string",
+                "example": "No data found for the searched text."
+              }
+            }
+          }
+        }
+      },
+      "BadRequestResp": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 400
+          },
+          "infusionData": {
+            "type": "object",
+            "nullable": true
+          },
+          "resultMetadata": {
+            "type": "object",
+            "properties": {
+              "matchCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0
+              }
+            }
+          },
+          "errors": {
+            "properties": {
+              "errorId": {
+                "type": "string",
+                "example": "BAD_REQUEST"
+              },
+              "errorCode": {
+                "type": "string",
+                "example": "10006"
+              },
+              "errorMessage": {
+                "type": "string",
+                "example": "Invalid combination of parameters."
+              }
+            }
+          }
+        }
+      },
+      "UnauthorizedResp": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 401
+          },
+          "infusionData": {
+            "type": "object",
+            "nullable": true
+          },
+          "resultMetadata": {
+            "type": "object",
+            "properties": {
+              "matchCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0
+              }
+            }
+          },
+          "errors": {
+            "properties": {
+              "errorId": {
+                "type": "string",
+                "example": "UNAUTHORIZED"
+              },
+              "errorCode": {
+                "type": "string",
+                "example": "10015"
+              },
+              "errorMessage": {
+                "type": "string",
+                "example": "Invalid credentials"
+              }
+            }
+          }
+        }
+      },
+      "ForbiddenResp": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 403
+          },
+          "infusionData": {
+            "type": "object",
+            "nullable": true
+          },
+          "resultMetadata": {
+            "type": "object",
+            "properties": {
+              "matchCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0
+              }
+            }
+          },
+          "errors": {
+            "properties": {
+              "errorId": {
+                "type": "string",
+                "example": "FORBIDDEN"
+              },
+              "errorCode": {
+                "type": "string",
+                "example": "10017"
+              },
+              "errorMessage": {
+                "type": "string",
+                "example": "You do not have permission to access this resource."
+              }
+            }
+          }
+        }
+      },
+      "ResourceNotFoundResp": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 404
+          },
+          "infusionData": {
+            "type": "object",
+            "nullable": true
+          },
+          "resultMetadata": {
+            "type": "object",
+            "properties": {
+              "matchCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0
+              }
+            }
+          },
+          "errors": {
+            "properties": {
+              "errorId": {
+                "type": "string",
+                "example": "NOT_FOUND"
+              },
+              "errorCode": {
+                "type": "string",
+                "example": "10016"
+              },
+              "errorMessage": {
+                "type": "string",
+                "example": "The resources you are looking for does not exist."
+              }
+            }
+          }
+        }
+      },
+      "InternalServerErrorResp": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ERROR",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "example": 500
+          },
+          "infusionData": {
+            "type": "object",
+            "nullable": true
+          },
+          "resultMetadata": {
+            "type": "object",
+            "properties": {
+              "matchCount": {
+                "type": "integer",
+                "format": "int32",
+                "example": 0
+              }
+            }
+          },
+          "errors": {
+            "properties": {
+              "errorId": {
+                "type": "string",
+                "example": "SERVER_ERROR"
+              },
+              "errorCode": {
+                "type": "string",
+                "example": "10001"
+              },
+              "errorMessage": {
+                "type": "string",
+                "example": "Server Error"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,968 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Contact Executive Service",
+    "description": "The Contact Executive service provides functionality to contact an Account Executive",
+        "x-metadata":{
+           "capability": "EXPERIENCE API",
+           "tags":["active", "experience"]
+  },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://contactexecutive-v1-app-p.aws-k8s.abbvienet.com",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Contact an Account Executive",
+      "description": "Contact Executive Controller"
+    }
+  ],
+  "paths": {
+    "/api/v1/contact-exec/requestARep": {
+      "post": {
+        "tags": [
+          "Contact an Account Executive"
+        ],
+        "summary": "API to Request a Representative - eRAR1.1",
+        "description": "Check the 'Schema' tab next to the 'Example Value' tab under the 'Request body' section. Make sure to provide all neccessary details to get the success response.",
+        "operationId": "contactExecutiveRAR",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnterpriseRarRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "500": {
+            "description": "Internal Server Error - Unexcepted error occurred on the server side.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                },
+                "example": {
+                  "responseCode": "500",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "SERVER_ERROR",
+                      "code": "10001",
+                      "message": "An unexcepted error occurred on the server."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                },
+                "examples": {
+                  "Empty First Name": {
+                    "description": "Empty First Name",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "First name must not be empty"
+                        }
+                      ]
+                    }
+                  },
+                  "Empty Last Name": {
+                    "description": "Empty Last Name",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "Last name must not be empty"
+                        }
+                      ]
+                    }
+                  },
+                  "Empty Email": {
+                    "description": "Empty Email",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "Email must not be empty"
+                        }
+                      ]
+                    }
+                  },
+                  "Null Address": {
+                    "description": "Null Address",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "Address details must not be null"
+                        }
+                      ]
+                    }
+                  },
+                  "Empty Zipcode": {
+                    "description": "Empty Zipcode",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "Zipcode must not be empty"
+                        }
+                      ]
+                    }
+                  },
+                  "Empty Npi": {
+                    "description": "Empty Npi",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "NPI must not be empty"
+                        }
+                      ]
+                    }
+                  },
+                  "Empty Product Name": {
+                    "description": "Empty Product Name",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "Product name must not be empty"
+                        }
+                      ]
+                    }
+                  },
+                  "Invalid parameter": {
+                    "description": "Invalid parameter",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "Invalid or missing parameter"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Request a Representative Successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContactExecResponse"
+                },
+                "example": {
+                  "responseCode": "200",
+                  "status": "SUCCESS"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - The requested resource could not be found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                },
+                "example": {
+                  "responseCode": "404",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "NOT_FOUND",
+                      "code": "10016",
+                      "message": "The requested resource could not be found."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication failed or user does not have permissions for the requested operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                },
+                "example": {
+                  "responseCode": "401",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "UNAUTHORIZED",
+                      "code": "10015",
+                      "message": "Authentication required or failed."
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/contact-exec/followUpRequest": {
+      "post": {
+        "tags": [
+          "Contact an Account Executive"
+        ],
+        "summary": "API to follow up a request",
+        "description": "Check the 'Schema' tab next to the 'Example Value' tab under the 'Request body' section. Make sure to provide all neccessary details to get the success response.",
+        "operationId": "followUpRequest",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FasRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "500": {
+            "description": "Internal Server Error - Unexcepted error occurred on the server side.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                },
+                "example": {
+                  "responseCode": "500",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "SERVER_ERROR",
+                      "code": "10001",
+                      "message": "An unexcepted error occurred on the server."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - The requested resource could not be found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                },
+                "example": {
+                  "responseCode": "404",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "NOT_FOUND",
+                      "code": "10016",
+                      "message": "The requested resource could not be found."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication failed or user does not have permissions for the requested operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                },
+                "example": {
+                  "responseCode": "401",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "UNAUTHORIZED",
+                      "code": "10015",
+                      "message": "Authentication required or failed."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                },
+                "examples": {
+                  "Empty Npi": {
+                    "description": "Empty Npi",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "NPI must not be empty"
+                        }
+                      ]
+                    }
+                  },
+                  "Empty First Name": {
+                    "description": "Empty First Name",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "First name must not be empty"
+                        }
+                      ]
+                    }
+                  },
+                  "Empty Last Name": {
+                    "description": "Empty Last Name",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "Last name must not be empty"
+                        }
+                      ]
+                    }
+                  },
+                  "Empty Speciality": {
+                    "description": "Empty Speciality",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "Speciality must not be empty"
+                        }
+                      ]
+                    }
+                  },
+                  "Empty Mode of Contact": {
+                    "description": "Empty Mode of Contact",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "Mode of contact must not be empty"
+                        }
+                      ]
+                    }
+                  },
+                  "Empty Product Name": {
+                    "description": "Empty Product Name",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "Product name must not be empty"
+                        }
+                      ]
+                    }
+                  },
+                  "Invalid parameter": {
+                    "description": "Invalid parameter",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "Invalid or missing parameter"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Follow up request successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContactExecResponse"
+                },
+                "example": {
+                  "responseCode": "200",
+                  "status": "SUCCESS"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/contact-exec/LeadCapture": {
+      "post": {
+        "tags": [
+          "Contact an Account Executive"
+        ],
+        "summary": "API to capture Lead Details",
+        "description": "Check the 'Schema' tab next to the 'Example Value' tab under the 'Request body' section. Make sure to provide all neccessary details to get the success response.",
+        "operationId": "contactExecutive",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContactExecRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Lead Details Captured Successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContactExecResponse"
+                },
+                "example": {
+                  "responseCode": "200",
+                  "status": "SUCCESS"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - Unexcepted error occurred on the server side.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                },
+                "example": {
+                  "responseCode": "500",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "SERVER_ERROR",
+                      "code": "10001",
+                      "message": "An unexcepted error occurred on the server."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                },
+                "examples": {
+                  "Empty First Name": {
+                    "description": "Empty First Name",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "First name must not be empty"
+                        }
+                      ]
+                    }
+                  },
+                  "Empty Last Name": {
+                    "description": "Empty Last Name",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "Last name must not be empty"
+                        }
+                      ]
+                    }
+                  },
+                  "Empty Email": {
+                    "description": "Empty Email",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "Email must not be empty"
+                        }
+                      ]
+                    }
+                  },
+                  "Invalid parameter": {
+                    "description": "Invalid parameter",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "Invalid or missing parameter"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - The requested resource could not be found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                },
+                "example": {
+                  "responseCode": "404",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "NOT_FOUND",
+                      "code": "10016",
+                      "message": "The requested resource could not be found."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication failed or user does not have permissions for the requested operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorDto"
+                },
+                "example": {
+                  "responseCode": "401",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "UNAUTHORIZED",
+                      "code": "10015",
+                      "message": "Authentication required or failed."
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Address": {
+        "required": [
+          "zipCode"
+        ],
+        "type": "object",
+        "properties": {
+          "line1": {
+            "type": "string",
+            "description": "Address line 1",
+            "example": "1276 W River St Ste 100"
+          },
+          "line2": {
+            "type": "string",
+            "description": "Address line 2",
+            "example": "Lane 6"
+          },
+          "city": {
+            "type": "string",
+            "description": "City name",
+            "example": "Boise"
+          },
+          "state": {
+            "type": "string",
+            "description": "State name",
+            "example": "ID"
+          },
+          "zipCode": {
+            "type": "string",
+            "description": "Zip code",
+            "example": "83702"
+          }
+        },
+        "description": "Address Details"
+      },
+      "EnterpriseRarRequest": {
+        "required": [
+          "address",
+          "emailAddress",
+          "firstName",
+          "lastName",
+          "npiNumber",
+          "productName"
+        ],
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "First Name",
+            "example": "Lindsey"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last Name",
+            "example": "Stenshoel"
+          },
+          "emailAddress": {
+            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$",
+            "type": "string",
+            "description": "Email Id",
+            "example": "noman.right@abbvie.com"
+          },
+          "nameOfPractice": {
+            "type": "string",
+            "description": "Practice Name",
+            "example": "Oncology"
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "Phone number",
+            "example": "76462646"
+          },
+          "npiNumber": {
+            "type": "string",
+            "description": "Npi number",
+            "example": "1659584324"
+          },
+          "reasonsForContact": {
+            "type": "string",
+            "description": "Reason for contact",
+            "example": "Consultation"
+          },
+          "modeOfContact": {
+            "type": "string",
+            "description": "Mode of contact",
+            "example": "Virtual"
+          },
+          "dayToContact": {
+            "type": "string",
+            "description": "Day to contact",
+            "example": "Saturday Jan 05"
+          },
+          "timeToContact": {
+            "type": "string",
+            "description": "Time to contact",
+            "example": "11:00 AM"
+          },
+          "combinedNotes": {
+            "type": "string",
+            "description": "Notes",
+            "example": "Sample Notes"
+          },
+          "speciality": {
+            "type": "string",
+            "description": "Speciality",
+            "example": "Dermatology"
+          },
+          "hcpId": {
+            "type": "string",
+            "description": "HCP id",
+            "example": "112123"
+          },
+          "productName": {
+            "type": "string",
+            "description": "Product name",
+            "example": "Humira"
+          },
+          "optIn": {
+            "type": "string",
+            "description": "Optin preference",
+            "example": "in"
+          },
+          "repFullName": {
+            "type": "string",
+            "description": "Representative full name",
+            "example": "Dwayane John"
+          }
+        }
+      },
+      "ErrorDto": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "string",
+            "enum": [
+              "BAD_REQUEST",
+              "CLIENT_ERROR",
+              "NO_RECORD_FOUND",
+              "SERVER_ERROR",
+              "HCP_NPI_ACID_NOT_FOUND_IN_MDM",
+              "HCP_RESTRICTIONS_NO_CALL_FLAG",
+              "HCP_RESTRICTIONS_DEA_REVOKED",
+              "HCP_IS_NOT_IN_ABS",
+              "HCP_IS_NOT_IN_APPROVED_PRODUCT",
+              "HCP_ZIP_NOT_ALIGNED_WITH_TERR",
+              "HCP_NOT_ALIGNED_WITH_CUST_SFA",
+              "REP_NOT_ALIGNED_WITH_TERR",
+              "DM_RM_NOT_WITH_TERR",
+              "IREP_LOAD_ERROR",
+              "EMAIL_EXCLUSION_ERROR",
+              "INVALID_EMAIL",
+              "EMAIL_CLIENT_ERROR"
+            ]
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "ContactExecResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status - success/failure",
+            "example": "Success",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          }
+        }
+      },
+      "FasRequest": {
+        "type": "object",
+        "properties": {
+          "acid": {
+            "type": "string",
+            "description": "Acid ID",
+            "example": "112124"
+          },
+          "npi": {
+            "type": "string",
+            "description": "Npi id",
+            "example": "1659584324"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First Name",
+            "example": "Lindsey"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last Name",
+            "example": "Stenshoel"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email Id",
+            "example": "noman.right@abbvie.com"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "Phone number",
+            "example": "76462646"
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "speciality": {
+            "type": "string",
+            "description": "Speciality",
+            "example": "Dermatology"
+          },
+          "modeOfContact": {
+            "type": "string",
+            "description": "Mode of contact",
+            "example": "Virtual"
+          },
+          "dayToContact": {
+            "type": "string",
+            "description": "Day to contact",
+            "example": "Saturday Jan 05"
+          },
+          "timeToContact": {
+            "type": "string",
+            "description": "Time to contact",
+            "example": "11:00 AM"
+          },
+          "productName": {
+            "type": "string",
+            "description": "Product name",
+            "example": "Humira"
+          },
+          "requestor": {
+            "type": "string",
+            "description": "Requestor"
+          },
+          "optIn": {
+            "type": "boolean",
+            "description": "Optin choice",
+            "example": true
+          }
+        }
+      },
+      "ContactExecRequest": {
+        "required": [
+          "email",
+          "first_name",
+          "last_name"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "Email Id",
+            "example": "LindseyStenshoel@Mail.Com"
+          },
+          "city": {
+            "type": "string",
+            "description": "City",
+            "example": "Boise"
+          },
+          "zip": {
+            "type": "string",
+            "description": "Zip code",
+            "example": "26640"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number",
+            "example": "96462352"
+          },
+          "interest": {
+            "type": "string",
+            "description": "Interest",
+            "example": "Interest1"
+          },
+          "first_name": {
+            "type": "string",
+            "description": "First Name",
+            "example": "Lindsey"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "Last Name",
+            "example": "Stenshoel"
+          },
+          "institution_name": {
+            "type": "string",
+            "description": "Institution name",
+            "example": "MD Institute"
+          },
+          "address_line_1": {
+            "type": "string",
+            "description": "Address line1",
+            "example": "1276 W River St"
+          },
+          "address_line_2": {
+            "type": "string",
+            "description": "Address line1",
+            "example": "Lane 5"
+          },
+          "state_province_cd": {
+            "type": "string",
+            "description": "Province code",
+            "example": "MI"
+          },
+          "me_id": {
+            "type": "string",
+            "description": "ME Id",
+            "example": "12345"
+          },
+          "source_cd": {
+            "type": "string",
+            "description": "Source code",
+            "example": "CNP"
+          },
+          "client_id": {
+            "type": "string",
+            "description": "Client Id",
+            "example": "CL-1"
+          },
+          "origin_id": {
+            "type": "string",
+            "description": "Origin Id",
+            "example": "OR-1"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,27 +1,86 @@
-apis:
-  main:
-    root: ./openapi.yaml
 extends:
   - minimal
-rules:
-  operation-tag-defined: error
-  no-invalid-schema-examples: error
-  no-invalid-media-type-examples: error
-  scalar-property-missing-example: error
-  rule/operation-summary-sentence-case:
-    subject:
-      type: Operation
-      property: summary
-    message: Operation summary must be sentence cased.
-    assertions:
-      pattern: /^([A-Z]{2,}|[A-Z][^A-Z]*)\b(\s+(?:[A-Z]{2,}|[^A-Z]*)\b)*$/ # Sentence case but allow acronyms
-  rule/example-summary-sentence-case:
-    subject:
-      type: Example
-      property: summary
-    message: Example summary must be sentence cased.
-    assertions:
-      pattern: /^([A-Z]{2,}|[A-Z][^A-Z]*)\b(\s+(?:[A-Z]{2,}|[^A-Z]*)\b)*$/ # Sentence case but allow acronyms
 
-ignore:
-  - .github
+links:
+  - href: https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap
+  - href: https://fonts.googleapis.com/css2?family=VT323&display=swap
+  - href: https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap
+
+seo:
+  title: SyncX Platform
+  description: The Integration Modernization project is a strategic initiative aimed at upgrading our current integration platform to enhance overall operational efficiency and agility.
+
+# >>> Authentication & access (preferred, modern format)
+# access:
+  # requiresLogin: true            # make entire portal private
+  # sso:
+  #   - CORPORATE                  # use the CORPORATE IdP you added in Reunite
+  # Optional: send users here after logout (e.g., marketing site)
+  # logoutReturnUrl: https://example.yourcompany.com
+  
+  # rbac:
+  #   content:
+  #     # Make only your custom login page public:
+  #     "apps/login/index.page.tsx":
+  #       anonymous: read
+
+  #     # Everything else requires auth:
+  #     "**":
+  #       authenticated: read
+
+navbar:
+  items:
+    - page: /
+      label: Home
+    - page: apps/architecture/index.page.tsx
+      label: Architecture
+    - page: apps/service-offerings/index.page.tsx
+      label: Service Offerings
+    - page: /catalog/
+      label: API Catalog
+    - group: Knowledge Base
+      items:
+        - page: /apps/resources/support-links
+          label: Resources
+        - page: /apps/resources/domain-models
+          label: Domain Model
+        - page: /apps/resources/tools-technologies
+          label: Tools/Technologies
+        - page: /apps/resources/use-cases
+          label: Use Cases
+    - group: Support
+      items:
+        - page: /apps/support/contact-us
+          label: Contact Us
+
+markdown:
+  toc:
+    depth: 2
+
+logo:
+  image: /apps/images/logo.png
+  link: /
+
+reunite:
+  ignoreLint: true
+  ignoreLinkChecker: true
+
+catalogClassic:
+  simple-catalog:
+    slug: /catalog/
+    items:
+      - directory: ./
+        flatten: true
+        includeByMetadata:
+          type: [openapi]
+    filters:
+      - title: Service Category
+        property: capability
+        missingCategoryName: Other
+        type: select
+      - title: API Status
+        property: tags
+        options: [active, core, experience, deprecated]
+        type: checkboxes
+    groupByFirstFilter: true
+    filterValuesCasing: uppercase

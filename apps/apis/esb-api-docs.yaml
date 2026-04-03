@@ -1,0 +1,284 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ESB API",
+    "description": "The API provides functionality for capturing esb details based on incoming validated request.",
+        "x-metadata":{
+           "capability": "EXPERIENCE API",
+           "tags":["active", "experience"]
+  },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://esb-v1-app-p.aws-k8s.abbvienet.com",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/api/v1/esb": {
+      "post": {
+        "tags": [
+          "ESB"
+        ],
+        "summary": "Capture esb details",
+        "description": "Receive esb details based on validated request",
+        "operationId": "esbCapture",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EsbRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request - Validation error or invalid input provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorId": "BAD_REQUEST",
+                      "errorCode": "10001",
+                      "errorMessage": "Invalid input."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Successfully captured ONETRUST ESB details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EsbResponse"
+                },
+                "example": {
+                  "status": "SUCCESS",
+                  "statusCode": "200",
+                  "errors": []
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - The requested resource could not be found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "timestamp": "2024-08-28T15:00:30.115+0000",
+                  "status": 404,
+                  "error": "Not Found",
+                  "message": "No message available",
+                  "path": "/api/v1/esb"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - Unexcepted error occurred on the server side.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "INTERNAL_SERVER_ERROR",
+                  "errors": [
+                    {
+                      "errorId": "SERVER_ERROR",
+                      "errorCode": "10001",
+                      "errorMessage": "Server Error"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication failed or user does not have permissions for the requested operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorId": "UNAUTHORIZED_ERROR",
+                      "errorCode": "10001",
+                      "errorMessage": "UNAUTHORIZED Error"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EsbRequest": {
+        "required": [
+          "identifier"
+        ],
+        "type": "object",
+        "properties": {
+          "identifier": {
+            "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$",
+            "type": "string",
+            "description": "HCP Identifier",
+            "example": "useresbtestmulti102@abbvie.com"
+          },
+          "parentIdentifier": {
+            "type": "string",
+            "description": "HCP Parent Identifier",
+            "example": "123455322"
+          },
+          "eventDetails": {
+            "$ref": "#/components/schemas/EventDetails"
+          },
+          "origin": {
+            "type": "string",
+            "description": "HCP Origin",
+            "example": "AEM"
+          },
+          "source": {
+            "type": "string",
+            "description": "HCP Source",
+            "example": "ONE_TRUST"
+          }
+        }
+      },
+      "EventDetails": {
+        "required": [
+          "dataCollectionPointId",
+          "dataCollectionPointName",
+          "dataSubjectId",
+          "eventId",
+          "eventTime"
+        ],
+        "type": "object",
+        "properties": {
+          "eventId": {
+            "type": "string",
+            "description": "HCP Event Id",
+            "example": "e122bd48-a075-4325-b447-2d1b8b40145d"
+          },
+          "eventTime": {
+            "type": "string",
+            "description": "HCP Event Time",
+            "example": "2024-06-12T13:37:13Z"
+          },
+          "dataSubjectId": {
+            "type": "string",
+            "description": "HCP Data Subject Id",
+            "example": "2eab0965-6038-4e4cae7e-69e3ebd7305f"
+          },
+          "dataCollectionPointId": {
+            "type": "string",
+            "description": "HCP Data Collection Point Id",
+            "example": "90f9b854-98cd-4707-ba45-cb8a18468ede"
+          },
+          "dataCollectionPointName": {
+            "type": "string",
+            "description": "HCP Data Collection Point Name",
+            "example": "NA"
+          }
+        },
+        "description": "HCP Event Details"
+      },
+      "ErrorDto": {
+        "type": "object",
+        "properties": {
+          "errorId": {
+            "type": "string",
+            "enum": [
+              "SERVER_ERROR",
+              "BAD_REQUEST",
+              "CLIENT_ERROR",
+              "INVALID_NPI",
+              "INVALID_EMAIL",
+              "EMAIL_CLIENT_ERROR",
+              "TRIGGER_EMAIL_CLIENT_ERROR",
+              "OPT_IN_CLIENT_ERROR",
+              "INVALID_USER_ID",
+              "NO_RECORD_FOUND",
+              "HCP_IS_NOT_IN_APPROVED_PRODUCT",
+              "DUPLICATE_ACID_AND_EMAIL"
+            ]
+          },
+          "errorCode": {
+            "type": "string"
+          },
+          "errorMessage": {
+            "type": "string"
+          }
+        }
+      },
+      "ErrorResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorDto"
+            }
+          }
+        }
+      },
+      "EsbResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "The textual status of the operation.",
+            "example": "BAD_REQUEST",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "string",
+            "description": "The status code of the operation.",
+            "example": "400"
+          },
+          "errors": {
+            "type": "array",
+            "description": "Error Details.",
+            "items": {
+              "$ref": "#/components/schemas/ErrorDto"
+            }
+          }
+        }
+      }
+    }
+  }
+}

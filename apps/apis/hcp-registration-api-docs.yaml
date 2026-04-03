@@ -1,0 +1,1458 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Hcp Registration",
+    "description": "The Hcp Registration API provides functionality for registering HCPs, checking if a profile already exists and update their profile details.",
+        "x-metadata":{
+           "capability": "EXPERIENCE API",
+           "tags":["active", "experience"]
+  },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://hcp-registration-v1-app-p.aws-k8s.abbvienet.com",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "HCP Registration",
+      "description": "HCP Registration Controller"
+    }
+  ],
+  "paths": {
+    "/api/v1/user": {
+      "put": {
+        "tags": [
+          "HCP Registration"
+        ],
+        "summary": "API to update the user profile",
+        "description": "Check the 'Schema' tab next to the 'Example Value' tab under the 'Request body' section. Make sure to provide all neccessary details to get the success response.",
+        "operationId": "updateProfile",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "strictPasswordCheck",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProfileRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Profile details fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateProfileResponse"
+                },
+                "example": {
+                  "responseCode": "200",
+                  "userSessionId": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "400",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "BAD_REQUEST",
+                      "code": "10002",
+                      "message": "Invalid or missing parameter"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - Unexcepted error occurred on the server side.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "500",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "SERVER_ERROR",
+                      "code": "10001",
+                      "message": "An unexcepted error occurred on the server."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - The requested resource could not be found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "404",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "NOT_FOUND",
+                      "code": "10016",
+                      "message": "The requested resource could not be found."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication failed or user does not have permissions for the requested operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "401",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "UNAUTHORIZED",
+                      "code": "10015",
+                      "message": "Authentication required or failed."
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/updateProfile": {
+      "post": {
+        "tags": [
+          "HCP Registration"
+        ],
+        "summary": "API to update the user profile details while creating iRep task",
+        "description": "Check the 'Schema' tab next to the 'Example Value' tab under the 'Request body' section. Make sure to provide all neccessary details to get the success response.",
+        "operationId": "iRepProfileUpdate",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProfileIRepRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Profile details updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfileResponse"
+                },
+                "example": {
+                  "responseCode": "200",
+                  "firstName": "string",
+                  "lastName": "string",
+                  "phone": "string",
+                  "phoneExtension": "string",
+                  "fax": "string",
+                  "practice": {
+
+                  },
+                  "speciality": {
+
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "400",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "BAD_REQUEST",
+                      "code": "10002",
+                      "message": "Invalid or missing parameter"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - Unexcepted error occurred on the server side.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "500",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "SERVER_ERROR",
+                      "code": "10001",
+                      "message": "An unexcepted error occurred on the server."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - The requested resource could not be found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "404",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "NOT_FOUND",
+                      "code": "10016",
+                      "message": "The requested resource could not be found."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication failed or user does not have permissions for the requested operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "401",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "UNAUTHORIZED",
+                      "code": "10015",
+                      "message": "Authentication required or failed."
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/register": {
+      "post": {
+        "tags": [
+          "HCP Registration"
+        ],
+        "summary": "API to register an HCP details",
+        "description": "Check the 'Schema' tab next to the 'Example Value' tab under the 'Request body' section. Make sure to provide all neccessary details to get the success response.",
+        "operationId": "hcpRegistration",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HcpRegistrationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request - Invalid or missing parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "examples": {
+                  "Empty First Name": {
+                    "description": "Empty First Name",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "First name must not be empty"
+                        }
+                      ]
+                    }
+                  },
+                  "Empty Last Name": {
+                    "description": "Empty Last Name",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "Last name must not be empty"
+                        }
+                      ]
+                    }
+                  },
+                  "Empty Email": {
+                    "description": "Empty Email",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "Email must not be empty"
+                        }
+                      ]
+                    }
+                  },
+                  "Empty Brand": {
+                    "description": "Empty Brand",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "Brand must not be empty"
+                        }
+                      ]
+                    }
+                  },
+                  "Empty Source": {
+                    "description": "Empty Source",
+                    "value": {
+                      "responseCode": "400",
+                      "status": "ERROR",
+                      "errors": [
+                        {
+                          "errorCode": "BAD_REQUEST",
+                          "code": "10002",
+                          "message": "Source must not be empty"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "HCP Details saved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HcpRegistrationResponse"
+                },
+                "example": {
+                  "responseCode": "200",
+                  "status": "SUCCESS"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - Unexcepted error occurred on the server side.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "500",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "SERVER_ERROR",
+                      "code": "10001",
+                      "message": "An unexcepted error occurred on the server."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - The requested resource could not be found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "404",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "NOT_FOUND",
+                      "code": "10016",
+                      "message": "The requested resource could not be found."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication failed or user does not have permissions for the requested operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "401",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "UNAUTHORIZED",
+                      "code": "10015",
+                      "message": "Authentication required or failed."
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/profile": {
+      "post": {
+        "tags": [
+          "HCP Registration"
+        ],
+        "summary": "API to fetch the user profile details",
+        "description": "Check the 'Schema' tab next to the 'Example Value' tab under the 'Request body' section. Make sure to provide all neccessary details to get the success response.",
+        "operationId": "getProfile",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserProfileRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Profile details fetched successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfileResponse"
+                },
+                "example": {
+                  "responseCode": "200",
+                  "firstName": "string",
+                  "lastName": "string",
+                  "phone": "string",
+                  "phoneExtension": "string",
+                  "fax": "string",
+                  "practice": {
+
+                  },
+                  "speciality": {
+
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "400",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "BAD_REQUEST",
+                      "code": "10002",
+                      "message": "Invalid or missing parameter"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - Unexcepted error occurred on the server side.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "500",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "SERVER_ERROR",
+                      "code": "10001",
+                      "message": "An unexcepted error occurred on the server."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - The requested resource could not be found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "404",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "NOT_FOUND",
+                      "code": "10016",
+                      "message": "The requested resource could not be found."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication failed or user does not have permissions for the requested operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "401",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "UNAUTHORIZED",
+                      "code": "10015",
+                      "message": "Authentication required or failed."
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/exists": {
+      "get": {
+        "tags": [
+          "HCP Registration"
+        ],
+        "summary": "API to check if the user already exists",
+        "description": "Make sure to provide all neccessary details to get the success response.",
+        "operationId": "userValidation",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Profile exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidateUserResponse"
+                },
+                "example": {
+                  "responseCode": "200",
+                  "profile": {
+                    "firstName": "string",
+                    "lastName": "string",
+                    "groups": [
+                      "00g1ue600xXHRNHWLOPD"
+                    ]
+                  },
+                  "isUserExists": true,
+                  "isValidEmail": false
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Invalid or missing parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "400",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "BAD_REQUEST",
+                      "code": "10002",
+                      "message": "Invalid or missing parameter"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - Unexcepted error occurred on the server side.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "500",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "SERVER_ERROR",
+                      "code": "10001",
+                      "message": "An unexcepted error occurred on the server."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - The requested resource could not be found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "404",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "NOT_FOUND",
+                      "code": "10016",
+                      "message": "The requested resource could not be found."
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication failed or user does not have permissions for the requested operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "responseCode": "401",
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "UNAUTHORIZED",
+                      "code": "10015",
+                      "message": "Authentication required or failed."
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Password": {
+        "required": [
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "Value of the Password",
+            "example": "Abbv@!2020"
+          }
+        },
+        "description": "New password details of the user"
+      },
+      "UpdateProfileRequest": {
+        "required": [
+          "newPassword",
+          "oldPassword",
+          "userSessionId"
+        ],
+        "type": "object",
+        "properties": {
+          "userSessionId": {
+            "type": "string",
+            "description": "Session Id of the User for which update profile is requested",
+            "example": "102B95SWMskS1CWy5deol6THg"
+          },
+          "oldPassword": {
+            "$ref": "#/components/schemas/Password"
+          },
+          "newPassword": {
+            "$ref": "#/components/schemas/Password"
+          }
+        }
+      },
+      "UpdateProfileResponse": {
+        "type": "object",
+        "properties": {
+          "userSessionId": {
+            "type": "string",
+            "description": "Session Id",
+            "example": "1023j-foP3rTh6wmj2qBZBDJw"
+          }
+        }
+      },
+      "ErrorDto": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "string",
+            "enum": [
+              "SERVER_ERROR",
+              "BAD_REQUEST",
+              "CLIENT_ERROR",
+              "INVALID_NPI",
+              "INVALID_SOURCE",
+              "EMAIL_CLIENT_ERROR",
+              "NPI_CLIENT_ERROR",
+              "OPT_IN_CLIENT_ERROR",
+              "INVALID_USER_ID",
+              "INVALID_SESSION",
+              "INVALID_ECP_REGISTRATION_REQUEST_ALLERGEN_EYECARE",
+              "NO_RECORD_FOUND",
+              "INVALID_JUMPSTART_REQUEST",
+              "RAR_ERROR",
+              "HCP_NPI_ACID_NOT_FOUND_IN_MDM",
+              "HCP_RESTRICTIONS_NO_CALL_FLAG",
+              "HCP_RESTRICTIONS_DEA_REVOKED",
+              "HCP_IS_NOT_IN_ABS",
+              "HCP_IS_NOT_IN_APPROVED_PRODUCT",
+              "REP_NOT_ALIGNED_WITH_HCP_ZIP",
+              "DM_RM_NOT_WITH_TERR",
+              "IREP_LOAD_ERROR",
+              "TRIGGER_EMAIL_CLIENT_ERROR",
+              "ONETRUST_DISABLED",
+              "INVALID_EMAIL",
+              "EMAIL_EXCLUSION_ERROR",
+              "DUPLICATE_ACID_AND_EMAIL",
+              "DATABASE_CONNECTION_ERROR",
+              "LMS_DATA_ERROR",
+              "INVALID_LMS_AUTH_TOKEN"
+            ]
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "ErrorResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorDto"
+            }
+          }
+        }
+      },
+      "UpdateProfileIRepRequest": {
+        "required": [
+          "indication",
+          "individualNpi",
+          "userSessionId"
+        ],
+        "type": "object",
+        "properties": {
+          "userSessionId": {
+            "type": "string",
+            "description": "Session Id",
+            "example": "1029zIlllPrScO1sM27eblzVA"
+          },
+          "maxedgeUser": {
+            "type": "string",
+            "description": "Whether Maxedge User ?",
+            "example": "in"
+          },
+          "ctaId": {
+            "type": "string",
+            "description": "Id corresponding to the campaign",
+            "example": "CTA_1"
+          },
+          "individualNpi": {
+            "type": "string",
+            "description": "Individual Npi",
+            "example": "1306849450"
+          },
+          "indication": {
+            "type": "string",
+            "description": "Indication Name",
+            "example": "BOTOX_CM"
+          },
+          "modeOfContact": {
+            "type": "string",
+            "description": "Mode of Contact for the Rep",
+            "example": "eMail"
+          }
+        }
+      },
+      "Address": {
+        "type": "object",
+        "properties": {
+          "line1": {
+            "type": "string",
+            "description": "Address Line1",
+            "example": "1 st lane"
+          },
+          "line2": {
+            "type": "string",
+            "description": "Address Line2",
+            "example": "2nd lane"
+          },
+          "suite": {
+            "type": "string",
+            "description": "Suite Details",
+            "example": "99"
+          },
+          "city": {
+            "type": "string",
+            "description": "City Name",
+            "example": "Florida"
+          },
+          "state": {
+            "type": "string",
+            "description": "State Name",
+            "example": "TX"
+          },
+          "zip": {
+            "type": "string",
+            "description": "Zipcode Details",
+            "example": "83702"
+          }
+        },
+        "description": "Address of the Practice Place/Organisation"
+      },
+      "CdMap": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Code",
+            "example": "MO"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the Code",
+            "example": "Future Treatment"
+          }
+        },
+        "description": "HCP Specialty"
+      },
+      "PracticeDetails": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Practice Name",
+            "example": "OCD"
+          },
+          "placeOfService": {
+            "$ref": "#/components/schemas/CdMap"
+          },
+          "role": {
+            "$ref": "#/components/schemas/CdMap"
+          },
+          "locationName": {
+            "type": "string",
+            "description": "Location Name",
+            "example": "Texas"
+          },
+          "organizationNpi": {
+            "type": "string",
+            "description": "NPI of the Organisation",
+            "example": "1023011178"
+          },
+          "taxId": {
+            "type": "string",
+            "description": "Tax Id of the Organisation",
+            "example": "987210"
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number",
+            "example": "8489497"
+          },
+          "phoneExtension": {
+            "type": "string",
+            "description": "Phone Extension",
+            "example": "1143"
+          },
+          "fax": {
+            "type": "string",
+            "description": "Fax number",
+            "example": "9999999999"
+          },
+          "individualNpi": {
+            "type": "string",
+            "description": "Individual NPI number",
+            "example": "1023011178"
+          },
+          "maxedgeUser": {
+            "type": "string",
+            "description": "Maxedge User",
+            "example": "in"
+          },
+          "programs": {
+            "type": "object",
+            "properties": {
+              "program": {
+                "type": "string",
+                "description": "Primary Indication Program types",
+                "example": "[{\"program\":\"Maxedge\"}]"
+              }
+            },
+            "description": "List of program names",
+            "example": [
+              {
+                "program": "Maxedge"
+              },
+              {
+                "program": "Maxrite"
+              }
+            ]
+          },
+          "ctaId": {
+            "type": "string",
+            "description": "Id corresponding to the campaign",
+            "example": "CTA_1"
+          },
+          "roleType": {
+            "type": "string",
+            "description": "Role type",
+            "example": "Staff"
+          }
+        },
+        "description": "Practice Details"
+      },
+      "UserProfileResponse": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "Hcp First Name",
+            "example": "Lindsey"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "HCP Last Name",
+            "example": "Stenshoel"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number of the HCP",
+            "example": "+132324509"
+          },
+          "phoneExtension": {
+            "type": "string",
+            "description": "Phone extension",
+            "example": "3300"
+          },
+          "fax": {
+            "type": "string",
+            "description": "Fax number",
+            "example": "1111111111"
+          },
+          "brand": {
+            "type": "string",
+            "description": "Brand name",
+            "example": "Botox"
+          },
+          "indication": {
+            "type": "string",
+            "description": "Indication name",
+            "example": "BOTOX_CM"
+          },
+          "botoxInjector": {
+            "type": "string",
+            "description": "Botox Injector flag",
+            "example": "Yes"
+          },
+          "exposureId": {
+            "type": "string",
+            "description": "Exposure Id",
+            "example": "EXP-001"
+          },
+          "apiName": {
+            "type": "string",
+            "description": "Api name",
+            "example": "HCP"
+          },
+          "practice": {
+            "$ref": "#/components/schemas/PracticeDetails"
+          },
+          "speciality": {
+            "$ref": "#/components/schemas/CdMap"
+          }
+        }
+      },
+      "HcpRegistrationRequest": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "description": "Source",
+            "example": "BOTOX_PLUS"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "Hcp First Name",
+            "example": "Lindsey"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "HCP Last Name",
+            "example": "Stenshoel"
+          },
+          "npi": {
+            "type": "string",
+            "description": "HCP Npi id",
+            "example": "1023011178"
+          },
+          "acid": {
+            "type": "string",
+            "description": "HCP ACID id",
+            "example": "83702"
+          },
+          "email": {
+            "type": "string",
+            "description": "HCP Email Id",
+            "example": "n.k@abbvie.com"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number of the HCP",
+            "example": "+132324509"
+          },
+          "phoneExtension": {
+            "type": "string",
+            "description": "Phone extension",
+            "example": "3300"
+          },
+          "fax": {
+            "type": "string",
+            "description": "Fax number",
+            "example": "1111111111"
+          },
+          "brand": {
+            "type": "string",
+            "description": "Brand Name",
+            "example": "HUMIRA"
+          },
+          "designation": {
+            "type": "string",
+            "description": "Designation of the HCP",
+            "example": "OD"
+          },
+          "speciality": {
+            "$ref": "#/components/schemas/CdMap"
+          },
+          "practice": {
+            "$ref": "#/components/schemas/PracticeDetails"
+          },
+          "productDetails": {
+            "$ref": "#/components/schemas/ProductDetails"
+          },
+          "preference": {
+            "$ref": "#/components/schemas/Preferences"
+          },
+          "password": {
+            "type": "string",
+            "description": "Password",
+            "example": "RKNaidu@13901"
+          },
+          "botoxInjector": {
+            "type": "string",
+            "description": "Botox Injector",
+            "example": "enable"
+          },
+          "exposureId": {
+            "type": "string",
+            "description": "Exposure Id",
+            "example": "EXP-08777"
+          },
+          "apiName": {
+            "type": "string",
+            "description": "API Name",
+            "example": "HCP Registration"
+          },
+          "indication": {
+            "type": "string",
+            "description": "Brand Indication",
+            "example": "Botox_CM"
+          },
+          "rarDetails": {
+            "$ref": "#/components/schemas/RarDetails"
+          }
+        }
+      },
+      "Preferences": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "description": "Channel",
+            "example": "Email"
+          },
+          "frequency": {
+            "type": "string",
+            "description": "Frequence",
+            "example": "Daily"
+          },
+          "optIn": {
+            "type": "boolean",
+            "description": "Optin flag",
+            "example": true
+          }
+        },
+        "description": "Preferences of the HCP"
+      },
+      "ProductDetails": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Product Name",
+            "example": "HUMIRA"
+          },
+          "type": {
+            "type": "string",
+            "description": "Product Type",
+            "example": "IV"
+          },
+          "usageType": {
+            "type": "string",
+            "description": "Product Usage TYpe",
+            "example": "InUse"
+          },
+          "duration": {
+            "$ref": "#/components/schemas/TvMap"
+          },
+          "conditionsTreated": {
+            "uniqueItems": true,
+            "type": "array",
+            "description": "Conditions Treated",
+            "items": {
+              "$ref": "#/components/schemas/CdMap"
+            }
+          },
+          "futureTreatment": {
+            "uniqueItems": true,
+            "type": "array",
+            "description": "Future Treatment Details",
+            "items": {
+              "$ref": "#/components/schemas/CdMap"
+            }
+          },
+          "trainingRequired": {
+            "type": "string",
+            "description": "Trainings Required for this Product",
+            "example": "Train1"
+          }
+        },
+        "description": "Product Details"
+      },
+      "RarDetails": {
+        "type": "object",
+        "properties": {
+          "modeOfContact": {
+            "type": "string",
+            "description": "Mode Of Contact",
+            "example": "Email"
+          },
+          "repCategory": {
+            "type": "string",
+            "description": "Rep Category",
+            "example": "REP"
+          },
+          "salesforce": {
+            "$ref": "#/components/schemas/SalesForceDetails"
+          },
+          "franchise": {
+            "type": "string",
+            "description": "Franchise",
+            "example": "Humira"
+          },
+          "repFullName": {
+            "type": "string",
+            "description": "Representative FullName",
+            "example": "Lindsey Stanley"
+          },
+          "campaignId": {
+            "type": "string",
+            "description": "Campaign Id",
+            "example": "CMP1"
+          },
+          "optInText": {
+            "type": "string",
+            "description": "OptIn Text",
+            "example": "Opt Text sample"
+          },
+          "requestType": {
+            "type": "string",
+            "description": "Request Type",
+            "example": "REQUEST_A_REP"
+          },
+          "reasonsForContact": {
+            "type": "string",
+            "description": "Reasons For Contact",
+            "example": "To get Info"
+          },
+          "dayToContact": {
+            "type": "string",
+            "description": "Day To Contact",
+            "example": "Wednesday"
+          },
+          "timeToContact": {
+            "type": "string",
+            "description": "Time To Contact",
+            "example": "11:00"
+          },
+          "combinedNotes": {
+            "type": "string",
+            "description": "Combined Notes",
+            "example": "This is Sample Notes"
+          }
+        },
+        "description": "RAR Meta Details"
+      },
+      "SalesForceDetails": {
+        "type": "object",
+        "properties": {
+          "salesForceId": {
+            "type": "string",
+            "description": "SalesForce Id",
+            "example": "GRE1"
+          },
+          "priority": {
+            "type": "string",
+            "description": "Priority",
+            "example": "1"
+          }
+        },
+        "description": "List of Salesforce",
+        "example": [
+          {
+            "salesForceId": "GRE1",
+            "priority": "1"
+          }
+        ]
+      },
+      "TvMap": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Product Type",
+            "example": "Tablet"
+          },
+          "value": {
+            "type": "string",
+            "description": "Value of the product usage time period",
+            "example": "Month"
+          },
+          "description": {
+            "type": "string",
+            "description": "Value of the product usage time period",
+            "example": "Use only once"
+          }
+        },
+        "description": "Duration Details of the Product"
+      },
+      "HcpRegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Status - success/failure",
+            "example": "Success",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "string"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorDto"
+            }
+          }
+        }
+      },
+      "UserProfileRequest": {
+        "required": [
+          "userSessionId"
+        ],
+        "type": "object",
+        "properties": {
+          "userSessionId": {
+            "type": "string",
+            "description": "Session Id",
+            "example": "1023j-foP3rTh6wmj2qBZBDJw"
+          }
+        }
+      },
+      "Profile": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "First name of the HCP",
+            "example": "Lindsey"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Lastname of the HCP",
+            "example": "Gonzalez"
+          },
+          "groups": {
+            "type": "string",
+            "description": "List of all Groups which the HCP is part of",
+            "example": "[Group1, Group2]"
+          }
+        },
+        "description": "Profile detials of the user(if user exists)"
+      },
+      "ValidateUserResponse": {
+        "type": "object",
+        "properties": {
+          "profile": {
+            "$ref": "#/components/schemas/Profile"
+          },
+          "validEmail": {
+            "type": "boolean"
+          },
+          "userExists": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

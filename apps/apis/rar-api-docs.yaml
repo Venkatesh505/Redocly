@@ -1,0 +1,480 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "RAR",
+    "description": "This service provides the functionality to an HCP for requesting a representative.",
+        "x-metadata":{
+           "capability": "EXPERIENCE API",
+           "tags":["active", "experience"]
+  },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://rar-v1-app-p.aws-k8s.abbvienet.com",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Request a Representative",
+      "description": "Rar Controller"
+    }
+  ],
+  "paths": {
+    "/api/v1/rar/requestARep": {
+      "post": {
+        "tags": [
+          "Request a Representative"
+        ],
+        "summary": "Request a Representative - eRAR1.2",
+        "description": "Please refer to the 'Example Value' and 'Schema' tabs under the 'Request body' section below. The provided sample example request demonstrates the neccessary details required to obtain a successful response. Ensure that all required fields are accurately filled in.",
+        "operationId": "contactExecutiveRAR",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnterpriseRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "500": {
+            "$ref": "#/components/responses/InternalServerErrorResponse"
+          },
+          "200": {
+            "$ref": "#/components/responses/SuccessResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidRequestResponse"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedResponse"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EnterpriseRequest": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Doe"
+          },
+          "emailAddress": {
+            "type": "string",
+            "example": "john.doe@example.com"
+          },
+          "nameOfPractice": {
+            "type": "string",
+            "example": "The dacare Regional Cancer Center"
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "line1": {
+                "type": "string",
+                "example": "71 W 156th St Ste 401"
+              },
+              "line2": {
+                "type": "string",
+                "example": ""
+              },
+              "city": {
+                "type": "string",
+                "example": "Harvey"
+              },
+              "state": {
+                "type": "string",
+                "example": "IL"
+              },
+              "zipCode": {
+                "type": "string",
+                "example": "60426"
+              }
+            }
+          },
+          "phoneNumber": {
+            "type": "string",
+            "example": "123-456-7890"
+          },
+          "npiNumber": {
+            "type": "string",
+            "example": "1790722619"
+          },
+          "reasonsForContact": {
+            "type": "string",
+            "example": "CLL"
+          },
+          "modeOfContact": {
+            "type": "string",
+            "example": "Visit"
+          },
+          "dayToContact": {
+            "type": "string",
+            "example": ""
+          },
+          "timeToContact": {
+            "type": "string",
+            "example": ""
+          },
+          "combinedNotes": {
+            "type": "string",
+            "example": "Test Notes For Request a Peer"
+          },
+          "speciality": {
+            "type": "string",
+            "example": "none"
+          },
+          "hcpId": {
+            "type": "string",
+            "example": "542958"
+          },
+          "productName": {
+            "type": "string",
+            "example": "Venclexta"
+          },
+          "optIn": {
+            "type": "boolean",
+            "example": true
+          },
+          "repFullName": {
+            "type": "string",
+            "example": "Jane Smith"
+          },
+          "campaignId": {
+            "type": "string",
+            "example": "CAMP123"
+          },
+          "exposureId": {
+            "type": "string",
+            "example": "EXP123"
+          },
+          "channel": {
+            "type": "string",
+            "example": "Online"
+          },
+          "optInText": {
+            "type": "string",
+            "example": "I agree to receive updates"
+          },
+          "repCategory": {
+            "type": "string",
+            "example": "AE"
+          },
+          "salesforce": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "salesForceId": {
+                  "type": "string",
+                  "example": "ONH2"
+                },
+                "priority": {
+                  "type": "string",
+                  "example": "1"
+                }
+              }
+            }
+          },
+          "indication": {
+            "type": "string",
+            "example": ""
+          },
+          "requestType": {
+            "type": "string",
+            "example": "REQUEST_A_PEER"
+          },
+          "franchise": {
+            "type": "string",
+            "example": "Oncology"
+          },
+          "invokeMarketo": {
+            "type": "boolean",
+            "example": true
+          },
+          "trainingPrograms": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "program": {
+                  "type": "string",
+                  "example": "Maxedge"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "SuccessResponse": {
+        "description": "Success",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "SUCCESS"
+                },
+                "statusCode": {
+                  "type": "string",
+                  "example": "200"
+                },
+                "content": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "SUCCESS"
+                    }
+                  }
+                },
+                "errors": {
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "InvalidRequestResponse": {
+        "description": "Invalid or missing parameter",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "ERROR",
+                  "enum": [
+                    "SUCCESS",
+                    "ERROR"
+                  ]
+                },
+                "statusCode": {
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 400
+                },
+                "content": {
+                  "nullable": true
+                },
+                "errors": {
+                  "properties": {
+                    "errorCode": {
+                      "type": "string",
+                      "example": "NO_RECORD_FOUND"
+                    },
+                    "code": {
+                      "type": "string",
+                      "example": "10004"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Record not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "BadRequestResponse": {
+        "description": "Invalid or missing parameter",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "ERROR",
+                  "enum": [
+                    "SUCCESS",
+                    "ERROR"
+                  ]
+                },
+                "statusCode": {
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 400
+                },
+                "content": {
+                  "nullable": true
+                },
+                "errors": {
+                  "properties": {
+                    "errorCode": {
+                      "type": "string",
+                      "example": "BAD_REQUEST"
+                    },
+                    "code": {
+                      "type": "string",
+                      "example": "10002"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid parameter"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "UnauthorizedResponse": {
+        "description": "Unauthorized access",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "ERROR",
+                  "enum": [
+                    "SUCCESS",
+                    "ERROR"
+                  ]
+                },
+                "statusCode": {
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 401
+                },
+                "content": {
+                  "nullable": true
+                },
+                "errors": {
+                  "properties": {
+                    "errorCode": {
+                      "type": "string",
+                      "example": "UNAUTHORIZED"
+                    },
+                    "code": {
+                      "type": "string",
+                      "example": "10015"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Invalid credentials"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "ResourceNotFoundResponse": {
+        "description": "Resource not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "ERROR",
+                  "enum": [
+                    "SUCCESS",
+                    "ERROR"
+                  ]
+                },
+                "statusCode": {
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 404
+                },
+                "content": {
+                  "nullable": true
+                },
+                "errors": {
+                  "properties": {
+                    "errorCode": {
+                      "type": "string",
+                      "example": "NOT_FOUND"
+                    },
+                    "code": {
+                      "type": "string",
+                      "example": "10016"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "The resources you are looking for does not exist."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "InternalServerErrorResponse": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "ERROR",
+                  "enum": [
+                    "SUCCESS",
+                    "ERROR"
+                  ]
+                },
+                "statusCode": {
+                  "type": "integer",
+                  "format": "int32",
+                  "example": 500
+                },
+                "content": {
+                  "nullable": true
+                },
+                "errors": {
+                  "properties": {
+                    "errorCode": {
+                      "type": "string",
+                      "example": "SERVER_ERROR"
+                    },
+                    "code": {
+                      "type": "string",
+                      "example": "10001"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Server Error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

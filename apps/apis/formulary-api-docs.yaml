@@ -1,0 +1,304 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Formulary API Service",
+    "description": "This service provides the functionality to get the formulary data based on the various geo codes.",
+        "x-metadata":{
+           "capability": "EXPERIENCE API",
+           "tags":["active", "experience"]
+  },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://formulary-v1-app-p.aws-k8s.abbvienet.com",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Formulary Details",
+      "description": "Formulary Controller"
+    }
+  ],
+  "paths": {
+    "/api/v1/formulary/counties/{countyCode}/plans": {
+      "get": {
+        "tags": [
+          "Formulary Details"
+        ],
+        "summary": "To get Formulary Look Informations",
+        "description": "Please make sure to provide the 'countyCode', 'productIdentifier' and 'category' to receive a successful response.",
+        "operationId": "getFormularyInformation",
+        "parameters": [
+          {
+            "name": "countyCode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "WVPRE077,WYWES045"
+          },
+          {
+            "name": "productIdentifier",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "LOL123456,ALP123456"
+          },
+          {
+            "name": "recordCount",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "10"
+            }
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "Commercial,Managed Medicaid"
+          },
+          {
+            "name": "recordsFrom",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "1"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "$ref": "#/components/responses/401Response"
+          },
+          "404": {
+            "$ref": "#/components/responses/404Response"
+          },
+          "500": {
+            "$ref": "#/components/responses/500Response"
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FormularyLookupResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400Response1"
+          }
+        }
+      }
+    },
+    "/api/v1/formulary/counties/zip/{zip}": {
+      "get": {
+        "tags": [
+          "Formulary Details"
+        ],
+        "summary": "Get counties from zip code",
+        "description": "Please make sure to provide both the 'zipCode' and 'productIdentifier' to receive a successful response.",
+        "operationId": "getCountyDetails",
+        "parameters": [
+          {
+            "name": "zip",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": 26444
+          },
+          {
+            "name": "productIdentifier",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "ALP123456,SKYUCOBI611484"
+          }
+        ],
+        "responses": {
+          "401": {
+            "$ref": "#/components/responses/401Response"
+          },
+          "400": {
+            "$ref": "#/components/responses/400Response"
+          },
+          "404": {
+            "$ref": "#/components/responses/404Response"
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CountyDetails"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/500Response"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "FormularyLookup": {
+        "type": "object",
+        "properties": {
+          "PRODUCT_IDENTIFIER": {
+            "type": "string"
+          },
+          "PLAN_SCORE_NUMBER": {
+            "type": "string"
+          },
+          "PLAN_NAME": {
+            "type": "string"
+          },
+          "CHANNEL_DESCRIPTION": {
+            "type": "string"
+          },
+          "FORMULARY_STATUS_DESCRIPTION": {
+            "type": "string"
+          }
+        }
+      },
+      "FormularyLookupResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "resultsMetadata": {
+            "$ref": "#/components/schemas/FormularyLookupResults"
+          },
+          "formularyDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FormularyLookup"
+            }
+          }
+        }
+      },
+      "FormularyLookupResults": {
+        "type": "object",
+        "properties": {
+          "matchCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "recordCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "recordsReturned": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "recordsFrom": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "CountyDetails": {
+        "type": "object",
+        "properties": {
+          "COUNTY_CODE": {
+            "type": "string"
+          },
+          "COUNTY": {
+            "type": "string"
+          },
+          "STATE_CODE": {
+            "type": "string"
+          },
+          "STATE_NAME": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "responses": {
+      "400Response": {
+        "description": "Invalid or missing parameter",
+        "content": {
+          "application/json": {
+            "schema": {
+
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 400,\"content\": null, \"errors\": [{\"errorCode\": \"NO_RECORD_FOUND\", \"code\": \"10004\", \"message\": \"Record not found\"}]}"
+          }
+        }
+      },
+      "400Response1": {
+        "description": "Invalid or missing parameter",
+        "content": {
+          "application/json": {
+            "schema": {
+
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 400,\"content\": null, \"errors\": [{\"errorCode\": \"BAD_REQUEST\", \"code\": \"10002\", \"message\": \"Invalid parameter\"}]}"
+          }
+        }
+      },
+      "401Response": {
+        "description": "Unauthorized access",
+        "content": {
+          "application/json": {
+            "schema": {
+
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 401, \"errors\": [{\"errorCode\": \"UNAUTHORIZED\", \"code\": \"10015\", \"message\": \"Invalid credentials\"}]}"
+          }
+        }
+      },
+      "404Response": {
+        "description": "Resource not found",
+        "content": {
+          "application/json": {
+            "schema": {
+
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 404, \"errors\": [{\"errorCode\": \"NOT_FOUND\", \"code\": \"10016\", \"message\": \"The resources you are looking for does not exist.\"}]}"
+          }
+        }
+      },
+      "500Response": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 500, \"errors\": [{\"errorCode\": \"SERVER_ERROR\", \"code\": \"10001\", \"message\": \"Server Error\"}]}"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,680 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Consent Capture Service",
+    "description": "This service provides the functionality to subscribe the brand and it sub-brands from OneTrust and subscribe them to Marketo.",
+        "x-metadata":{
+           "capability": "EXPERIENCE API",
+           "tags":["active", "experience"]
+  },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "1.0"
+  },  
+  "servers": [
+    {
+      "url": "http://consent-capture-v1-app-p.aws-k8s.abbvienet.com",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "API handles the subscription for brands.",
+      "description": "Consent Capture Controller"
+    }
+  ],
+  "paths": {
+    "/api/v1/consentcapture/unSubscribe": {
+      "post": {
+        "tags": [
+          "API handles the subscription for brands."
+        ],
+        "summary": "UnSubscribe the Brand",
+        "description": "Please refer to the 'Example Value' and 'Schema' tabs under the 'Request body' section below. The provided sample example request demonstrates the neccessary details required to obtain a successful response. Ensure that all required fields are accurately filled in.",
+        "operationId": "saveUnSubscribe",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnSubscribeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnSubscribeResponse"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "statusCode": 500,
+                  "results": null,
+                  "errors": [
+                    {
+                      "errorId": "SERVER_ERROR",
+                      "errorCode": "10001",
+                      "errorMessage": "Server Error"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "200": {
+            "$ref": "#/components/responses/UnSubscribeSuccessResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequestResponse"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/ResourceNotFoundResponse"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedResponse"
+          }
+        }
+      }
+    },
+    "/api/v1/consentcapture/subscribeForMarketo": {
+      "post": {
+        "tags": [
+          "API handles the subscription for brands."
+        ],
+        "summary": "Subscribe the Brand with Marketo",
+        "description": "Please refer to the 'Example Value' and 'Schema' tabs under the 'Request body' section below. The provided sample example request demonstrates the neccessary details required to obtain a successful response. Ensure that all required fields are accurately filled in.",
+        "operationId": "saveSubscribeForMarketo",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscribeMarketoRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "500": {
+            "$ref": "#/components/responses/InternalServerErrorResp"
+          },
+          "400": {
+            "description": "Bad Request-Invalid or missing parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscribeResponse"
+                },
+                "example": "{\"status\": \"ERROR\", \"statusCode\": 400, \"results\": null, \"errors\": [{\"errorId\": \"BAD_REQUEST\", \"errorCode\": \"10006\", \"errorMessage\": \"Brand cannot be empty or null.\"}]}"
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/ResourceNotFoundResp"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenResp"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedResp"
+          },
+          "200": {
+            "$ref": "#/components/responses/SubscribeAndMarketoSuccessResponse"
+          }
+        }
+      }
+    },
+    "/api/v1/consentcapture/subscribe": {
+      "post": {
+        "tags": [
+          "API handles the subscription for brands."
+        ],
+        "summary": "Subscribe the Brand",
+        "description": "Please refer to the 'Example Value' and 'Schema' tabs under the 'Request body' section below. The provided sample example request demonstrates the neccessary details required to obtain a successful response. Ensure that all required fields are accurately filled in.",
+        "operationId": "saveSubscribe",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubscribeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "500": {
+            "$ref": "#/components/responses/InternalServerErrorResp"
+          },
+          "400": {
+            "description": "Bad Request-Invalid or missing parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscribeResponse"
+                },
+                "example": "{\"status\": \"ERROR\", \"statusCode\": 400, \"results\": null, \"errors\": [{\"errorId\": \"BAD_REQUEST\", \"errorCode\": \"10006\", \"errorMessage\": \"Brand cannot be empty or null.\"}]}"
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/ResourceNotFoundResp"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenResp"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedResp"
+          },
+          "200": {
+            "$ref": "#/components/responses/SubscribeAndMarketoSuccessResponse"
+          }
+        }
+      }
+    },
+    "/api/v1/consentcapture/getExposureDetails": {
+      "get": {
+        "tags": [
+          "API handles the subscription for brands."
+        ],
+        "summary": "Get Exposure Details",
+        "description": "Please make sure to provide the 'exposureId' to receive a successful response.",
+        "operationId": "getExposureDetails",
+        "parameters": [
+          {
+            "name": "exposureId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "EXP-02526"
+          }
+        ],
+        "responses": {
+          "500": {
+            "$ref": "#/components/responses/InternalServerErrorResponse"
+          },
+          "200": {
+            "$ref": "#/components/responses/UnSubscribeSuccessResponse"
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenResponse"
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidRequestResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/ResourceNotFoundResponse"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedResponse"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorDto": {
+        "type": "object",
+        "properties": {
+          "errorId": {
+            "type": "string",
+            "enum": [
+              "BAD_REQUEST",
+              "DATABASE_CONNECTION_ERROR",
+              "NO_RECORD_FOUND",
+              "SERVER_ERROR",
+              "CLIENT_ERROR",
+              "TRIGGER_EMAIL_CLIENT_ERROR"
+            ]
+          },
+          "errorCode": {
+            "type": "string"
+          },
+          "errorMessage": {
+            "type": "string"
+          }
+        }
+      },
+      "ResponseData": {
+        "type": "object",
+        "properties": {
+          "transactionType": {
+            "type": "string"
+          },
+          "exposureId": {
+            "type": "string"
+          },
+          "therapeuticArea": {
+            "type": "string"
+          },
+          "communicationType": {
+            "type": "string"
+          },
+          "preferenceCenterPageUrl": {
+            "type": "string"
+          },
+          "displayVerbiage": {
+            "type": "string"
+          },
+          "brandDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BrandDetail"
+            }
+          }
+        }
+      },
+      "UnSubscribeResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "string"
+          },
+          "transactionId": {
+            "type": "string"
+          },
+          "results": {
+            "$ref": "#/components/schemas/ResponseData"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorDto"
+            }
+          }
+        }
+      },
+      "UnSubscribeRequest": {
+        "type": "object",
+        "properties": {
+          "userToken": {
+            "type": "string",
+            "example": "token123"
+          },
+          "exposureId": {
+            "type": "string",
+            "example": "EXP-02526"
+          },
+          "acid": {
+            "type": "string",
+            "example": "Acid111"
+          },
+          "email": {
+            "type": "string",
+            "example": "userBA13@abbvie.com"
+          },
+          "source": {
+            "type": "string",
+            "example": "Test Unsubcribe"
+          }
+        }
+      },
+      "SubscribeRequest": {
+        "type": "object",
+        "properties": {
+          "exposureId": {
+            "type": "string",
+            "example": "EXP-02526"
+          },
+          "campaignId": {
+            "type": "string",
+            "example": "CMP-12345"
+          },
+          "brand": {
+            "type": "string",
+            "example": "Rinvoq_UC"
+          },
+          "channel": {
+            "type": "string",
+            "example": "email"
+          },
+          "optInDate": {
+            "type": "string",
+            "example": "2024-08-26T20:56:47.071"
+          },
+          "communicationType": {
+            "type": "string",
+            "example": "COMM"
+          },
+          "hcpDetails": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "example": "personal@gmail.com"
+              },
+              "acid": {
+                "type": "string",
+                "example": "2122990126"
+              },
+              "npi": {
+                "type": "string",
+                "example": ""
+              },
+              "firstName": {
+                "type": "string",
+                "example": "Adani"
+              },
+              "lastName": {
+                "type": "string",
+                "example": "Ambani"
+              },
+              "phoneNo": {
+                "type": "string",
+                "example": "1234567890"
+              }
+            }
+          },
+          "origin": {
+            "type": "string",
+            "example": "JUMPSTART_SUBSCRIBE"
+          },
+          "source": {
+            "type": "string",
+            "example": "AEM"
+          },
+          "auditRequestId": {
+            "type": "string",
+            "example": "AUD-12345"
+          }
+        }
+      },
+      "SubscribeMarketoRequest": {
+        "type": "object",
+        "properties": {
+          "exposureId": {
+            "type": "string",
+            "example": "EXP-02526"
+          },
+          "campaignId": {
+            "type": "string",
+            "example": "CMP-12345"
+          },
+          "brand": {
+            "type": "string",
+            "example": "Rinvoq_UC"
+          },
+          "channel": {
+            "type": "string",
+            "example": "email"
+          },
+          "optInDate": {
+            "type": "string",
+            "example": "2024-08-26"
+          },
+          "communicationType": {
+            "type": "string",
+            "example": "COMM"
+          },
+          "hcpDetails": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string",
+                "example": "personal@gmail.com"
+              },
+              "acid": {
+                "type": "string",
+                "example": "2122990126"
+              },
+              "npi": {
+                "type": "string",
+                "example": "npi12321"
+              },
+              "firstName": {
+                "type": "string",
+                "example": "FName12"
+              },
+              "lastName": {
+                "type": "string",
+                "example": "LName12"
+              },
+              "phoneNo": {
+                "type": "string",
+                "example": ""
+              }
+            }
+          },
+          "origin": {
+            "type": "string",
+            "example": "AEM"
+          },
+          "source": {
+            "type": "string",
+            "example": "Test"
+          },
+          "auditRequestId": {
+            "type": "string",
+            "example": "1231215"
+          },
+          "speciality": {
+            "type": "string",
+            "example": ""
+          },
+          "practiceSetting": {
+            "type": "string",
+            "example": "Optometry"
+          },
+          "practiceSettingOption": {
+            "type": "string",
+            "example": "Glaucoma"
+          }
+        }
+      },
+      "SubscribeResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "statusCode": {
+            "type": "string"
+          },
+          "results": {
+            "$ref": "#/components/schemas/SubscribeResponseData"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorDto"
+            }
+          }
+        }
+      },
+      "BrandDetail": {
+        "type": "object",
+        "properties": {
+          "brand": {
+            "type": "string"
+          },
+          "subBrands": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "SubscribeResponseData": {
+        "type": "object",
+        "properties": {
+          "brand": {
+            "type": "string"
+          },
+          "therapeuticArea": {
+            "type": "string"
+          },
+          "exposureId": {
+            "type": "string"
+          },
+          "campaignId": {
+            "type": "string"
+          },
+          "acid": {
+            "type": "string"
+          },
+          "channel": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "responses": {
+      "UnSubscribeSuccessResponse": {
+        "description": "Success",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UnSubscribeResponse"
+            },
+            "example": "{\"status\": \"SUCCESS\", \"statusCode\": 200, \"results\": {\"exposureId\": \"EXP-02526\", \"therapeuticArea\": \"GI Care\", \"communicationType\": \"COMM\", \"preferenceCenterPageUrl\": \"https://privacyportaluat.onetrust.com/ui/#/preferences/multipage/login/84f17619-0d92-4e93-8363-ea6e1d3b6adb\", \"displayVerbiage\": \"\", \"brandDetails\": [{\"brand\": \"CREON\", \"subBrands\": [\"CREONCF\",\"CREON CF\"]}]}, \"errors\": []}"
+          }
+        }
+      },
+      "InvalidRequestResponse": {
+        "description": "Invalid or missing parameter",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UnSubscribeResponse"
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 400, \"results\": {\"exposureId\": \"EXP-0252678888\", \"therapeuticArea\": \"\", \"communicationType\": \"\", \"preferenceCenterPageUrl\": \"\", \"displayVerbiage\": \"\", \"brandDetails\": [{\"brand\": \"\", \"subBrands\": []}]}, \"errors\": [{\"errorId\": \"NO_RECORD_FOUND\", \"errorCode\": \"10010\", \"errorMessage\": \"Invalid Exposure Id sent in request\"}]}"
+          }
+        }
+      },
+      "BadRequestResponse": {
+        "description": "Bad Request-Invalid or missing parameter",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UnSubscribeResponse"
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": \"400\", \"transactionId\": \"e85be574-d015-4804-9df7-7fa8084285b3\", \"results\": {\"transactionType\": \"\", \"exposureId\": \"EXP-02526\", \"therapeuticArea\": \"\", \"communicationType\": \"\", \"preferenceCenterPageUrl\": \"\", \"displayVerbiage\": \"\", \"brandDetails\": [{\"brand\": \"\", \"subBrands\": []}]}, \"errors\": [{\"errorId\": \"BAD_REQUEST\", \"errorCode\": \"10039\", \"errorMessage\": \"Unable to find Purpose in One Trust for the Provided TA & Brand\"}]}"
+          }
+        }
+      },
+      "UnauthorizedResponse": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UnSubscribeResponse"
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 401, \"results\": null, \"errors\": [{\"errorId\": \"UNAUTHORIZED\", \"errorCode\": \"10015\", \"errorMessage\": \"Invalid credentials\"}]}"
+          }
+        }
+      },
+      "ForbiddenResponse": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UnSubscribeResponse"
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 403, \"results\": null, \"errors\": [{\"errorId\": \"FORBIDDEN\", \"errorCode\": \"10017\", \"errorMessage\": \"You do not have permission to access this resource.\"}]}"
+          }
+        }
+      },
+      "ResourceNotFoundResponse": {
+        "description": "Resource not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UnSubscribeResponse"
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 404, \"results\": null, \"errors\": [{\"errorId\": \"NOT_FOUND\", \"errorCode\": \"10016\", \"errorMessage\": \"The resources you are looking for does not exist.\"}]}"
+          }
+        }
+      },
+      "InternalServerErrorResponse": {
+        "description": "Internal server error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/UnSubscribeResponse"
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 500, \"results\": null, \"errors\": [{\"errorId\": \"SERVER_ERROR\", \"errorCode\": \"10001\", \"errorMessage\": \"Server Error\"}]}"
+          }
+        }
+      },
+      "SubscribeAndMarketoSuccessResponse": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/SubscribeResponse"
+            },
+            "example": "{\"status\": \"SUCCESS\", \"statusCode\": \"200\", \"results\": {\"brand\": \"Rinvoq_UC\", \"therapeuticArea\": \"Immunology-Gastroenterology\", \"exposureId\": \"EXP-02526\", \"campaignId\": \"CMP-12345\", \"acid\": \"2122990126\", \"channel\": \"email\"}, \"errors\": []}"
+          }
+        }
+      },
+      "UnauthorizedResp": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/SubscribeResponse"
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 401, \"results\": null, \"errors\": [{\"errorId\": \"UNAUTHORIZED\", \"errorCode\": \"10015\", \"errorMessage\": \"Invalid credentials\"}]}"
+          }
+        }
+      },
+      "ForbiddenResp": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/SubscribeResponse"
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 403, \"results\": null, \"errors\": [{\"errorId\": \"FORBIDDEN\", \"errorCode\": \"10017\", \"errorMessage\": \"You do not have permission to access this resource.\"}]}"
+          }
+        }
+      },
+      "ResourceNotFoundResp": {
+        "description": "Resource not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/SubscribeResponse"
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 404, \"results\": null, \"errors\": [{\"errorId\": \"NOT_FOUND\", \"errorCode\": \"10016\", \"errorMessage\": \"The resources you are looking for does not exist.\"}]}"
+          }
+        }
+      },
+      "InternalServerErrorResp": {
+        "description": "Internal server error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/SubscribeResponse"
+            },
+            "example": "{\"status\": \"ERROR\", \"statusCode\": 500, \"results\": null, \"errors\": [{\"errorId\": \"SERVER_ERROR\", \"errorCode\": \"10001\", \"errorMessage\": \"Server Error\"}]}"
+          }
+        }
+      }
+    }
+  }
+}

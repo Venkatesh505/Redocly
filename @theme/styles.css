@@ -1,0 +1,213 @@
+/* Learn more about Realm styles: https://redocly.com/docs/realm/style/concepts/styling */
+.bodybgblue{
+  background: #071D49;
+}
+nav{
+  border: 0px !important;
+}
+h1, h2, h3, h4, h5, h6{
+  font-weight: 400;  
+  font-family: "Outfit", sans-serif;
+  font-style: normal;
+  color: #fff;  
+}
+h2{
+  font-size: 36px;
+  line-height: 40px;
+}
+
+:root .button-tone-brand {
+  background-color: var(--color-persian-green-6);
+  color: var(--text-color-on-color);
+}
+
+:root.dark .button-tone-brand {
+  background-color: var(--color-persian-green-6);
+  color: #fff;
+}
+
+.card-variant-filled:hover {
+box-shadow: 1px 2px 5px -1px rgba(0, 0, 0, 0.18);
+}
+
+.button-custom {
+  padding: 10px 25px;
+  border-radius: 10px;
+  background: #0066F5;
+  border: 2px solid #0066F5;
+  /* background: linear-gradient(90deg, #00B8DB 0%, #2B7FFF 100%); */
+}
+
+.button-custom-transparent{
+padding: 10px 25px;
+border-radius: 10px;
+border: 2px solid #A6B5E0;
+background: transparent;
+margin-left: 20px;
+color: rgba(255, 255, 255, 1);
+}
+
+.button-custom-transparent:hover{
+  background: #1a356b;
+  color: #B3D1FC;
+  border: 2px solid #4264a7;
+}
+
+h2.titlehead {
+  text-align: center !important;
+  color: #fff;
+  font-size: 36px;
+  line-height: 40px;
+  margin: 0px;
+}
+
+/* Mobile view adjustments */
+@media screen and (max-width: 480px) {
+  h2.titlehead, h2 {
+    font-size: 30px !important;
+    line-height: 36px !important;
+  }
+  .button-custom, .button-custom-transparent {
+    font-size: 14px !important;
+    padding: 7px 12px !important;
+    margin-left: 5px !important;
+  }
+}
+
+.desc{
+  font-size: 18px;
+  line-height: 30px;
+  text-align: center;
+  color: #D1D3D7;
+  margin-bottom: 40px;
+}
+
+
+/* Exact match */
+[data-component-name="Sidebar/Sidebar"] {
+  background-color: #071d49;
+}
+
+[data-component-name="Sidebar/Sidebar"] [data-component-name="Sidebar/BackButton"] {
+color: #fff;
+}
+
+[data-component-name="Sidebar/Sidebar"] [data-component-name="Sidebar/BackButton"] svg{
+color: #fff;
+}
+
+[data-component-name="Catalog/CatalogHistoryButton"], .cTfUHt{
+  color: #fff!important;
+}
+
+
+[data-component-name="Catalog/CatalogHistoryButton"] button:hover {
+    background-color: transparent;
+}
+
+/* 
+[data-component-name="Catalog/CatalogHistoryButton"]:hover {
+  color: var(--catalog-history-text-color) !important;
+} */
+
+
+[data-component-name="Typography/H2"] {
+  font-family: "Outfit", sans-serif;
+}
+
+/* .H2-sc-15iycus-0 {
+    color: var(--h2-text-color);
+} */
+
+[data-component-name="CatalogClassic/CatalogClassicCard"] {
+  font-size: 36px;
+  line-height: 40px;
+  background-color: #EDF0FF;
+}
+.CatalogClassic__CatalogDescription-sc-1d978fn-2{
+  font-size: 20px;
+  line-height: 30px;
+  margin-bottom: 20px;
+  color: #111;
+  /* color: rgb(161, 161, 170); */
+  
+}
+.FGcjZ{
+  color: #071D49;
+  font-size: 24px;
+  line-height: 30px;
+  margin: 10px 10px 0px 0px;
+  font-weight: 500;
+  font-family: "Outfit", sans-serif;
+}
+
+.dYSGGx{
+  color: #071D49;
+  font-size: 24px;
+  line-height: 30px;
+  /* margin: 10px 10px 0px 0px; */
+  font-weight: 600;
+  font-family: "Outfit", sans-serif;
+}
+/* 
+[data-component-name="CatalogClassic/CatalogClassicVirtualizedGroups"] [data-component-name="Tags/CounterTag"] {
+  margin-top: 10px;
+} */
+
+[data-component-name="Select/Select"] [data-component-name="Dropdown/DropdownMenu"] {
+background:#071D49;
+}
+
+
+[data-component-name="Select/Select"] [data-component-name="Dropdown/Dropdown"] {
+background:#071D49;
+}
+
+
+
+[data-component-name="Filter/FilterContent"] {
+background:#071D49;
+}
+
+.SelectInput__SelectInputWrapper-sc-1tuek4g-0 svg path{
+fill: #fff!important;
+}
+
+
+.SelectInput__SelectInputWrapper-sc-1tuek4g-0 svg path{
+fill: #fff!important;
+}
+
+[data-component-name="Dropdown/DropdownMenu"] svg path {
+fill: #fff!important;
+}
+
+[data-component-name="Select/Select"] {
+  border: 1px solid #fff !important;
+  --select-border-radius: none;
+}
+
+[data-component-name="Dropdown/DropdownMenuItem"] {
+    border: 1px solid transparent;
+}
+
+[data-component-name="Select/Select"] [data-component-name="Dropdown/DropdownMenuItem"]:hover  {
+    border: 1px solid rgba(0, 161, 255, 0.2);
+    background-color: rgba(0, 161, 255, 0.05);
+    color: var(--dropdown-menu-item-color-hover);
+}
+[data-component-name="Navbar/NavbarMenu"] [data-component-name="Dropdown/Dropdown"] div  {
+  left: -10px !important;
+}
+
+[data-component-name="Navbar/NavbarItem"]{
+  margin: 0px 5px;
+} 
+
+[data-component-name="Navbar/NavbarMenu"]{
+  padding-right: 35px;
+} 
+
+[data-component-name="Menu/MenuMobile"] [data-component-name="Menu/Menu"]{
+  background-color: #fff!important;
+} 

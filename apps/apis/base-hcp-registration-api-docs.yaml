@@ -1,0 +1,260 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Hcp Registration Base Service",
+    "description": "Base Hcp Registration core service which simply registers an HCP after validating the data.",
+        "x-metadata":{
+           "capability": "SYSTEM API",
+           "tags":["active", "core"]
+  },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://base-hcp-registration-v1-app-p.aws-k8s.abbvienet.com",
+      "description": "Generated server url"
+    }
+  ],
+  "tags": [
+    {
+      "name": "HCP Registration Base Service.",
+      "description": "Hcp base registration Controller"
+    }
+  ],
+  "paths": {
+    "/api/v1/user/register": {
+      "post": {
+        "tags": [
+          "HCP Registration Base Service."
+        ],
+        "summary": "Register HCP",
+        "description": "Please refer to the 'Example Value' and 'Schema' tabs under the 'Request body' section below. The provided sample example request demonstrates the neccessary details required to obtain a successful response. Ensure that all required fields are accurately filled in.",
+        "operationId": "hcpRegistration",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HcpRegistrationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "500": {
+            "$ref": "#/components/responses/InternalServerErrorResponse"
+          },
+          "400": {
+            "description": "Invalid or missing parameter",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponseDto"
+                },
+                "example": {
+                  "status": "ERROR",
+                  "errors": [
+                    {
+                      "errorCode": "BAD_REQUEST",
+                      "code": "10002",
+                      "message": "Brand must not be empty"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "$ref": "#/components/responses/ForbiddenResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/ResourceNotFoundResponse"
+          },
+          "401": {
+            "$ref": "#/components/responses/UnauthorizedResponse"
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HcpRegistrationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HcpRegistrationRequest": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "example": "Firstname"
+          },
+          "lastName": {
+            "type": "string",
+            "example": "Lastname"
+          },
+          "email": {
+            "type": "string",
+            "example": "ram.kapoor@abbvie.com"
+          },
+          "brand": {
+            "type": "string",
+            "example": "ALL"
+          },
+          "channel": {
+            "type": "string",
+            "example": "Email"
+          },
+          "npi": {
+            "type": "string",
+            "example": "1922206705"
+          },
+          "optIn": {
+            "type": "boolean",
+            "example": true
+          },
+          "optInText": {
+            "type": "string",
+            "example": "optin text message"
+          },
+          "source": {
+            "type": "string",
+            "example": "Generic_reg"
+          },
+          "designation": {
+            "type": "string",
+            "example": "MD"
+          },
+          "practiceSetting": {
+            "type": "string",
+            "example": "Optometry"
+          },
+          "practiceSettingOption": {
+            "type": "string",
+            "example": "Optometry"
+          }
+        }
+      },
+      "HcpRegistrationResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "SUCCESS",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "prodRegId": {
+            "type": "integer",
+            "format": "int32",
+            "example": 14210223
+          }
+        }
+      },
+      "ErrorResponseDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "SUCCESS",
+              "ERROR"
+            ]
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorDto"
+            }
+          }
+        }
+      },
+      "ErrorDto": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "string",
+            "enum": [
+              "SERVER_ERROR",
+              "BAD_REQUEST",
+              "CLIENT_ERROR",
+              "INVALID_NPI",
+              "INVALID_EMAIL",
+              "EMAIL_CLIENT_ERROR",
+              "TRIGGER_EMAIL_CLIENT_ERROR",
+              "OPT_IN_CLIENT_ERROR",
+              "INVALID_USER_ID",
+              "NO_RECORD_FOUND",
+              "HCP_IS_NOT_IN_APPROVED_PRODUCT"
+            ]
+          },
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "responses": {
+      "UnauthorizedResponse": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponseDto"
+            },
+            "example": "{\"status\": \"ERROR\", \"errors\": [{\"errorCode\": \"UNAUTHORIZED\", \"code\": \"10015\", \"message\": \"Invalid credentials\"}]}"
+          }
+        }
+      },
+      "ForbiddenResponse": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponseDto"
+            },
+            "example": "{\"status\": \"ERROR\",\"errors\": [{\"errorCode\": \"FORBIDDEN\", \"code\": \"10017\", \"message\": \"You do not have permission to access this resource.\"}]}"
+          }
+        }
+      },
+      "ResourceNotFoundResponse": {
+        "description": "Resource not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponseDto"
+            },
+            "example": "{\"status\": \"ERROR\", \"errors\": [{\"errorCode\": \"NOT_FOUND\", \"code\": \"10016\", \"message\": \"The resources you are looking for does not exist.\"}]}"
+          }
+        }
+      },
+      "InternalServerErrorResponse": {
+        "description": "Internal Server Error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponseDto"
+            },
+            "example": "{\"status\": \"ERROR\", \"errors\": [{\"errorCode\": \"SERVER_ERROR\", \"code\": \"10001\", \"message\": \"Server Error\"}]}"
+          }
+        }
+      }
+    }
+  }
+}
