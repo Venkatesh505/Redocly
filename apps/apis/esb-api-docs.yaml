@@ -4,7 +4,7 @@
     "title": "ESB API",
     "description": "The API provides functionality for capturing esb details based on incoming validated request.",
         "x-metadata":{
-           "capability": "EXPERIENCE API",
+           "capability": "DOMAIN SERVICES",
            "tags":["active", "experience"]
   },
     "license": {

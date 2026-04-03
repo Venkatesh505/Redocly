@@ -4,7 +4,7 @@
     "title": "SiteLocator",
     "description": "This service provides the feature to get the list of Dalvance Infusion Centers and Sites.",
         "x-metadata":{
-           "capability": "EXPERIENCE API",
+           "capability": "DOMAIN SERVICES",
            "tags":["active", "experience"]
   },
     "license": {

@@ -4,7 +4,7 @@
     "title": "HDS Support Email",
     "description": "This service provides the functionality to trigger custom emails for notifying the support team about any issues.",
         "x-metadata":{
-           "capability": "SYSTEM API",
+           "capability": "PROCESS SERVICES",
            "tags":["active", "core"]
   },
     "license": {

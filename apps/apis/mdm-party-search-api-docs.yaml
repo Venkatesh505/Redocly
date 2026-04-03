@@ -4,7 +4,7 @@
     "title": "MDM Party Search Service",
     "description": "The MDMPartySearch web service provides capability to the Requesting system to search the entire DAL database that holds HCP/HCO Master Data to get the HCP and HCO/HCI Party And Party Attributes data.",
         "x-metadata":{
-           "capability": "EXPERIENCE API",
+           "capability": "DOMAIN SERVICES",
            "tags":["active", "experience"]
   },
     "license": {

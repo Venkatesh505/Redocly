@@ -4,7 +4,7 @@
     "title": "HCP Preference",
     "description": "The API provides functionality for updating opt data based on incoming validated request and also use for fetching the updated opt data on the basis of hcp id.",
         "x-metadata":{
-           "capability": "SYSTEM API",
+           "capability": "SYSTEM SERVICES",
            "tags":["active", "core"]
   },
     "license": {

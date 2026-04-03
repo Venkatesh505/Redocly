@@ -4,7 +4,7 @@
     "title": "Consent Capture Service",
     "description": "This service provides the functionality to subscribe the brand and it sub-brands from OneTrust and subscribe them to Marketo.",
         "x-metadata":{
-           "capability": "EXPERIENCE API",
+           "capability": "DOMAIN SERVICES",
            "tags":["active", "experience"]
   },
     "license": {

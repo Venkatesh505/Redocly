@@ -4,7 +4,7 @@
     "title": "NPI Validation Service",
     "description": "This service provides the functionality to validate an NPI identifier.",
         "x-metadata":{
-           "capability": "SYSTEM API",
+           "capability": "SYSTEM SERVICES",
            "tags":["active", "core"]
   },
     "license": {

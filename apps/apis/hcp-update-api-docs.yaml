@@ -4,7 +4,7 @@
     "title": "Hcp Update",
     "description": "This service provides the functionality to update the HCP details.",
         "x-metadata":{
-           "capability": "SYSTEM API",
+           "capability": "SYSTEM SERVICES",
            "tags":["active", "core"]
   },
     "license": {

@@ -1,0 +1,276 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Observability API",
+    "version": "1.0.0",
+    "description": "The Observability API provides functionality for capturing and managing inbound and outbound metric details from various integrated microservices.",
+    "x-metadata":{
+      "capability": "SYSTEM SERVICES",
+    "tags":["active", "core"]
+  }
+
+  },
+  "servers": [
+    {
+      "url": "https://www.syncx-d.abbvie.net",
+      "description": "Dev"
+    },
+    {
+      "url": "https://www.syncx-q.abbvie.net",
+      "description": "QA"
+    }
+  ],
+  "paths": {
+    "/api/save": {
+      "post": {
+        "tags": [
+          "Audit Operations"
+        ],
+        "summary": "Asynchronous operation to log an audit record.",
+        "description": "Logs audit data asynchronously, enabling non-blocking operations for improved responsiveness.This endpoint ensures that audit records are handled efficiently, even under high load.",
+        "operationId": "createAuditRecord",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuditRecordDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request - Validation error or invalid input provided.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDto"
+                },
+                "example": {
+                  "timestamp": "2024-08-12T18:30:34.436",
+                  "responseCode": "400",
+                  "status": "BAD_REQUEST",
+                  "messages": [
+                    "auditRecordDto.requestUUID : Request UUID should not be BLANK",
+                    "auditRecordDto.applCode : Must not be EMPTY"
+                  ],
+                  "path": "/api/save"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error - Unexcepted error occurred on the server side.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDto"
+                },
+                "example": {
+                  "timestamp": "2024-08-12T18:30:34.436",
+                  "responseCode": "500",
+                  "status": "INTERNAL_SERVER_ERROR",
+                  "message": "An unexcepted error occurred on the server",
+                  "path": "/api/save"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Audit record saved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDto"
+                },
+                "example": {
+                  "timestamp": "2024-08-12T18:30:34.436",
+                  "responseCode": "200",
+                  "status": "OK",
+                  "message": "ABCffff4dab08072024061358971",
+                  "path": "/api/save"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Authentication failed or user does not have permissions for the requested operation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDto"
+                },
+                "example": {
+                  "timestamp": "2024-08-12T18:30:34.436",
+                  "responseCode": "401",
+                  "status": "UNAUTHORIZED",
+                  "message": "Authentication required or failed.",
+                  "path": "/api/save"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found - The requested resource could not be found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseDto"
+                },
+                "example": {
+                  "timestamp": "2024-08-12T18:30:34.436",
+                  "responseCode": "404",
+                  "status": "NOT_FOUND",
+                  "message": "The requested resource could not be found",
+                  "path": "/api/save"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AuditRecordDto": {
+        "required": [
+          "requestUUID"
+        ],
+        "type": "object",
+        "properties": {
+          "requestUUID": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique identifier for the request, generated based on the application code, random UUID, and a timestamp. The format is: [ApplicationCode][8-digit random UUID][Timestamp(MMddyyyyHHmmssSSS)].",
+            "example": "ABCfffdafe108082024053420674"
+          },
+          "applCode": {
+            "type": "string",
+            "description": "Application code associated with the request.",
+            "example": "ABC"
+          },
+          "apiCode": {
+            "type": "string",
+            "description": "API code indicating the specific API endpoint.",
+            "example": "ABC-L1"
+          },
+          "requestPayload": {
+            "type": "string",
+            "description": "Payload of the request.",
+            "example": "{\"key\":\"value\"}"
+          },
+          "additionalAttributes": {
+            "type": "string",
+            "description": "Additional attributes related to the request.",
+            "example": "{\"attribute1\":\"value1\",\"attribute2\":\"value2\"}"
+          },
+          "sourceSystem": {
+            "type": "string",
+            "description": "System for which the request originated.",
+            "example": "SYSTEM_X"
+          },
+          "origin": {
+            "type": "string",
+            "description": "Origin of the request.",
+            "example": "WEB"
+          },
+          "errorMsg": {
+            "type": "string",
+            "description": "Error message if any error occurred.",
+            "example": "Invalid input"
+          },
+          "dataLineageID": {
+            "type": "string",
+            "description": "Data lineage identifier for tracking data flow.",
+            "example": "7190ef30-XXXX-XXXX-XXXX-578f6df7b0d6"
+          },
+          "responseCode": {
+            "type": "string",
+            "description": "Response code returned by the API.",
+            "example": "200"
+          },
+          "responseStatus": {
+            "type": "string",
+            "description": "Describes the outcome of the request in terms of the response status. ",
+            "example": "OK"
+          },
+          "responseMsg": {
+            "type": "string",
+            "description": "Response message indicating SUCCESS or ERROR.",
+            "example": "SUCCESS"
+          },
+          "apiResponse": {
+            "type": "string",
+            "description": "The content of API response, providing the data returned from the source.",
+            "example": "{\"result\":\"success\",\"data\":{\"key\":\"value\"}}"
+          },
+          "franchise": {
+            "type": "string",
+            "description": "Franchise name associated with the request.",
+            "example": "FRANCHISE_X"
+          },
+          "brand": {
+            "type": "string",
+            "description": "Brand or product name associated with the request.",
+            "example": "PRODUCT_X"
+          },
+          "reqStartTime": {
+            "type": "string",
+            "description": "Start time of the request",
+            "example": "08/12/2024T16:30:04.450"
+          },
+          "reqEndTime": {
+            "type": "string",
+            "description": "End time of the request",
+            "example": "08/12/2024T16:35:24.354"
+          }
+        },
+        "description": "The 'AuditRecordDto' object captures essential details of an API request and response for auditing purposes."
+      },
+      "ResponseDto": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "description": "The time when response was generated.",
+            "format": "date-time",
+            "example": "2024-08-12T18:30:34Z"
+          },
+          "responseCode": {
+            "type": "string",
+            "description": "The HTTP status code representing the result of the operation.",
+            "example": "400"
+          },
+          "status": {
+            "type": "string",
+            "description": "The textual status of the operation.",
+            "example": "BAD_REQUEST"
+          },
+          "message": {
+            "type": "string",
+            "description": "Either return ID of saved audit record or error message describing the issue if an error occurred.",
+            "example": "Validation Error"
+          },
+          "messages": {
+            "type": "array",
+            "description": "A textual description of any validation errors that occurred with the 'AuditRecordDto' object.",
+            "example": "auditRecordDto.applCode : Must not be EMPTY",
+            "items": {
+              "type": "string",
+              "description": "A textual description of any validation errors that occurred with the 'AuditRecordDto' object.",
+              "example": "auditRecordDto.applCode : Must not be EMPTY"
+            }
+          },
+          "path": {
+            "type": "string",
+            "description": "The path of the API endpoint where operation was performed, useful for debugging",
+            "example": "/api/save"
+          }
+        },
+        "description": "The 'ResponseDto' object provides detailed information about the outcome of an audit save operation."
+      }
+    }
+  }
+}

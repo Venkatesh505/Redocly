@@ -4,7 +4,7 @@
     "title": "Formulary ISA Data Service",
     "description": "The Formulary ISA Data Service provides functionality for retrieving the formulary ISA and iPlan data.",
         "x-metadata":{
-           "capability": "EXPERIENCE API",
+           "capability": "DOMAIN SERVICES",
            "tags":["active", "experience"]
   },
     "license": {

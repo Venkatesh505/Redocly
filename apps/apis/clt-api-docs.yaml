@@ -4,7 +4,7 @@
     "title": "CLT",
     "description": "This service provides the functionality to manage the Veeva documents and their life cycle.",
         "x-metadata":{
-           "capability": "EXPERIENCE API",
+           "capability": "DOMAIN SERVICES",
            "tags":["active", "experience"]
   },
     "license": {

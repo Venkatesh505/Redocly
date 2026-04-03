@@ -4,7 +4,7 @@
     "title": "Audit",
     "description": "This service logs all the requests hit to various APIs along with other auditing details.",
         "x-metadata":{
-           "capability": "SYSTEM API",
+           "capability": "SYSTEM SERVICES",
            "tags":["active", "core"]
   },
     "license": {

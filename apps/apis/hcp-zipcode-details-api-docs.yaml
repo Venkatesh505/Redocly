@@ -4,7 +4,7 @@
     "title": "Hcp Zip Code Details",
     "description": "This service fetches the zipcode details corresponding to the HCP.",
         "x-metadata":{
-           "capability": "SYSTEM API",
+           "capability": "SYSTEM SERVICES",
            "tags":["active", "core"]
   },
     "license": {

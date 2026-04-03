@@ -4,7 +4,7 @@
     "title": "Email Trigger",
     "description": "This service is integrated with Marketo and leverages the same for profile update or email trigger.",
         "x-metadata":{
-           "capability": "SYSTEM API",
+           "capability": "PROCESS SERVICES",
            "tags":["active", "core"]
   },
     "license": {

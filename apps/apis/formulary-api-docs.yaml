@@ -4,7 +4,7 @@
     "title": "Formulary API Service",
     "description": "This service provides the functionality to get the formulary data based on the various geo codes.",
         "x-metadata":{
-           "capability": "EXPERIENCE API",
+           "capability": "DOMAIN SERVICES",
            "tags":["active", "experience"]
   },
     "license": {

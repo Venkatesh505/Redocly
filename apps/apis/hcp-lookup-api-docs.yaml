@@ -4,7 +4,7 @@
     "title": "Hcp Lookup",
     "description": "The Hcp Lookup API provides functionality for getting the HCP data using various multiple possible parameters.",
         "x-metadata":{
-           "capability": "EXPERIENCE API",
+           "capability": "DOMAIN SERVICES",
            "tags":["active", "experience"]
   },
     "license": {

@@ -4,7 +4,7 @@
     "title": "Hcp Registration Base Service",
     "description": "Base Hcp Registration core service which simply registers an HCP after validating the data.",
         "x-metadata":{
-           "capability": "SYSTEM API",
+           "capability": "SYSTEM SERVICES",
            "tags":["active", "core"]
   },
     "license": {

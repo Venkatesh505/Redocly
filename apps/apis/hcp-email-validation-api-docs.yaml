@@ -4,7 +4,7 @@
     "title": "Email Validation Service",
     "description": "This service provides the functionality to validate and email identifier using StrikeIron validation.",
         "x-metadata":{
-           "capability": "SYSTEM API",
+           "capability": "PROCESS SERVICES",
            "tags":["active", "core"]
   },
     "license": {

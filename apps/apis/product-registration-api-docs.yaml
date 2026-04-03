@@ -4,7 +4,7 @@
     "title": "Product Registration",
     "description": "This service provides the functionality to register the product(s) corresponding to an HCP.",
         "x-metadata":{
-           "capability": "SYSTEM API",
+           "capability": "SYSTEM SERVICES",
            "tags":["active", "core"]
   },
     "license": {

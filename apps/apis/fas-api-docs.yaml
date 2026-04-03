@@ -4,7 +4,7 @@
     "title": "FAS",
     "description": "The API provides functionality for follow up based on incoming validated request.",
         "x-metadata":{
-           "capability": "EXPERIENCE API",
+           "capability": "DOMAIN SERVICES",
            "tags":["active", "experience"]
   },
     "license": {

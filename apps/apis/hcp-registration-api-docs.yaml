@@ -4,7 +4,7 @@
     "title": "Hcp Registration",
     "description": "The Hcp Registration API provides functionality for registering HCPs, checking if a profile already exists and update their profile details.",
         "x-metadata":{
-           "capability": "EXPERIENCE API",
+           "capability": "DOMAIN SERVICES",
            "tags":["active", "experience"]
   },
     "license": {

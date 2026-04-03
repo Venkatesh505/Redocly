@@ -4,7 +4,7 @@
     "title": "RAR",
     "description": "This service provides the functionality to an HCP for requesting a representative.",
         "x-metadata":{
-           "capability": "EXPERIENCE API",
+           "capability": "DOMAIN SERVICES",
            "tags":["active", "experience"]
   },
     "license": {
